@@ -305,10 +305,9 @@ final class TerminalWindowController: NSWindowController, NSWindowDelegate, NSTa
 
     private func closeTab(_ id: UUID) {
         if layout.workspaces.count == 1 && layout.activeWorkspace.tabs.count == 1 {
-            window?.performClose(nil)
+            window?.close()
             return
         }
-        if sessions[id]?.isRunning == true && !confirmClose(message: "Close this tab?", detail: "The shell or command running in this tab will end.", button: "Close Tab") { return }
         guard layout.removeTab(id) else { return }
         sessions.removeValue(forKey: id)?.stop()
         refresh(focusTerminal: true)
