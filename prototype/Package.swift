@@ -9,13 +9,17 @@ let package = Package(
         .package(url: "https://github.com/migueldeicaza/SwiftTerm.git", exact: "1.19.0")
     ],
     targets: [
+        .target(
+            name: "TerminalCore",
+            dependencies: [.product(name: "SwiftTerm", package: "SwiftTerm")]
+        ),
         .executableTarget(
             name: "TerminalLab",
-            dependencies: [.product(name: "SwiftTerm", package: "SwiftTerm")]
+            dependencies: ["TerminalCore", .product(name: "SwiftTerm", package: "SwiftTerm")]
         ),
         .testTarget(
             name: "TerminalLabTests",
-            dependencies: [.product(name: "SwiftTerm", package: "SwiftTerm")]
+            dependencies: ["TerminalLab", "TerminalCore", .product(name: "SwiftTerm", package: "SwiftTerm")]
         )
     ]
 )
