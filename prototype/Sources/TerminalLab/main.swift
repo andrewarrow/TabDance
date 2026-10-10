@@ -51,9 +51,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             return submenu
         }
         func add(_ menu: NSMenu, _ title: String, _ action: Selector, _ key: String = "",
-                 modifiers: NSEvent.ModifierFlags = .command, target: AnyObject? = nil, tag: Int = 0) {
+                 modifiers: NSEvent.ModifierFlags = .command, hidden: Bool = false,
+                 target: AnyObject? = nil, tag: Int = 0) {
             let item = menu.addItem(withTitle: title, action: action, keyEquivalent: key)
             item.keyEquivalentModifierMask = modifiers
+            item.isHidden = hidden
+            item.allowsKeyEquivalentWhenHidden = hidden
             item.target = target
             item.tag = tag
         }
@@ -75,8 +78,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let viewMenu = submenu("View")
         add(viewMenu, "Toggle Workspace Sidebar", #selector(TerminalWindowController.toggleSidebar(_:)), "b")
         let navigateMenu = submenu("Navigate")
-        add(navigateMenu, "Next Tab", #selector(TerminalWindowController.nextTab(_:)), "\t", modifiers: .control)
-        add(navigateMenu, "Previous Tab", #selector(TerminalWindowController.previousTab(_:)), "\t", modifiers: [.control, .shift])
+        // AppKit matches the characters produced by Shift-[ and Shift-].
+        add(navigateMenu, "Next Tab", #selector(TerminalWindowController.nextTab(_:)), "}", modifiers: [.command, .shift])
+        add(navigateMenu, "Previous Tab", #selector(TerminalWindowController.previousTab(_:)), "{", modifiers: [.command, .shift])
+        add(navigateMenu, "Next Tab", #selector(TerminalWindowController.nextTab(_:)), "\t", modifiers: .control, hidden: true)
+        add(navigateMenu, "Previous Tab", #selector(TerminalWindowController.previousTab(_:)), "\t", modifiers: [.control, .shift], hidden: true)
         add(navigateMenu, "Next Workspace", #selector(TerminalWindowController.nextWorkspace(_:)), String(UnicodeScalar(NSDownArrowFunctionKey)!), modifiers: [.command, .option])
         add(navigateMenu, "Previous Workspace", #selector(TerminalWindowController.previousWorkspace(_:)), String(UnicodeScalar(NSUpArrowFunctionKey)!), modifiers: [.command, .option])
         navigateMenu.addItem(.separator())

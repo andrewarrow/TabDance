@@ -39,6 +39,7 @@ Below 600 points of window width, the workspace rail collapses and the workspace
 | `⌘N` | New window |
 | `⌘W` | Close tab |
 | `⌘⇧W` | Close window |
+| `⌘⇧[` / `⌘⇧]` | Select previous / next tab |
 | `⌃Tab` / `⌃⇧Tab` | Select next / previous tab |
 | `⌘1`–`⌘8` | Select tab 1–8 in the active workspace |
 | `⌘9` | Select the last tab in the active workspace |
