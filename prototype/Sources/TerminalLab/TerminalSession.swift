@@ -2,6 +2,33 @@ import AppKit
 import SwiftTerm
 import TerminalCore
 
+@MainActor
+private enum TerminalAppearance {
+    static let foreground = NSColor(srgbRed: 0x29 / 255.0, green: 0xfe / 255.0, blue: 0x13 / 255.0, alpha: 1)
+    static let background = NSColor(srgbRed: 0, green: 0, blue: 0, alpha: 1)
+    static let selectionBackground = NSColor(srgbRed: 0x3a / 255.0, green: 0x3a / 255.0, blue: 0x3a / 255.0, alpha: 1)
+    static let selectionForeground = NSColor(srgbRed: 1, green: 1, blue: 1, alpha: 1)
+
+    static let ansiColors: [Color] = [
+        Color(red8: 0x00, green8: 0x00, blue8: 0x00),
+        Color(red8: 0xff, green8: 0x00, blue8: 0x00),
+        Color(red8: 0x29, green8: 0xfe, blue8: 0x13),
+        Color(red8: 0xae, green8: 0xad, blue8: 0x25),
+        Color(red8: 0x53, green8: 0x2f, blue8: 0xe1),
+        Color(red8: 0xb0, green8: 0x00, blue8: 0xff),
+        Color(red8: 0x33, green8: 0xbb, blue8: 0xc7),
+        Color(red8: 0xff, green8: 0xff, blue8: 0xff),
+        Color(red8: 0x66, green8: 0x66, blue8: 0x66),
+        Color(red8: 0xff, green8: 0x55, blue8: 0x55),
+        Color(red8: 0x29, green8: 0xfe, blue8: 0x13),
+        Color(red8: 0xae, green8: 0xad, blue8: 0x25),
+        Color(red8: 0x53, green8: 0x2f, blue8: 0xe1),
+        Color(red8: 0xcc, green8: 0x55, blue8: 0xff),
+        Color(red8: 0x33, green8: 0xbb, blue8: 0xc7),
+        Color(red8: 0xff, green8: 0xff, blue8: 0xff)
+    ]
+}
+
 struct LaunchCommand {
     let executable: String
     let arguments: [String]
@@ -37,11 +64,13 @@ final class TerminalSession: NSObject, @preconcurrency LocalProcessTerminalViewD
         self.activity = activity
         terminal = TabDanceTerminalView(frame: frame)
         super.init()
-        terminal.font = NSFont.monospacedSystemFont(ofSize: 13, weight: .regular)
-        terminal.nativeForegroundColor = .textColor
-        terminal.nativeBackgroundColor = .textBackgroundColor
-        terminal.selectedTextBackgroundColor = .selectedTextBackgroundColor
-        terminal.selectedTextForegroundColor = .selectedTextColor
+        terminal.font = NSFont(name: "Menlo", size: 20) ?? NSFont.monospacedSystemFont(ofSize: 20, weight: .regular)
+        terminal.nativeForegroundColor = TerminalAppearance.foreground
+        terminal.nativeBackgroundColor = TerminalAppearance.background
+        terminal.caretColor = TerminalAppearance.foreground
+        terminal.selectedTextBackgroundColor = TerminalAppearance.selectionBackground
+        terminal.selectedTextForegroundColor = TerminalAppearance.selectionForeground
+        terminal.installColors(TerminalAppearance.ansiColors)
         terminal.processDelegate = self
         terminal.onUserInput = { [weak self] bytes in
             guard let self, self.isRunning else { return }
