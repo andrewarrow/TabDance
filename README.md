@@ -17,6 +17,8 @@ open dist/TabDance.app
 
 The script builds an ad-hoc signed app for Apple silicon and Intel Macs. Swift Package Manager fetches the pinned SwiftTerm dependency; no other package dependencies are used. Command-line builds skip the interactive approval for that pinned package's build information plugin. The app bundle is named `TabDance.app`; its executable and Swift module retain the name `TerminalLab`.
 
+GitHub Actions builds and tests an Apple silicon (`arm64`) app on pushes to `main`, pull requests, and manual runs. The `TabDance-macos-arm64` workflow artifact contains a DMG with an Applications shortcut. Pushing a version tag such as `v0.1.0` also creates or updates a GitHub release with the DMG and a `SHA256SUMS` file. CI builds are ad-hoc signed and are not notarized. To make an arm64 app locally, pass the architecture setting to the build script: `./build-app.sh ARCHS=arm64 ONLY_ACTIVE_ARCH=NO`.
+
 You can also run the package tests with `swift test`, or run the Xcode test scheme from the command line:
 
 ```sh
