@@ -204,12 +204,14 @@ final class TerminalWindowController: NSWindowController, NSWindowDelegate, NSTa
             let active = tab.id == layout.selectedTab.id
             if !tabsChanged {
                 tabViews[index].configure(name: name, detail: detail, active: active)
+                tabViews[index].terminal = sessions[tab.id]?.terminal
                 continue
             }
             let view = TerminalTabView(tabID: tab.id, workspaceID: layout.activeWorkspaceID, name: name, detail: detail, active: active,
                                        onSelect: { [weak self] in self?.selectTab(tab.id) },
                                        onClose: { [weak self] in self?.closeTab(tab.id) })
             view.tabBar = tabScroll
+            view.terminal = sessions[tab.id]?.terminal
             tabStack.addArrangedSubview(view)
         }
         tabStack.frame = NSRect(origin: .zero, size: NSSize(width: CGFloat(layout.activeWorkspace.tabs.count) * 156 - 4, height: 32))

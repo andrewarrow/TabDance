@@ -1,4 +1,5 @@
 import AppKit
+import TerminalCore
 
 @MainActor
 final class ActionButton: NSButton {
@@ -85,6 +86,7 @@ final class TerminalTabView: NSView, NSDraggingSource {
     let tabID: UUID
     let workspaceID: UUID
     weak var tabBar: TabBarScrollView?
+    weak var terminal: TabDanceTerminalView?
     private let dragType = NSPasteboard.PasteboardType("dev.tabdance.tab")
     private var pressLocation: NSPoint?
     private var pressEvent: NSEvent?
@@ -96,6 +98,7 @@ final class TerminalTabView: NSView, NSDraggingSource {
         selectButton = ActionButton(title: name, label: detail)
         closeButton = ActionButton(symbol: "xmark", label: "Close \(name)")
         super.init(frame: NSRect(x: 0, y: 0, width: 152, height: 32))
+        registerForDraggedTypes([.fileURL])
         wantsLayer = true
         layer?.cornerRadius = 5
         selectButton.alignment = .left
@@ -122,6 +125,31 @@ final class TerminalTabView: NSView, NSDraggingSource {
     }
 
     required init?(coder: NSCoder) { nil }
+
+    override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+        acceptsFileDrop(sender) ? .copy : []
+    }
+
+    override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
+        acceptsFileDrop(sender) ? .copy : []
+    }
+
+    override func prepareForDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        acceptsFileDrop(sender)
+    }
+
+    override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        guard acceptsFileDrop(sender), let terminal else { return false }
+        selectButton.performClick(nil)
+        return terminal.performDragOperation(sender)
+    }
+
+    private func acceptsFileDrop(_ sender: NSDraggingInfo) -> Bool {
+        let point = convert(sender.draggingLocation, from: nil)
+        guard bounds.contains(point), !closeButton.frame.contains(point),
+              sender.draggingSourceOperationMask.contains(.copy) else { return false }
+        return terminal?.canAcceptFileDrop(sender) == true
+    }
 
     func configure(name: String, detail: String, active: Bool) {
         layer?.backgroundColor = (active ? NSColor.selectedContentBackgroundColor.withAlphaComponent(0.18) : .clear).cgColor

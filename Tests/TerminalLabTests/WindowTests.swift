@@ -33,6 +33,144 @@ final class WindowTests: XCTestCase {
         view.subviews.flatMap { [$0] + descendants(of: $0) }
     }
 
+    private func shellArguments(_ input: String, executable: String) throws -> [String] {
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: executable)
+        process.arguments = ["-c", "set -- \(input); printf '%s\\0' \"$@\""]
+        let output = Pipe()
+        process.standardOutput = output
+        try process.run()
+        let data = output.fileHandleForReading.readDataToEndOfFile()
+        process.waitUntilExit()
+        XCTAssertEqual(process.terminationStatus, 0, "\(executable) failed to parse the dropped paths")
+        return String(decoding: data, as: UTF8.self).split(separator: "\0").map(String.init)
+    }
+
+    func testFileDropsInsertEscapedPathsAsBracketedUserInputAndSelectTabTarget() throws {
+        _ = NSApplication.shared
+        let command = LaunchCommand(executable: "/bin/sh", arguments: ["-c", "read reply"], loginName: nil)
+        let controller = TerminalWindowController(command: command, stateURL: nil)
+        defer { controller.stopSessions(); controller.window?.close() }
+        controller.newTab(nil)
+
+        let window = try XCTUnwrap(controller.window)
+        let content = try XCTUnwrap(window.contentView)
+        content.layoutSubtreeIfNeeded()
+        let terminals = descendants(of: content).compactMap { $0 as? TabDanceTerminalView }
+        let first = try XCTUnwrap(terminals.first)
+        let second = try XCTUnwrap(terminals.last)
+        let initialTabIDs = descendants(of: content).compactMap { ($0 as? TerminalTabView)?.tabID }
+        let firstTab = try XCTUnwrap(descendants(of: content).compactMap { $0 as? TerminalTabView }.first)
+        XCTAssertTrue(first.registeredDraggedTypes.contains(.fileURL))
+        XCTAssertTrue(firstTab.registeredDraggedTypes.contains(.fileURL))
+
+        first.feed(text: "selected text")
+        first.selection.setSelection(start: Position(col: 0, row: 0), end: Position(col: 8, row: 0))
+        first.feed(text: "\u{1B}[?2004h")
+        XCTAssertTrue(first.terminal.bracketedPasteMode)
+        let clipboard = NSPasteboard.general
+        clipboard.clearContents()
+        clipboard.setString("clipboard stays", forType: .string)
+        var observed: [[UInt8]] = []
+        first.onUserInput = { observed.append(Array($0)) }
+
+        let paths = [
+            "/tmp/Tab Dance/one's [file] 💃.txt",
+            "/tmp/Tab Dance/two; $(printf injected) ^! =.log"
+        ]
+        let info = TestDraggingInfo()
+        info.draggingDestinationWindow = window
+        info.draggingSourceOperationMask = .copy
+        info.draggingPasteboard.writeObjects(paths.enumerated().map { index, path in
+            NSURL(fileURLWithPath: path, isDirectory: index == 1)
+        })
+        let labelPoint = firstTab.convert(NSPoint(x: 24, y: firstTab.bounds.midY), to: nil)
+        info.draggingLocation = labelPoint
+        XCTAssertEqual(firstTab.draggingEntered(info), .copy)
+        XCTAssertTrue(firstTab.prepareForDragOperation(info))
+        XCTAssertTrue(window.firstResponder === second, "Hovering a tab must not select it")
+        XCTAssertTrue(observed.isEmpty, "Preparing a drop must not send terminal input")
+        XCTAssertTrue(firstTab.performDragOperation(info))
+        XCTAssertEqual(observed.count, 1, "A multi-file drop is one paste transaction")
+
+        XCTAssertTrue(window.firstResponder === first)
+        XCTAssertNil(first.copyText, "A successful drop clears the previous selection")
+        XCTAssertEqual(clipboard.string(forType: .string), "clipboard stays")
+        XCTAssertEqual(descendants(of: content).compactMap { ($0 as? TerminalTabView)?.tabID }, initialTabIDs,
+                       "A file drop must not reorder tabs")
+        XCTAssertEqual(Set(terminals.compactMap { $0.process.running ? $0.process.shellPid : nil }),
+                       Set([first.process.shellPid, second.process.shellPid]))
+        let firstInput = String(decoding: try XCTUnwrap(observed.first), as: UTF8.self)
+        XCTAssertTrue(firstInput.hasPrefix("\u{1B}[200~"))
+        XCTAssertTrue(firstInput.hasSuffix("\u{1B}[201~"))
+        let pastedText = String(firstInput.dropFirst("\u{1B}[200~".count).dropLast("\u{1B}[201~".count))
+        XCTAssertTrue(pastedText.hasSuffix(" "))
+        XCTAssertFalse(pastedText.contains("\n") || pastedText.contains("\r"), "Dropping paths must not press Enter")
+        XCTAssertEqual(try shellArguments(pastedText, executable: "/bin/sh"), paths)
+        XCTAssertEqual(try shellArguments(pastedText, executable: "/bin/zsh"), paths)
+
+        let contentDrop = TestDraggingInfo()
+        contentDrop.draggingDestinationWindow = window
+        contentDrop.draggingSourceOperationMask = .copy
+        contentDrop.draggingPasteboard.writeObjects([NSURL(fileURLWithPath: "/tmp/a b")])
+        XCTAssertEqual(first.draggingEntered(contentDrop), .copy)
+        XCTAssertTrue(first.prepareForDragOperation(contentDrop))
+        first.feed(text: "\u{1B}[?2004l")
+        XCTAssertTrue(first.performDragOperation(contentDrop))
+        XCTAssertEqual(observed.count, 2)
+        XCTAssertEqual(String(decoding: try XCTUnwrap(observed.last), as: UTF8.self), "/tmp/a\\ b ")
+        XCTAssertEqual(clipboard.string(forType: .string), "clipboard stays")
+    }
+
+    func testFileDropRejectsNonFilesControlCharactersAndUnavailableTargets() throws {
+        _ = NSApplication.shared
+        let command = LaunchCommand(executable: "/bin/sh", arguments: ["-c", "read reply"], loginName: nil)
+        let controller = TerminalWindowController(command: command, stateURL: nil)
+        defer { controller.stopSessions(); controller.window?.close() }
+        let window = try XCTUnwrap(controller.window)
+        let terminal = try XCTUnwrap(window.firstResponder as? TabDanceTerminalView)
+        var observed = 0
+        terminal.onUserInput = { _ in observed += 1 }
+
+        func checkRejected(_ setup: (TestDraggingInfo) -> Void) {
+            let info = TestDraggingInfo()
+            setup(info)
+            XCTAssertEqual(terminal.draggingEntered(info), [])
+            XCTAssertFalse(terminal.prepareForDragOperation(info))
+            XCTAssertFalse(terminal.performDragOperation(info))
+        }
+        checkRejected { info in
+            info.draggingPasteboard.setString("not a file", forType: .string)
+            info.draggingSourceOperationMask = .copy
+        }
+        checkRejected { info in
+            info.draggingPasteboard.writeObjects([NSURL(string: "https://example.com/file")!])
+            info.draggingSourceOperationMask = .copy
+        }
+        checkRejected { info in
+            info.draggingPasteboard.writeObjects([NSURL(string: "file://server/share/file")!])
+            info.draggingSourceOperationMask = .copy
+        }
+        checkRejected { info in
+            info.draggingPasteboard.setString("not a serialized URL", forType: .fileURL)
+            info.draggingSourceOperationMask = .copy
+        }
+        checkRejected { info in
+            info.draggingPasteboard.writeObjects([NSURL(fileURLWithPath: "/tmp/line\nbreak")])
+            info.draggingSourceOperationMask = .copy
+        }
+        checkRejected { info in
+            info.draggingPasteboard.writeObjects([NSURL(fileURLWithPath: "/tmp/file")])
+            info.draggingSourceOperationMask = .move
+        }
+        terminal.process.terminate()
+        checkRejected { info in
+            info.draggingPasteboard.writeObjects([NSURL(fileURLWithPath: "/tmp/file")])
+            info.draggingSourceOperationMask = .copy
+        }
+        XCTAssertEqual(observed, 0)
+    }
+
     func testTabDropReordersWithinWindowAndPreservesShellAndSelection() throws {
         _ = NSApplication.shared
         let stateURL = FileManager.default.temporaryDirectory.appendingPathComponent("tabdance-drag-\(UUID().uuidString)/workspaces.json")

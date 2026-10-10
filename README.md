@@ -44,6 +44,8 @@ Terminal contents use a fixed snapshot of the Ghostty and Rio defaults: Menlo 20
 
 The workspace rail shows each workspace's tab count. Every workspace keeps its own live tabs and selected tab; switching workspaces preserves each one's selection. Drag workspace rows to reorder them, or drag tabs within the active workspace. The insertion marker shows where a tab will land, and the tab bar scrolls when dragging near an edge. Tabs can also be reordered with `⌘⌃⇧←` and `⌘⌃⇧→`. Tabs stay in their workspace and window.
 
+Drop local files or folders onto terminal content or a tab label to insert their shell-escaped absolute paths. A drop on an inactive tab selects and focuses it. Paths are separated by spaces and end with a space; TabDance does not press Enter. Drops use bracketed paste when the terminal requests it, and names containing control characters are rejected.
+
 Tab and workspace labels use OSC 7 updates with periodic `libproc` polling as a fallback. Immediately before creating a tab or workspace, TabDance reads the selected shell's process working directory, so a quick `cd` followed by `⌘T` or `⌘⇧N` starts the new shell there. Directory labels follow Rio's naming style.
 
 Below 600 points of window width, the workspace rail collapses and the workspace menu button remains available. `⌘B` toggles the wider sidebar.

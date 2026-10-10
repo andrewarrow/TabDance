@@ -10,6 +10,21 @@ public final class TabDanceTerminalView: LocalProcessTerminalView {
     /// live cells before Copy is invoked, but do not change what the user selected.
     public private(set) var selectedTextSnapshot: String?
 
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        registerForDraggedTypes([.fileURL])
+    }
+
+    public override init(frame: CGRect, font: NSFont? = nil, options: TerminalOptions) {
+        super.init(frame: frame, font: font, options: options)
+        registerForDraggedTypes([.fileURL])
+    }
+
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        registerForDraggedTypes([.fileURL])
+    }
+
     public var copyText: String? {
         selectedTextSnapshot ?? getSelection()
     }
@@ -33,6 +48,61 @@ public final class TabDanceTerminalView: LocalProcessTerminalView {
     public override func mouseDown(with event: NSEvent) {
         selectedTextSnapshot = nil
         super.mouseDown(with: event)
+    }
+
+    public override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+        canAcceptFileDrop(sender) ? .copy : []
+    }
+
+    public override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
+        canAcceptFileDrop(sender) ? .copy : []
+    }
+
+    public override func prepareForDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        canAcceptFileDrop(sender)
+    }
+
+    public override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        guard sender.draggingSourceOperationMask.contains(.copy), process.running,
+              let paths = shellEscapedPaths(from: sender), let window else { return false }
+        guard window.makeFirstResponder(self) else { return false }
+
+        let text = paths.map { "\($0) " }.joined()
+        var bytes = Array(text.utf8)
+        if terminal.bracketedPasteMode {
+            bytes.insert(contentsOf: [27, 91, 50, 48, 48, 126], at: 0)
+            bytes.append(contentsOf: [27, 91, 50, 48, 49, 126])
+        }
+        send(data: bytes[...])
+        return true
+    }
+
+    public func canAcceptFileDrop(_ sender: NSDraggingInfo) -> Bool {
+        sender.draggingSourceOperationMask.contains(.copy) && process.running && shellEscapedPaths(from: sender) != nil
+    }
+
+    private func shellEscapedPaths(from sender: NSDraggingInfo) -> [String]? {
+        let options: [NSPasteboard.ReadingOptionKey: Any] = [.urlReadingFileURLsOnly: true]
+        guard let urls = sender.draggingPasteboard.readObjects(forClasses: [NSURL.self], options: options) as? [URL],
+              !urls.isEmpty else { return nil }
+
+        guard urls.allSatisfy({ url in
+            let host = url.host?.lowercased()
+            return host == nil || host == "" || host == "localhost" || host == ProcessInfo.processInfo.hostName.lowercased()
+        }) else { return nil }
+        let paths = urls.map(\.path)
+        guard paths.allSatisfy({ path in
+            !path.isEmpty && path.hasPrefix("/") && !path.unicodeScalars.contains(where: CharacterSet.controlCharacters.contains)
+        }) else { return nil }
+        return paths.map(Self.shellEscape)
+    }
+
+    private static func shellEscape(_ path: String) -> String {
+        let escapedCharacters = CharacterSet(charactersIn: "\\ ()[]{}<>\"'`!#$&;|*?~^=")
+        return path.unicodeScalars.reduce(into: "") { result, scalar in
+            if escapedCharacters.contains(scalar) { result.append("\\") }
+            result.append(String(scalar))
+        }
     }
 
     public override func send(source: TerminalView, data: ArraySlice<UInt8>) {
