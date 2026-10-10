@@ -98,8 +98,6 @@ final class TerminalTabView: NSView, NSDraggingSource {
         super.init(frame: NSRect(x: 0, y: 0, width: 152, height: 32))
         wantsLayer = true
         layer?.cornerRadius = 5
-        layer?.backgroundColor = (active ? NSColor.selectedContentBackgroundColor.withAlphaComponent(0.18) : .clear).cgColor
-        selectButton.font = .systemFont(ofSize: 12, weight: active ? .semibold : .regular)
         selectButton.alignment = .left
         selectButton.lineBreakMode = .byTruncatingTail
         selectButton.onPress = onSelect
@@ -120,9 +118,21 @@ final class TerminalTabView: NSView, NSDraggingSource {
             closeButton.widthAnchor.constraint(equalToConstant: 24),
             closeButton.heightAnchor.constraint(equalToConstant: 28)
         ])
+        configure(name: name, detail: detail, active: active)
     }
 
     required init?(coder: NSCoder) { nil }
+
+    func configure(name: String, detail: String, active: Bool) {
+        layer?.backgroundColor = (active ? NSColor.selectedContentBackgroundColor.withAlphaComponent(0.18) : .clear).cgColor
+        selectButton.title = name
+        selectButton.font = .systemFont(ofSize: 12, weight: active ? .semibold : .regular)
+        selectButton.toolTip = detail
+        selectButton.setAccessibilityLabel(detail)
+        let closeLabel = "Close \(name)"
+        closeButton.toolTip = closeLabel
+        closeButton.setAccessibilityLabel(closeLabel)
+    }
 
     override func hitTest(_ point: NSPoint) -> NSView? {
         let hit = super.hitTest(point)

@@ -223,6 +223,88 @@ final class WindowTests: XCTestCase {
         XCTAssertEqual(WorkspaceLayout.restore(from: try Data(contentsOf: stateURL))?.selectedTab.id, second.tabID)
     }
 
+    func testBackgroundCodexUpdatesKeepTabClicksAndWorkspaceActivity() throws {
+        _ = NSApplication.shared
+        let controller = TerminalWindowController(command: LaunchCommand(executable: "/bin/sh", arguments: ["-c", "read reply"], loginName: nil), stateURL: nil)
+        defer { controller.stopSessions(); controller.window?.close() }
+        let window = try XCTUnwrap(controller.window)
+        let content = try XCTUnwrap(window.contentView)
+        let first = try XCTUnwrap(window.firstResponder as? TabDanceTerminalView)
+        let session = try XCTUnwrap(first.processDelegate as? TerminalSession)
+        let firstPID = first.process.shellPid
+        session.isBusy = true
+        first.feed(text: "\u{1B}]0;Codex working\u{7}")
+        controller.newTab(nil)
+        let second = try XCTUnwrap(window.firstResponder as? TabDanceTerminalView)
+        controller.newWorkspace(nil)
+        content.layoutSubtreeIfNeeded()
+        let table = try XCTUnwrap(descendants(of: content).compactMap { $0 as? NSTableView }.first)
+        let busyWorkspace = try XCTUnwrap(table.view(atColumn: 0, row: 0, makeIfNecessary: true) as? WorkspaceCell)
+        let idleWorkspace = try XCTUnwrap(table.view(atColumn: 0, row: 1, makeIfNecessary: true) as? WorkspaceCell)
+        XCTAssertFalse(busyWorkspace.spinner.isHidden)
+        XCTAssertTrue(idleWorkspace.spinner.isHidden)
+        controller.previousWorkspace(nil)
+        XCTAssertTrue(window.firstResponder === second)
+        XCTAssertTrue(first.isHidden)
+        content.layoutSubtreeIfNeeded()
+
+        let tab = try XCTUnwrap(descendants(of: content).compactMap { $0 as? TerminalTabView }.first { $0.tabID == session.id })
+        let point = tab.convert(NSPoint(x: 20, y: tab.bounds.midY), to: nil)
+        let down = try XCTUnwrap(NSEvent.mouseEvent(with: .leftMouseDown, location: point, modifierFlags: [],
+                                                   timestamp: 0, windowNumber: window.windowNumber, context: nil,
+                                                   eventNumber: 1, clickCount: 1, pressure: 1))
+        let up = try XCTUnwrap(NSEvent.mouseEvent(with: .leftMouseUp, location: point, modifierFlags: [],
+                                                 timestamp: 0.1, windowNumber: window.windowNumber, context: nil,
+                                                 eventNumber: 2, clickCount: 1, pressure: 0))
+        tab.mouseDown(with: down)
+        first.feed(text: "\u{1B}]0;Codex still working\u{7}\u{1B}]7;file://localhost/tmp/codex-project\u{7}")
+        content.layoutSubtreeIfNeeded()
+        let currentTab = try XCTUnwrap(descendants(of: content).compactMap { $0 as? TerminalTabView }.first { $0.tabID == session.id })
+        XCTAssertTrue(currentTab === tab, "Background title and directory updates must preserve an in-progress click")
+        XCTAssertEqual(currentTab.selectButton.title, "codex-project")
+        XCTAssertEqual(currentTab.selectButton.toolTip, "/tmp/codex-project\nCodex still working")
+        XCTAssertEqual(currentTab.closeButton.toolTip, "Close codex-project")
+        currentTab.mouseUp(with: up)
+        XCTAssertTrue(window.firstResponder === first)
+        XCTAssertFalse(first.isHidden)
+        XCTAssertTrue(second.isHidden)
+        XCTAssertEqual(first.process.shellPid, firstPID)
+        XCTAssertTrue(first.process.running)
+        XCTAssertTrue(session.isBusy)
+        XCTAssertEqual(currentTab.selectButton.font, NSFont.systemFont(ofSize: 12, weight: .semibold))
+        let cell = try XCTUnwrap(table.view(atColumn: 0, row: 0, makeIfNecessary: true) as? WorkspaceCell)
+        XCTAssertFalse(cell.spinner.isHidden)
+        controller.nextTab(nil)
+        XCTAssertTrue(window.firstResponder === second)
+        XCTAssertEqual(currentTab.selectButton.font, NSFont.systemFont(ofSize: 12, weight: .regular))
+        session.isBusy = false
+        first.feed(text: "\u{1B}]0;Codex complete\u{7}")
+        let completedCell = try XCTUnwrap(table.view(atColumn: 0, row: 0, makeIfNecessary: true) as? WorkspaceCell)
+        XCTAssertTrue(completedCell.spinner.isHidden)
+    }
+
+    func testBackgroundTitleUpdatesPreserveTabBarScrollPosition() throws {
+        _ = NSApplication.shared
+        let controller = TerminalWindowController(command: LaunchCommand(executable: "/bin/sh", arguments: ["-c", "read reply"], loginName: nil), stateURL: nil)
+        defer { controller.stopSessions(); controller.window?.close() }
+        let window = try XCTUnwrap(controller.window)
+        let content = try XCTUnwrap(window.contentView)
+        let first = try XCTUnwrap(window.firstResponder as? TabDanceTerminalView)
+        for _ in 0..<7 { controller.newTab(nil) }
+        content.layoutSubtreeIfNeeded()
+        let selected = try XCTUnwrap(window.firstResponder as? TabDanceTerminalView)
+        let bar = try XCTUnwrap(descendants(of: content).compactMap { $0 as? TabBarScrollView }.first)
+        XCTAssertGreaterThan(bar.contentView.bounds.origin.x, 0)
+        bar.contentView.scroll(to: .zero)
+        bar.reflectScrolledClipView(bar.contentView)
+        first.feed(text: "\u{1B}]0;Codex working in background\u{7}")
+        content.layoutSubtreeIfNeeded()
+        XCTAssertEqual(bar.contentView.bounds.origin.x, 0)
+        XCTAssertTrue(window.firstResponder === selected)
+        controller.previousTab(nil)
+        XCTAssertGreaterThan(bar.contentView.bounds.origin.x, 0, "Explicit navigation should still reveal the selected tab")
+    }
+
     func testWorkspaceSwitchingKeepsShellsAndRestoresFocus() {
         _ = NSApplication.shared
         let command = LaunchCommand(executable: "/bin/sh", arguments: ["-c", "read reply"], loginName: nil)

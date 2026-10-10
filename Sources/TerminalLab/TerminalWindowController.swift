@@ -188,14 +188,25 @@ final class TerminalWindowController: NSWindowController, NSWindowDelegate, NSTa
         table.reloadData()
         table.selectRowIndexes(IndexSet(integer: layout.activeWorkspaceIndex), byExtendingSelection: false)
         table.scrollRowToVisible(layout.activeWorkspaceIndex)
-        for view in tabStack.arrangedSubviews {
-            tabStack.removeArrangedSubview(view)
-            view.removeFromSuperview()
+        let tabs = layout.activeWorkspace.tabs
+        let tabViews = tabStack.arrangedSubviews.compactMap { $0 as? TerminalTabView }
+        // Preserve in-progress clicks and drags while terminal metadata changes.
+        let tabsChanged = tabViews.map(\.tabID) != tabs.map(\.id)
+        if tabsChanged {
+            for view in tabStack.arrangedSubviews {
+                tabStack.removeArrangedSubview(view)
+                view.removeFromSuperview()
+            }
         }
-        for tab in layout.activeWorkspace.tabs {
+        for (index, tab) in tabs.enumerated() {
             let name = tab.displayName + (sessions[tab.id]?.isRunning == true ? "" : " — Exited")
-            let view = TerminalTabView(tabID: tab.id, workspaceID: layout.activeWorkspaceID,
-                                       name: name, detail: "\(tab.directory)\n\(tab.title)", active: tab.id == layout.selectedTab.id,
+            let detail = "\(tab.directory)\n\(tab.title)"
+            let active = tab.id == layout.selectedTab.id
+            if !tabsChanged {
+                tabViews[index].configure(name: name, detail: detail, active: active)
+                continue
+            }
+            let view = TerminalTabView(tabID: tab.id, workspaceID: layout.activeWorkspaceID, name: name, detail: detail, active: active,
                                        onSelect: { [weak self] in self?.selectTab(tab.id) },
                                        onClose: { [weak self] in self?.closeTab(tab.id) })
             view.tabBar = tabScroll
@@ -203,7 +214,7 @@ final class TerminalWindowController: NSWindowController, NSWindowDelegate, NSTa
         }
         tabStack.frame = NSRect(origin: .zero, size: NSSize(width: CGFloat(layout.activeWorkspace.tabs.count) * 156 - 4, height: 32))
         tabStack.layoutSubtreeIfNeeded()
-        if let index = layout.activeWorkspace.tabs.firstIndex(where: { $0.id == layout.selectedTab.id }) {
+        if focusTerminal || tabsChanged, let index = tabs.firstIndex(where: { $0.id == layout.selectedTab.id }) {
             tabStack.scrollToVisible(NSRect(x: CGFloat(index) * 156, y: 0, width: 152, height: 32))
         }
         for (id, session) in sessions { session.terminal.isHidden = id != layout.selectedTab.id }
