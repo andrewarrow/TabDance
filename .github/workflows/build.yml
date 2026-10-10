@@ -16,8 +16,11 @@ defaults:
 
 jobs:
   build:
+    outputs:
+      signing: ${{ github.event_name == 'pull_request' && steps.package_pr.outputs.signing || steps.package_release.outputs.signing }}
+      notarized: ${{ github.event_name == 'pull_request' && steps.package_pr.outputs.notarized || steps.package_release.outputs.notarized }}
     runs-on: macos-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v7
 
@@ -36,19 +39,76 @@ jobs:
       - name: Build app
         run: ./build-app.sh ARCHS=arm64 ONLY_ACTIVE_ARCH=NO
 
-      - name: Verify app architecture and signature
+      - name: Verify app architecture
         run: |
           test "$(lipo -archs dist/TabDance.app/Contents/MacOS/TerminalLab)" = arm64
-          codesign --verify --deep --strict dist/TabDance.app
 
-      - name: Create DMG
+      - name: Install Developer ID signing certificate
+        if: github.event_name != 'pull_request'
+        env:
+          MACOS_DEVELOPER_ID_P12: ${{ secrets.MACOS_DEVELOPER_ID_P12 }}
+          MACOS_DEVELOPER_ID_P12_PASSWORD: ${{ secrets.MACOS_DEVELOPER_ID_P12_PASSWORD }}
         run: |
-          staging="$RUNNER_TEMP/tabdance-dmg"
-          mkdir -p "$staging"
-          ditto dist/TabDance.app "$staging/TabDance.app"
-          ln -s /Applications "$staging/Applications"
-          hdiutil create -volname TabDance -srcfolder "$staging" \
-            -ov -format UDZO dist/TabDance-macos-arm64.dmg
+          set -euo pipefail
+          umask 077
+          if [[ -z "$MACOS_DEVELOPER_ID_P12" || -z "$MACOS_DEVELOPER_ID_P12_PASSWORD" ]]; then
+            echo "Published builds require MACOS_DEVELOPER_ID_P12 and MACOS_DEVELOPER_ID_P12_PASSWORD GitHub secrets." >&2
+            exit 1
+          fi
+
+          certificate_path="$RUNNER_TEMP/developer-id.p12"
+          keychain_path="$RUNNER_TEMP/tabdance-signing.keychain-db"
+          keychain_password="$(openssl rand -hex 24)"
+          echo "::add-mask::$keychain_password"
+          trap 'rm -f "$certificate_path"' EXIT
+          security create-keychain -p "$keychain_password" "$keychain_path"
+          printf 'MACOS_SIGNING_KEYCHAIN=%s\n' "$keychain_path" >> "$GITHUB_ENV"
+          security set-keychain-settings -lut 21600 "$keychain_path"
+          security unlock-keychain -p "$keychain_password" "$keychain_path"
+          if ! printf '%s' "$MACOS_DEVELOPER_ID_P12" | base64 -D > "$certificate_path" || [[ ! -s "$certificate_path" ]]; then
+            echo "MACOS_DEVELOPER_ID_P12 is malformed or did not decode to a certificate archive." >&2
+            exit 1
+          fi
+          if ! security import "$certificate_path" -k "$keychain_path" \
+              -P "$MACOS_DEVELOPER_ID_P12_PASSWORD" -T /usr/bin/codesign; then
+            echo "Could not import the Developer ID archive; check its password and contents." >&2
+            exit 1
+          fi
+          security set-key-partition-list -S apple-tool:,apple: -s \
+            -k "$keychain_password" "$keychain_path"
+
+          identities="$(security find-identity -v -p codesigning "$keychain_path" | \
+            awk 'length($2) == 40 && $2 ~ /^[[:xdigit:]]+$/ && /Developer ID Application:/ && !/CSSMERR/ { print $2 }')"
+          identity_count="$(printf '%s\n' "$identities" | sed '/^$/d' | wc -l | tr -d ' ')"
+          if [[ "$identity_count" != 1 ]]; then
+            echo "Expected exactly one valid Developer ID Application identity in MACOS_DEVELOPER_ID_P12; found $identity_count." >&2
+            exit 1
+          fi
+          signing_identity="$(printf '%s\n' "$identities" | sed -n '1p')"
+          printf 'MACOS_SIGNING_IDENTITY=%s\n' "$signing_identity" >> "$GITHUB_ENV"
+
+      - name: Package pull request artifact
+        id: package_pr
+        if: github.event_name == 'pull_request'
+        run: ./scripts/package-macos.sh
+
+      - name: Package signed release artifact
+        id: package_release
+        if: github.event_name != 'pull_request'
+        env:
+          APPLE_NOTARY_KEY_P8: ${{ secrets.APPLE_NOTARY_KEY_P8 }}
+          APPLE_NOTARY_KEY_ID: ${{ secrets.APPLE_NOTARY_KEY_ID }}
+          APPLE_NOTARY_ISSUER_ID: ${{ secrets.APPLE_NOTARY_ISSUER_ID }}
+        run: ./scripts/package-macos.sh
+
+      - name: Remove signing keychain
+        if: always() && github.event_name != 'pull_request'
+        env:
+          MACOS_SIGNING_KEYCHAIN: ${{ env.MACOS_SIGNING_KEYCHAIN }}
+        run: |
+          if [[ -n "$MACOS_SIGNING_KEYCHAIN" ]]; then
+            security delete-keychain "$MACOS_SIGNING_KEYCHAIN" || true
+          fi
 
       - uses: actions/upload-artifact@v7
         with:
@@ -73,12 +133,30 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           COMMIT_SHA: ${{ github.sha }}
+          SIGNING_STATUS: ${{ needs.build.outputs.signing }}
+          NOTARIZED: ${{ needs.build.outputs.notarized }}
         run: |
+          if [[ "$SIGNING_STATUS" != 'Developer ID signed' ]]; then
+            echo "Refusing to publish without a Developer ID signed artifact (reported: $SIGNING_STATUS)." >&2
+            exit 1
+          fi
           TAG_NAME="${COMMIT_SHA:0:8}"
           sha256sum TabDance-macos-arm64.dmg > SHA256SUMS
+          release_notes_file="$RUNNER_TEMP/RELEASE_NOTES.md"
+          {
+            printf '## macOS artifact\n\n- Signing: %s\n- Notarized: %s\n' "$SIGNING_STATUS" "$NOTARIZED"
+          } > "$release_notes_file"
+          if [[ "$NOTARIZED" != true ]]; then
+            cat >> "$release_notes_file" <<'NOTARIZED_GUIDANCE'
+
+          On first launch, move TabDance to Applications and try opening it. If macOS blocks it, open System Settings > Privacy & Security, choose Open Anyway, then confirm Open. See https://support.apple.com/en-us/102445.
+          NOTARIZED_GUIDANCE
+          fi
           if gh release view "$TAG_NAME" >/dev/null 2>&1; then
+            gh release edit "$TAG_NAME" --notes-file "$release_notes_file"
             gh release upload "$TAG_NAME" TabDance-macos-arm64.dmg SHA256SUMS --clobber
           else
             gh release create "$TAG_NAME" TabDance-macos-arm64.dmg SHA256SUMS \
-              --title "$TAG_NAME" --target "$COMMIT_SHA" --generate-notes
+              --title "$TAG_NAME" --target "$COMMIT_SHA" \
+              --notes-file "$release_notes_file" --generate-notes
           fi
