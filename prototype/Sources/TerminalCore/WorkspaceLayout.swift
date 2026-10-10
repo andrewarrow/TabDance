@@ -123,10 +123,35 @@ public struct WorkspaceLayout: Codable, Equatable, Sendable {
         workspaces.insert(workspaces.remove(at: from), at: to)
     }
 
+    /// Moves the workspace with this identity to an insertion gap in the current order.
+    /// The gap is measured before removal, so dropping after the source is adjusted once.
+    @discardableResult
+    public mutating func moveWorkspace(_ id: UUID, toInsertionIndex insertionIndex: Int) -> Bool {
+        guard let from = workspaces.firstIndex(where: { $0.id == id }),
+              (0...workspaces.count).contains(insertionIndex) else { return false }
+        let to = insertionIndex > from ? insertionIndex - 1 : insertionIndex
+        guard to != from else { return true }
+        workspaces.insert(workspaces.remove(at: from), at: to)
+        return true
+    }
+
     public mutating func moveTab(from: Int, to: Int) {
         let index = activeWorkspaceIndex
         guard workspaces[index].tabs.indices.contains(from), workspaces[index].tabs.indices.contains(to), from != to else { return }
         workspaces[index].tabs.insert(workspaces[index].tabs.remove(at: from), at: to)
+    }
+
+    /// Moves a tab within its workspace to an insertion gap in the current order.
+    @discardableResult
+    public mutating func moveTab(_ id: UUID, in workspaceID: UUID, toInsertionIndex insertionIndex: Int) -> Bool {
+        guard let workspaceIndex = workspaces.firstIndex(where: { $0.id == workspaceID }),
+              let from = workspaces[workspaceIndex].tabs.firstIndex(where: { $0.id == id }) else { return false }
+        let count = workspaces[workspaceIndex].tabs.count
+        guard (0...count).contains(insertionIndex) else { return false }
+        let to = insertionIndex > from ? insertionIndex - 1 : insertionIndex
+        guard to != from else { return true }
+        workspaces[workspaceIndex].tabs.insert(workspaces[workspaceIndex].tabs.remove(at: from), at: to)
+        return true
     }
 
     public mutating func updateTab(_ id: UUID, directory: String? = nil, title: String? = nil) {

@@ -13,7 +13,7 @@ final class TerminalWindowController: NSWindowController, NSWindowDelegate, NSTa
     private let sidebar = NSView()
     private let table = NSTableView()
     private let terminalHost = NSView()
-    private let tabScroll = NSScrollView()
+    private let tabScroll = TabBarScrollView(frame: .zero)
     private let tabStack = NSStackView()
     private let workspaceButton = ActionButton(symbol: "sidebar.left", label: "Workspaces")
     private var sidebarWidth: NSLayoutConstraint!
@@ -92,6 +92,17 @@ final class TerminalWindowController: NSWindowController, NSWindowDelegate, NSTa
         workspaceButton.onPress = { [weak self] in self?.showWorkspaceMenu() }
         tabScroll.drawsBackground = false
         tabScroll.hasHorizontalScroller = false
+        tabScroll.canMoveTab = { [weak self] tabID, workspaceID in
+            guard let self else { return false }
+            return self.layout.activeWorkspaceID == workspaceID
+                && self.layout.activeWorkspace.tabs.contains { $0.id == tabID }
+        }
+        tabScroll.moveTab = { [weak self] tabID, workspaceID, insertionIndex in
+            guard let self, self.layout.activeWorkspaceID == workspaceID,
+                  self.layout.moveTab(tabID, in: workspaceID, toInsertionIndex: insertionIndex) else { return false }
+            self.refresh(focusTerminal: true)
+            return true
+        }
         tabStack.orientation = .horizontal
         tabStack.spacing = 4
         tabStack.alignment = .centerY
@@ -183,9 +194,11 @@ final class TerminalWindowController: NSWindowController, NSWindowDelegate, NSTa
         }
         for tab in layout.activeWorkspace.tabs {
             let name = tab.displayName + (sessions[tab.id]?.isRunning == true ? "" : " — Exited")
-            let view = TerminalTabView(name: name, detail: "\(tab.directory)\n\(tab.title)", active: tab.id == layout.selectedTab.id,
+            let view = TerminalTabView(tabID: tab.id, workspaceID: layout.activeWorkspaceID,
+                                       name: name, detail: "\(tab.directory)\n\(tab.title)", active: tab.id == layout.selectedTab.id,
                                        onSelect: { [weak self] in self?.selectTab(tab.id) },
                                        onClose: { [weak self] in self?.closeTab(tab.id) })
+            view.tabBar = tabScroll
             tabStack.addArrangedSubview(view)
         }
         tabStack.frame = NSRect(origin: .zero, size: NSSize(width: CGFloat(layout.activeWorkspace.tabs.count) * 156 - 4, height: 32))
@@ -383,16 +396,21 @@ final class TerminalWindowController: NSWindowController, NSWindowDelegate, NSTa
         return item
     }
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
-        guard (info.draggingSource as? NSTableView) === table else { return [] }
+        guard tableView === table, (info.draggingSource as? NSTableView) === table,
+              info.draggingSourceOperationMask.contains(.move),
+              let value = info.draggingPasteboard.string(forType: workspaceDragType),
+              layout.workspaces.contains(where: { $0.id.uuidString == value }),
+              (0...layout.workspaces.count).contains(row) else { return [] }
         table.setDropRow(row, dropOperation: .above)
         return .move
     }
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
-        guard (info.draggingSource as? NSTableView) === table,
+        guard tableView === table, (info.draggingSource as? NSTableView) === table,
+              info.draggingSourceOperationMask.contains(.move),
               let value = info.draggingPasteboard.string(forType: workspaceDragType),
-              let from = layout.workspaces.firstIndex(where: { $0.id.uuidString == value }) else { return false }
-        let to = max(0, min(row > from ? row - 1 : row, layout.workspaces.count - 1))
-        layout.moveWorkspace(from: from, to: to)
+              let id = layout.workspaces.first(where: { $0.id.uuidString == value })?.id,
+              (0...layout.workspaces.count).contains(row), dropOperation == .above,
+              layout.moveWorkspace(id, toInsertionIndex: row) else { return false }
         refresh(focusTerminal: true)
         return true
     }

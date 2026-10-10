@@ -5,9 +5,222 @@ import XCTest
 @testable import TerminalLab
 
 @MainActor
+private final class TestDraggingInfo: NSObject, NSDraggingInfo {
+    weak var draggingDestinationWindow: NSWindow?
+    var draggingSourceOperationMask: NSDragOperation = .move
+    var draggingLocation: NSPoint = .zero
+    var draggedImageLocation: NSPoint { draggingLocation }
+    nonisolated var draggedImage: NSImage? { nil }
+    let draggingPasteboard = NSPasteboard(name: NSPasteboard.Name("tabdance-test-\(UUID().uuidString)"))
+    var draggingSource: Any?
+    var draggingSequenceNumber: Int = 1
+    var draggingFormation: NSDraggingFormation = .none
+    var animatesToDestination = false
+    var numberOfValidItemsForDrop = 1
+    var springLoadingHighlight: NSSpringLoadingHighlight = .none
+
+    func slideDraggedImage(to screenPoint: NSPoint) {}
+    override func namesOfPromisedFilesDropped(atDestination dropDestination: URL) -> [String]? { nil }
+    func enumerateDraggingItems(options enumOpts: NSDraggingItemEnumerationOptions, for view: NSView?,
+                                classes classArray: [AnyClass], searchOptions: [NSPasteboard.ReadingOptionKey : Any],
+                                using block: (NSDraggingItem, Int, UnsafeMutablePointer<ObjCBool>) -> Void) {}
+    func resetSpringLoading() {}
+}
+
+@MainActor
 final class WindowTests: XCTestCase {
     private func descendants(of view: NSView) -> [NSView] {
         view.subviews.flatMap { [$0] + descendants(of: $0) }
+    }
+
+    func testTabDropReordersWithinWindowAndPreservesShellAndSelection() throws {
+        _ = NSApplication.shared
+        let stateURL = FileManager.default.temporaryDirectory.appendingPathComponent("tabdance-drag-\(UUID().uuidString)/workspaces.json")
+        defer { try? FileManager.default.removeItem(at: stateURL.deletingLastPathComponent()) }
+        let command = LaunchCommand(executable: "/bin/sh", arguments: ["-c", "read reply"], loginName: nil)
+        let controller = TerminalWindowController(command: command, stateURL: stateURL)
+        defer { controller.stopSessions(); controller.window?.close() }
+        controller.newTab(nil)
+        controller.newTab(nil)
+        let window = try XCTUnwrap(controller.window)
+        let content = try XCTUnwrap(window.contentView)
+        content.layoutSubtreeIfNeeded()
+        controller.saveNow()
+        let initial = try XCTUnwrap(WorkspaceLayout.restore(from: Data(contentsOf: stateURL)))
+        let tabViews = descendants(of: content).compactMap { $0 as? TerminalTabView }
+        let bar = try XCTUnwrap(descendants(of: content).compactMap { $0 as? TabBarScrollView }.first)
+        let terminal = try XCTUnwrap(window.firstResponder as? TabDanceTerminalView)
+        let pids = Set(descendants(of: content).compactMap { ($0 as? TabDanceTerminalView)?.process.shellPid })
+        XCTAssertEqual(tabViews.map(\.tabID), initial.activeWorkspace.tabs.map(\.id))
+        XCTAssertEqual(tabViews.count, 3)
+        for view in tabViews.dropFirst() {
+            XCTAssertTrue(view.hitTest(NSPoint(x: view.frame.midX - 20, y: view.frame.midY)) === view)
+            XCTAssertTrue(view.hitTest(NSPoint(x: view.closeButton.frame.midX + view.frame.minX,
+                                               y: view.closeButton.frame.midY + view.frame.minY)) === view.closeButton)
+        }
+
+        let info = TestDraggingInfo()
+        info.draggingDestinationWindow = window
+        info.draggingSource = tabViews[0]
+        info.draggingPasteboard.setString(tabViews[0].tabID.uuidString, forType: bar.tabDragType)
+        info.draggingLocation = bar.convert(NSPoint(x: bar.bounds.maxX - 2, y: bar.bounds.midY), to: nil)
+        XCTAssertEqual(bar.draggingEntered(info), .move)
+        XCTAssertTrue(bar.performDragOperation(info))
+        controller.saveNow()
+        let moved = try XCTUnwrap(WorkspaceLayout.restore(from: Data(contentsOf: stateURL)))
+        XCTAssertEqual(moved.activeWorkspace.tabs.map(\.id), [initial.activeWorkspace.tabs[1].id, initial.activeWorkspace.tabs[2].id, initial.activeWorkspace.tabs[0].id])
+        XCTAssertEqual(moved.selectedTab.id, initial.selectedTab.id)
+        XCTAssertTrue(window.firstResponder === terminal)
+        XCTAssertEqual(Set(descendants(of: content).compactMap { ($0 as? TabDanceTerminalView)?.process.shellPid }), pids)
+
+        info.draggingSource = try XCTUnwrap(descendants(of: content).compactMap { $0 as? TerminalTabView }.last)
+        info.draggingPasteboard.setString(initial.activeWorkspace.tabs[0].id.uuidString, forType: bar.tabDragType)
+        info.draggingLocation = bar.convert(NSPoint(x: 1, y: bar.bounds.midY), to: nil)
+        XCTAssertEqual(bar.draggingUpdated(info), .move)
+        XCTAssertTrue(bar.performDragOperation(info))
+        controller.saveNow()
+        XCTAssertEqual(WorkspaceLayout.restore(from: try Data(contentsOf: stateURL))?.activeWorkspace.tabs.map(\.id), initial.activeWorkspace.tabs.map(\.id))
+
+        info.draggingPasteboard.setString(UUID().uuidString, forType: bar.tabDragType)
+        XCTAssertEqual(bar.draggingUpdated(info), [])
+        XCTAssertFalse(bar.performDragOperation(info))
+
+        let otherController = TerminalWindowController(command: command, stateURL: nil)
+        defer { otherController.stopSessions(); otherController.window?.close() }
+        let otherBar = try XCTUnwrap(descendants(of: try XCTUnwrap(otherController.window?.contentView)).compactMap { $0 as? TabBarScrollView }.first)
+        info.draggingPasteboard.setString(initial.activeWorkspace.tabs[0].id.uuidString, forType: bar.tabDragType)
+        XCTAssertEqual(otherBar.draggingEntered(info), [])
+        XCTAssertFalse(otherBar.performDragOperation(info))
+
+        controller.newWorkspace(nil)
+        XCTAssertEqual(bar.draggingEntered(info), [])
+        XCTAssertFalse(bar.performDragOperation(info))
+    }
+
+    func testWorkspaceDropReordersRowsWithoutChangingLiveSelection() throws {
+        _ = NSApplication.shared
+        let stateURL = FileManager.default.temporaryDirectory.appendingPathComponent("tabdance-workspace-drag-\(UUID().uuidString)/workspaces.json")
+        defer { try? FileManager.default.removeItem(at: stateURL.deletingLastPathComponent()) }
+        let command = LaunchCommand(executable: "/bin/sh", arguments: ["-c", "read reply"], loginName: nil)
+        let controller = TerminalWindowController(command: command, stateURL: stateURL)
+        defer { controller.stopSessions(); controller.window?.close() }
+        controller.newWorkspace(nil)
+        controller.newWorkspace(nil)
+        let window = try XCTUnwrap(controller.window)
+        let content = try XCTUnwrap(window.contentView)
+        let table = try XCTUnwrap(descendants(of: content).compactMap { $0 as? NSTableView }.first)
+        let terminal = try XCTUnwrap(window.firstResponder as? TabDanceTerminalView)
+        let pids = Set(descendants(of: content).compactMap { ($0 as? TabDanceTerminalView)?.process.shellPid })
+        controller.saveNow()
+        let initial = try XCTUnwrap(WorkspaceLayout.restore(from: Data(contentsOf: stateURL)))
+        let info = TestDraggingInfo()
+        info.draggingDestinationWindow = window
+        info.draggingSource = table
+        let type = NSPasteboard.PasteboardType("dev.tabdance.workspace")
+        info.draggingPasteboard.setString(initial.workspaces[0].id.uuidString, forType: type)
+        XCTAssertEqual(controller.tableView(table, validateDrop: info, proposedRow: 3, proposedDropOperation: .above), .move)
+        XCTAssertTrue(controller.tableView(table, acceptDrop: info, row: 3, dropOperation: .above))
+        controller.saveNow()
+        let moved = try XCTUnwrap(WorkspaceLayout.restore(from: Data(contentsOf: stateURL)))
+        XCTAssertEqual(moved.workspaces.map(\.id), [initial.workspaces[1].id, initial.workspaces[2].id, initial.workspaces[0].id])
+        XCTAssertEqual(moved.activeWorkspaceID, initial.activeWorkspaceID)
+        XCTAssertEqual(moved.selectedTab.id, initial.selectedTab.id)
+        XCTAssertTrue(window.firstResponder === terminal)
+        XCTAssertEqual(Set(descendants(of: content).compactMap { ($0 as? TabDanceTerminalView)?.process.shellPid }), pids)
+        XCTAssertEqual(controller.tableView(table, validateDrop: info, proposedRow: 9, proposedDropOperation: .above), [])
+        XCTAssertFalse(controller.tableView(table, acceptDrop: info, row: 9, dropOperation: .above))
+        info.draggingPasteboard.setString(UUID().uuidString, forType: type)
+        XCTAssertEqual(controller.tableView(table, validateDrop: info, proposedRow: 0, proposedDropOperation: .above), [])
+        XCTAssertFalse(controller.tableView(table, acceptDrop: info, row: 0, dropOperation: .above))
+    }
+
+    func testTabDropAtEdgeScrollsAndClearsInsertionMarker() throws {
+        _ = NSApplication.shared
+        let command = LaunchCommand(executable: "/bin/sh", arguments: ["-c", "read reply"], loginName: nil)
+        let controller = TerminalWindowController(command: command, stateURL: nil)
+        defer { controller.stopSessions(); controller.window?.close() }
+        for _ in 0..<7 { controller.newTab(nil) }
+        let window = try XCTUnwrap(controller.window)
+        window.setContentSize(NSSize(width: 390, height: 844))
+        let content = try XCTUnwrap(window.contentView)
+        content.layoutSubtreeIfNeeded()
+        let bar = try XCTUnwrap(descendants(of: content).compactMap { $0 as? TabBarScrollView }.first)
+        let source = try XCTUnwrap(descendants(of: content).compactMap { $0 as? TerminalTabView }.first)
+        bar.contentView.scroll(to: .zero)
+        bar.reflectScrolledClipView(bar.contentView)
+        let marker = try XCTUnwrap(bar.contentView.subviews.first { $0 !== bar.documentView })
+        XCTAssertTrue(marker.isHidden)
+        let info = TestDraggingInfo()
+        info.draggingDestinationWindow = window
+        info.draggingSource = source
+        info.draggingPasteboard.setString(source.tabID.uuidString, forType: bar.tabDragType)
+        info.draggingLocation = bar.convert(NSPoint(x: bar.bounds.maxX - 2, y: bar.bounds.midY), to: nil)
+        for _ in 0..<5 { XCTAssertEqual(bar.draggingUpdated(info), .move) }
+        XCTAssertGreaterThan(bar.contentView.bounds.origin.x, 0)
+        XCTAssertFalse(marker.isHidden)
+        XCTAssertTrue(bar.contentView.bounds.contains(marker.frame))
+        if let directory = ProcessInfo.processInfo.environment["TABDANCE_SCREENSHOT_DIR"] {
+            bar.displayIfNeeded()
+            let image = try XCTUnwrap(bar.bitmapImageRepForCachingDisplay(in: bar.bounds))
+            bar.cacheDisplay(in: bar.bounds, to: image)
+            let data = try XCTUnwrap(image.representation(using: .png, properties: [:]))
+            try data.write(to: URL(fileURLWithPath: directory).appendingPathComponent("tabdance-drag-marker.png"))
+        }
+        bar.draggingExited(info)
+        XCTAssertTrue(marker.isHidden)
+    }
+
+    func testTabLabelClickStillSelectsWhileCloseButtonKeepsItsTarget() throws {
+        _ = NSApplication.shared
+        let stateURL = FileManager.default.temporaryDirectory.appendingPathComponent("tabdance-tab-click-\(UUID().uuidString)/workspaces.json")
+        defer { try? FileManager.default.removeItem(at: stateURL.deletingLastPathComponent()) }
+        let controller = TerminalWindowController(command: LaunchCommand(executable: "/bin/sh", arguments: ["-c", "read reply"], loginName: nil), stateURL: stateURL)
+        defer { controller.stopSessions(); controller.window?.close() }
+        controller.newTab(nil)
+        controller.newTab(nil)
+        let window = try XCTUnwrap(controller.window)
+        let tabViews = descendants(of: try XCTUnwrap(window.contentView)).compactMap { $0 as? TerminalTabView }
+        let second = try XCTUnwrap(tabViews.dropFirst().first)
+        let third = try XCTUnwrap(tabViews.last)
+        let labelPoint = NSPoint(x: 20, y: second.bounds.midY)
+        let closePoint = NSPoint(x: second.closeButton.frame.midX, y: second.closeButton.frame.midY)
+        XCTAssertTrue(second.hitTest(second.convert(labelPoint, to: second.superview)) === second)
+        XCTAssertTrue(second.hitTest(second.convert(closePoint, to: second.superview)) === second.closeButton)
+        let windowPoint = second.convert(labelPoint, to: nil)
+        let down = try XCTUnwrap(NSEvent.mouseEvent(with: .leftMouseDown, location: windowPoint, modifierFlags: [],
+                                                   timestamp: 0, windowNumber: window.windowNumber, context: nil,
+                                                   eventNumber: 1, clickCount: 1, pressure: 1))
+        let up = try XCTUnwrap(NSEvent.mouseEvent(with: .leftMouseUp, location: windowPoint, modifierFlags: [],
+                                                 timestamp: 0.1, windowNumber: window.windowNumber, context: nil,
+                                                 eventNumber: 2, clickCount: 1, pressure: 0))
+        let smallDrag = try XCTUnwrap(NSEvent.mouseEvent(with: .leftMouseDragged,
+                                                        location: NSPoint(x: windowPoint.x + 2, y: windowPoint.y),
+                                                        modifierFlags: [], timestamp: 0.05, windowNumber: window.windowNumber,
+                                                        context: nil, eventNumber: 3, clickCount: 1, pressure: 1))
+        var selections = 0
+        let originalSelection = second.selectButton.onPress
+        second.selectButton.onPress = { selections += 1; originalSelection?() }
+        second.mouseDown(with: down)
+        second.mouseDragged(with: smallDrag)
+        second.mouseUp(with: up)
+        XCTAssertEqual(selections, 1)
+        controller.saveNow()
+        let saved = try XCTUnwrap(WorkspaceLayout.restore(from: Data(contentsOf: stateURL)))
+        XCTAssertEqual(saved.selectedTab.id, second.tabID)
+        XCTAssertTrue(window.firstResponder is TabDanceTerminalView)
+
+        let thirdPoint = third.convert(NSPoint(x: 20, y: third.bounds.midY), to: nil)
+        let thirdDown = try XCTUnwrap(NSEvent.mouseEvent(with: .leftMouseDown, location: thirdPoint, modifierFlags: [],
+                                                        timestamp: 0.2, windowNumber: window.windowNumber, context: nil,
+                                                        eventNumber: 4, clickCount: 1, pressure: 1))
+        let outsideUp = try XCTUnwrap(NSEvent.mouseEvent(with: .leftMouseUp,
+                                                        location: NSPoint(x: thirdPoint.x, y: thirdPoint.y + 60),
+                                                        modifierFlags: [], timestamp: 0.3, windowNumber: window.windowNumber,
+                                                        context: nil, eventNumber: 5, clickCount: 1, pressure: 0))
+        third.mouseDown(with: thirdDown)
+        third.mouseUp(with: outsideUp)
+        controller.saveNow()
+        XCTAssertEqual(WorkspaceLayout.restore(from: try Data(contentsOf: stateURL))?.selectedTab.id, second.tabID)
     }
 
     func testWorkspaceSwitchingKeepsShellsAndRestoresFocus() {

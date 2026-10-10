@@ -24,7 +24,7 @@ dist/TabDance.app/Contents/MacOS/TerminalLab --execute /bin/sh -c 'printf "TabDa
 
 ## Workspaces and tabs
 
-The workspace rail shows each workspace's tab count. Every workspace keeps its own live tabs and selected tab; switching workspaces preserves each one's selection. Drag workspace rows to reorder them. Tabs can be reordered with `⌘⌃⇧←` and `⌘⌃⇧→`; tab dragging is not available. The tab bar scrolls horizontally when its tabs do not fit.
+The workspace rail shows each workspace's tab count. Every workspace keeps its own live tabs and selected tab; switching workspaces preserves each one's selection. Drag workspace rows to reorder them, or drag tabs within the active workspace. The insertion marker shows where a tab will land, and the tab bar scrolls when dragging near an edge. Tabs can also be reordered with `⌘⌃⇧←` and `⌘⌃⇧→`. Tabs stay in their workspace and window.
 
 Tab and workspace labels use OSC 7 updates with periodic `libproc` polling as a fallback. Immediately before creating a tab or workspace, TabDance reads the selected shell's process working directory, so a quick `cd` followed by `⌘T` or `⌘⇧N` starts the new shell there. Directory labels follow Rio's naming style.
 
@@ -44,6 +44,7 @@ Below 600 points of window width, the workspace rail collapses and the workspace
 | `⌘9` | Select the last tab in the active workspace |
 | `⌥⌘↑` / `⌥⌘↓` | Select previous / next workspace |
 | `⌘B` | Toggle the sidebar |
+| `⌘⌃⇧←` / `⌘⌃⇧→` | Move the selected tab left / right |
 | `⌘K` | Clear output above the current logical command line |
 
 ## State and terminal behavior

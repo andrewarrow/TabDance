@@ -51,6 +51,37 @@ final class WorkspaceTests: XCTestCase {
         XCTAssertNil(WorkspaceLayout.restore(from: try JSONEncoder().encode(layout)))
     }
 
+    func testInsertionGapMovesCoverEndpointsNoOpsAndInvalidInputs() throws {
+        var layout = WorkspaceLayout(directory: "/tmp/one")
+        let first = layout.selectedTab.id
+        let second = layout.addTab().id
+        let third = layout.addTab().id
+        layout.selectTab(second)
+        let workspaceID = layout.activeWorkspaceID
+
+        XCTAssertTrue(layout.moveTab(first, in: workspaceID, toInsertionIndex: 3))
+        XCTAssertEqual(layout.activeWorkspace.tabs.map(\.id), [second, third, first])
+        XCTAssertEqual(layout.selectedTab.id, second)
+        XCTAssertTrue(layout.moveTab(first, in: workspaceID, toInsertionIndex: 0))
+        XCTAssertEqual(layout.activeWorkspace.tabs.map(\.id), [first, second, third])
+        XCTAssertTrue(layout.moveTab(second, in: workspaceID, toInsertionIndex: 2))
+        XCTAssertEqual(layout.activeWorkspace.tabs.map(\.id), [first, second, third])
+        XCTAssertFalse(layout.moveTab(UUID(), in: workspaceID, toInsertionIndex: 0))
+        XCTAssertFalse(layout.moveTab(first, in: workspaceID, toInsertionIndex: 4))
+
+        layout.addWorkspace(directory: "/tmp/two")
+        let anotherWorkspaceID = layout.activeWorkspaceID
+        let initialWorkspaceOrder = layout.workspaces.map(\.id)
+        XCTAssertTrue(layout.moveWorkspace(workspaceID, toInsertionIndex: 2))
+        XCTAssertEqual(layout.workspaces.map(\.id), [anotherWorkspaceID, workspaceID])
+        XCTAssertEqual(layout.activeWorkspaceID, anotherWorkspaceID)
+        XCTAssertTrue(layout.moveWorkspace(workspaceID, toInsertionIndex: 0))
+        XCTAssertEqual(layout.workspaces.map(\.id), initialWorkspaceOrder)
+        XCTAssertFalse(layout.moveWorkspace(UUID(), toInsertionIndex: 0))
+        XCTAssertFalse(layout.moveWorkspace(workspaceID, toInsertionIndex: 3))
+        XCTAssertEqual(WorkspaceLayout.restore(from: try JSONEncoder().encode(layout)), layout)
+    }
+
     func testDirectoryLabelsMatchRio() {
         XCTAssertEqual(TerminalWorkspace(directory: "/Users/test").displayName(home: "/Users/test"), "~")
         XCTAssertEqual(TerminalWorkspace(directory: "/Users/test/os/TabDance").displayName(home: "/Users/test"), "os")
