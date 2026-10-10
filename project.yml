@@ -25,7 +25,6 @@ fileGroups:
   - Info.plist
   - build-app.sh
   - project.yml
-  - Assets/TabDanceLogo.png
 targets:
   TabDance:
     type: application
@@ -33,6 +32,8 @@ targets:
     sources:
       - Sources/TerminalLab
       - path: Assets/Assets.xcassets
+      - path: Assets/TabDanceLogo.png
+        buildPhase: resources
       - path: THIRD_PARTY_LICENSES.txt
         buildPhase: resources
     dependencies:
@@ -46,6 +47,17 @@ targets:
         EXECUTABLE_NAME: TerminalLab
         INFOPLIST_FILE: Info.plist
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    postBuildScripts:
+      - name: Embed Git SHA
+        basedOnDependencyAnalysis: false
+        outputFiles:
+          - $(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GitSHA.txt
+        script: |
+          set -eu
+          resources_dir="$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH"
+          mkdir -p "$resources_dir"
+          sha=$(git -C "$SRCROOT" rev-parse --short HEAD 2>/dev/null || printf 'unknown')
+          printf '%s\n' "$sha" > "$resources_dir/GitSHA.txt"
   TerminalLabTests:
     type: bundle.unit-test
     platform: macOS

@@ -18,6 +18,7 @@
 		C026163EF499F64750C7A612 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF38560971D98354AD3E6A39 /* Assets.xcassets */; };
 		C12AFD3839BE93B1C9E6FBE9 /* WindowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2CD6B4931EFEA7DB004ADF /* WindowTests.swift */; };
 		C6133315F6E98A64888282C4 /* SwiftTerm in Frameworks */ = {isa = PBXBuildFile; productRef = 03F31316B58C266CF12B2033 /* SwiftTerm */; };
+		CF0E78CBF74008D25F10E7D1 /* TabDanceLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = C6D3FE74180583C2963C1391 /* TabDanceLogo.png */; };
 		DFC01ECEFBFE6D0EC866A220 /* PTYTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008B0AE5115E46F4BFBB7DF9 /* PTYTests.swift */; };
 		FBE6858031E952EA483EBA4E /* TerminalWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B09EEB3885AB24E10C928C /* TerminalWindowController.swift */; };
 /* End PBXBuildFile section */
@@ -164,6 +165,7 @@
 				69218E364CFD866F5724541B /* Sources */,
 				EFD7238E66089ACD11CD8EDE /* Resources */,
 				019A417984F4E3B12B88C8BA /* Frameworks */,
+				DC73BDBBCB485782A5E3C324 /* Embed Git SHA */,
 			);
 			buildRules = (
 			);
@@ -244,10 +246,34 @@
 			files = (
 				C026163EF499F64750C7A612 /* Assets.xcassets in Resources */,
 				819D0DC8DCFC05115E2DD1FB /* THIRD_PARTY_LICENSES.txt in Resources */,
+				CF0E78CBF74008D25F10E7D1 /* TabDanceLogo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DC73BDBBCB485782A5E3C324 /* Embed Git SHA */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Git SHA";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GitSHA.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -eu\nresources_dir=\"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\"\nmkdir -p \"$resources_dir\"\nsha=$(git -C \"$SRCROOT\" rev-parse --short HEAD 2>/dev/null || printf 'unknown')\nprintf '%s\\n' \"$sha\" > \"$resources_dir/GitSHA.txt\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4BD84BD43045882E4C5ABC95 /* Sources */ = {

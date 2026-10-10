@@ -52,6 +52,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             item.tag = tag
         }
         let appMenu = submenu("TabDance")
+        add(appMenu, "About TabDance", #selector(showAboutPanel(_:)), target: self)
+        appMenu.addItem(.separator())
         add(appMenu, "Quit TabDance", #selector(NSApplication.terminate(_:)), "q")
         let shellMenu = submenu("Shell")
         add(shellMenu, "New Tab", #selector(TerminalWindowController.newTab(_:)), "t")
@@ -86,6 +88,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let windowMenu = submenu("Window")
         add(windowMenu, "Minimize", #selector(NSWindow.performMiniaturize(_:)), "m")
         NSApp.windowsMenu = windowMenu
+    }
+
+    @objc private func showAboutPanel(_ sender: Any?) {
+        let sha = Bundle.main.url(forResource: "GitSHA", withExtension: "txt")
+            .flatMap { try? String(contentsOf: $0, encoding: .utf8) }
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+        let version = sha.flatMap { $0.isEmpty ? nil : $0 } ?? "unknown"
+        let logo = Bundle.main.url(forResource: "TabDanceLogo", withExtension: "png")
+            .flatMap { NSImage(contentsOf: $0) }
+        let appIcon: NSImage = logo ?? NSApp.applicationIconImage
+
+        NSApp.orderFrontStandardAboutPanel(options: [
+            .applicationName: "TabDance",
+            .applicationVersion: version,
+            .applicationIcon: appIcon
+        ])
     }
 }
 
