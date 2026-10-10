@@ -1,0 +1,44 @@
+-[TTLogicalScreen displayWidthForCharacter:]
+0x1000126C4   pacibsp
+0x1000126C8   stp      x20, x19, [sp, #-0x20]!
+0x1000126CC   stp      x29, x30, [sp, #0x10]
+0x1000126D0   add      x29, sp, #0x10
+0x1000126D4   mov      x20, x2
+0x1000126D8   mov      x19, x0
+0x1000126DC   mov      x0, x2
+0x1000126E0   bl       _u_charType
+0x1000126E4   mov      w8, #-0x2066
+0x1000126E8   add      w8, w20, w8
+0x1000126EC   cmp      w8, #0x4
+0x1000126F0   ccmp     w0, #0x6, #0x4, hs
+0x1000126F4   b.ne     0x100012700
+0x1000126F8   mov      x0, #0x0
+0x1000126FC   b        0x100012764
+0x100012700   mov      x0, x20
+0x100012704   mov      w1, #0x1004
+0x100012708   bl       _u_getIntPropertyValue
+0x10001270C   mov      x8, x0
+0x100012710   cmp      w0, #0x2
+0x100012714   b.gt     0x100012738
+0x100012718   cbz      w8, 0x100012750
+0x10001271C   cmp      w8, #0x1
+0x100012720   b.ne     0x100012760
+0x100012724   ldrb     w8, [x19, #0x62]
+0x100012728   cmp      w8, #0x0
+0x10001272C   mov      w8, #0x1
+0x100012730   cinc     x0, x8, ne
+0x100012734   b        0x100012764
+0x100012738   mov      w0, #0x2
+0x10001273C   cmp      w8, #0x3
+0x100012740   b.eq     0x100012764
+0x100012744   cmp      w8, #0x5
+0x100012748   b.ne     0x100012760
+0x10001274C   b        0x100012764
+0x100012750   mov      w8, #-0x1160
+0x100012754   add      w8, w20, w8
+0x100012758   cmp      w8, #0xa0
+0x10001275C   b.lo     0x1000126f8
+0x100012760   mov      w0, #0x1
+0x100012764   ldp      x29, x30, [sp, #0x10]
+0x100012768   ldp      x20, x19, [sp], #0x20
+0x10001276C   retab

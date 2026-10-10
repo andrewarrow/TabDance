@@ -1,0 +1,198 @@
+{
+  "ATSApplicationFontsPath": "Fonts",
+  "BuildMachineOSBuild": "23A344017",
+  "CFBundleDevelopmentRegion": "English",
+  "CFBundleDisplayName": "Terminal",
+  "CFBundleDocumentTypes": [
+    {
+      "CFBundleTypeName": "Terminal session",
+      "CFBundleTypeRole": "Editor",
+      "LSItemContentTypes": [
+        "com.apple.terminal.session"
+      ]
+    },
+    {
+      "CFBundleTypeName": "Terminal settings",
+      "CFBundleTypeRole": "Editor",
+      "LSItemContentTypes": [
+        "com.apple.terminal.settings"
+      ]
+    },
+    {
+      "CFBundleTypeName": "Terminal shell script",
+      "CFBundleTypeRole": "Shell",
+      "LSItemContentTypes": [
+        "com.apple.terminal.shell-script"
+      ]
+    },
+    {
+      "CFBundleTypeRole": "Shell",
+      "LSItemContentTypes": [
+        "public.unix-executable"
+      ]
+    },
+    {
+      "CFBundleTypeRole": "Editor",
+      "LSItemContentTypes": [
+        "public.directory",
+        "com.apple.bundle",
+        "com.apple.resolvable"
+      ]
+    }
+  ],
+  "CFBundleExecutable": "Terminal",
+  "CFBundleHelpBookFolder": "Terminal.help",
+  "CFBundleHelpBookName": "com.apple.Terminal.help",
+  "CFBundleIconFile": "Terminal",
+  "CFBundleIconName": "Terminal",
+  "CFBundleIdentifier": "com.apple.Terminal",
+  "CFBundleInfoDictionaryVersion": "6.0",
+  "CFBundleName": "Terminal",
+  "CFBundlePackageType": "APPL",
+  "CFBundleShortVersionString": "2.15",
+  "CFBundleSupportedPlatforms": [
+    "MacOSX"
+  ],
+  "CFBundleURLTypes": [
+    {
+      "CFBundleURLName": "telnet URL",
+      "CFBundleURLSchemes": [
+        "telnet"
+      ]
+    },
+    {
+      "CFBundleURLName": "ssh URL",
+      "CFBundleURLSchemes": [
+        "ssh"
+      ]
+    },
+    {
+      "CFBundleURLName": "x-man-page URL",
+      "CFBundleURLSchemes": [
+        "x-man-page"
+      ]
+    }
+  ],
+  "CFBundleVersion": "488",
+  "DTCompiler": "com.apple.compilers.llvm.clang.1_0",
+  "DTPlatformBuild": "",
+  "DTPlatformName": "macosx",
+  "DTPlatformVersion": "27.0",
+  "DTSDKBuild": "26A411",
+  "DTSDKName": "macosx27.0.internal",
+  "DTXcode": "2700",
+  "DTXcodeBuild": "27A200c",
+  "HPDHelpProjectIdentifier": "terminal",
+  "LSApplicationCategoryType": "public.app-category.utilities",
+  "LSHasLocalizedDisplayName": true,
+  "LSMinimumSystemVersion": "27.0",
+  "NSAppDataAccessNotify": true,
+  "NSAppleScriptEnabled": true,
+  "NSHumanReadableCopyright": "\u00a9 1991\u20132026 Apple Inc. All rights reserved.",
+  "NSMainNibFile": "MainMenu",
+  "NSPrincipalClass": "TTApplication",
+  "NSServices": [
+    {
+      "NSMenuItem": {
+        "default": "New Terminal at Folder"
+      },
+      "NSMessage": "newTerminalAtFolder",
+      "NSPortName": "Terminal",
+      "NSRequiredContext": {
+        "NSTextContent": "FilePath"
+      },
+      "NSSendFileTypes": [
+        "public.directory",
+        "com.apple.resolvable"
+      ],
+      "NSSendTypes": [
+        "public.plain-text"
+      ]
+    },
+    {
+      "NSMenuItem": {
+        "default": "New Terminal Tab at Folder"
+      },
+      "NSMessage": "newTerminalAtFolder",
+      "NSPortName": "Terminal",
+      "NSRequiredContext": {
+        "NSTextContent": "FilePath"
+      },
+      "NSSendFileTypes": [
+        "public.directory",
+        "com.apple.resolvable"
+      ],
+      "NSSendTypes": [
+        "public.plain-text"
+      ],
+      "NSUserData": "New Tab"
+    },
+    {
+      "NSKeyEquivalent": {
+        "default": "M"
+      },
+      "NSMenuItem": {
+        "default": "Open man Page in Terminal"
+      },
+      "NSMessage": "openManPage",
+      "NSPortName": "Terminal",
+      "NSRequiredContext": {
+        "NSWordLimit": 20
+      },
+      "NSSendTypes": [
+        "public.plain-text"
+      ]
+    },
+    {
+      "NSKeyEquivalent": {
+        "default": "A"
+      },
+      "NSMenuItem": {
+        "default": "Search man Page Index in Terminal"
+      },
+      "NSMessage": "searchManPages",
+      "NSPortName": "Terminal",
+      "NSRequiredContext": {
+        "NSWordLimit": 20
+      },
+      "NSSendTypes": [
+        "public.plain-text"
+      ]
+    }
+  ],
+  "NSSupportsSuddenTermination": "YES",
+  "OSAScriptingDefinition": "Terminal.sdef",
+  "UTExportedTypeDeclarations": [
+    {
+      "UTTypeConformsTo": "public.shell-script",
+      "UTTypeDescription": "Terminal shell script",
+      "UTTypeIdentifier": "com.apple.terminal.shell-script",
+      "UTTypeTagSpecification": {
+        "public.filename-extension": [
+          "command",
+          "tool"
+        ]
+      }
+    },
+    {
+      "UTTypeConformsTo": "public.data",
+      "UTTypeDescription": "Terminal session",
+      "UTTypeIdentifier": "com.apple.terminal.session",
+      "UTTypeTagSpecification": {
+        "public.filename-extension": [
+          "term"
+        ]
+      }
+    },
+    {
+      "UTTypeConformsTo": "public.data",
+      "UTTypeDescription": "Terminal settings",
+      "UTTypeIdentifier": "com.apple.terminal.settings",
+      "UTTypeTagSpecification": {
+        "public.filename-extension": [
+          "terminal"
+        ]
+      }
+    }
+  ]
+}

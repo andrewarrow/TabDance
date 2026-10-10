@@ -1,0 +1,27 @@
+-[TTTabController shellDidReceiveData:]
+0x10001C630   pacibsp
+0x10001C634   stp      x22, x21, [sp, #-0x30]!
+0x10001C638   stp      x20, x19, [sp, #0x10]
+0x10001C63C   stp      x29, x30, [sp, #0x20]
+0x10001C640   add      x29, sp, #0x20
+0x10001C644   mov      x19, x2
+0x10001C648   mov      x20, x0
+0x10001C64C   adrp     x8, 200              ; 0x1000e4000
+0x10001C650   ldr      x0, [x8, #0xa78]     ; _OBJC_CLASS_$_NSAutoreleasePool@got
+0x10001C654   bl       _objc_alloc_init
+0x10001C658   mov      x21, x0
+0x10001C65C   ldp      x22, x0, [x20, #0x38]
+0x10001C660   mov      x2, x19
+0x10001C664   bl       "_objc_msgSend$decodeData:"
+0x10001C668   mov      x2, x0
+0x10001C66C   mov      x0, x22
+0x10001C670   bl       "_objc_msgSend$decodeData:"
+0x10001C674   mov      x0, x21
+0x10001C678   ldp      x29, x30, [sp, #0x20]
+0x10001C67C   ldp      x20, x19, [sp, #0x10]
+0x10001C680   ldp      x22, x21, [sp], #0x30
+0x10001C684   autibsp
+0x10001C688   eor      x16, x30, x30, lsl #1
+0x10001C68C   tbz      x16, #0x3e, 0x10001c694
+0x10001C690   brk      #0xc471
+0x10001C694   b        _objc_release

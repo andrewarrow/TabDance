@@ -1,0 +1,51 @@
+/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho [arm64e]:
+    -segments:
+        load-offset   segment  section       sect-size  seg-size   init/max-prot
+        0x00000000    __TEXT                               864KB    r.x/r.x
+        0x100001D40             __text           582156
+        0x10008FF4C             __auth_stubs       5856
+        0x100091640             __objc_stubs      78880
+        0x1000A4A60             __objc_methlist   35992
+        0x1000AD700             __const           10772
+        0x1000B0114             __gcc_except_tab   1748
+        0x1000B07F0             __cstring         28869
+        0x1000B78B6             __ustring           892
+        0x1000B7C40             __objc_methname   94571
+        0x1000CEDB0             __objc_classname   3607
+        0x1000CFBD0             __objc_methtype   16751
+        0x1000D3D3F             __oslogstring       394
+        0x1000D3ECA             __swift5_typeref    882
+        0x1000D423C             __constg_swiftt     952
+        0x1000D4600             __swift5_reflstr    195
+        0x1000D46C4             __swift5_fieldmd    532
+        0x1000D48D8             __swift5_types       80
+        0x1000D4928             __swift5_assocty    480
+        0x1000D4B08             __swift5_builtin    200
+        0x1000D4BD0             __swift5_proto      200
+        0x1000D4C98             __swift5_protos       4
+        0x1000D4C9C             __swift5_capture     64
+        0x1000D4CDC             __unwind_info      8688
+        0x1000D6ED0             __eh_frame           72
+        0x000D8000    __DATA_CONST                          64KB    rw./rw.
+        0x1000D8000             __const            8080
+        0x1000D9F90             __cfstring        37216
+        0x1000E30F0             __objc_classlist    856
+        0x1000E3448             __objc_catlist      104
+        0x1000E34B0             __objc_protolist    320
+        0x1000E35F0             __objc_imageinfo      8
+        0x1000E35F8             __objc_protorefs     32
+        0x1000E3618             __objc_superrefs    600
+        0x1000E3870             __objc_arraydata    936
+        0x1000E3C18             __objc_arrayobj     240
+        0x1000E3D08             __objc_intobj        48
+        0x1000E3D38             __auth_got         2944
+        0x1000E48B8             __got              2608
+        0x1000E52E8             __auth_ptr          272
+        0x000E8000    __DATA                               144KB    rw./rw.
+        0x1000E8000             __objc_const      63936
+        0x1000F79C0             __objc_selrefs    26600
+        0x1000FE1A8             __objc_ivar        2768
+        0x1000FEC78             __objc_data        9616
+        0x100101208             __data            30064
+        0x100108778             __common             80
+        0x1001087D0             __bss              7616

@@ -1,0 +1,4 @@
+/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho:
+Mach header
+      magic  cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
+MH_MAGIC_64    ARM64          E USR00     EXECUTE    56       7312   NOUNDEFS DYLDLINK TWOLEVEL PIE

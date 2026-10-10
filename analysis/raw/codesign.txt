@@ -1,0 +1,23 @@
+Executable=/Users/aa/Downloads/term.bin.exe.mac
+Identifier=com.apple.Terminal
+Format=Mach-O universal (arm64e arm64e.x1)
+CodeDirectory v=20400 size=2635 flags=0x0(none) hashes=72+7 location=embedded
+Platform identifier=26
+Hash type=sha256 size=32
+CandidateCDHash sha256=b6576f8a0e0c37565ad822e4b9458ee43d8158e7
+CandidateCDHashFull sha256=b6576f8a0e0c37565ad822e4b9458ee43d8158e72a2f3627b24605a57a36853f
+Hash choices=sha256
+CMSDigest=b6576f8a0e0c37565ad822e4b9458ee43d8158e72a2f3627b24605a57a36853f
+CMSDigestType=2
+CDHash=b6576f8a0e0c37565ad822e4b9458ee43d8158e7
+Signature size=4202
+Authority=macOS Software Signing
+Authority=Apple Code Signing Certification Authority
+Authority=Apple Root CA
+Signed Time=Aug 8, 2026 at 5:49:01 PM
+Info.plist=not bound
+TeamIdentifier=not set
+Sealed Resources=none
+Internal requirements count=1 size=68
+Total signatures=1
+Chosen signature=1

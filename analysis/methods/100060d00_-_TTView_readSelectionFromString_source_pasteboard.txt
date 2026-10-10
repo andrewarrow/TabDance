@@ -1,0 +1,396 @@
+-[TTView readSelectionFromString:source:pasteboard:]
+0x100060D00   cbz      x2, 0x100060e84
+0x100060D04   pacibsp
+0x100060D08   sub      sp, sp, #0x70
+0x100060D0C   stp      x28, x27, [sp, #0x10]
+0x100060D10   stp      x26, x25, [sp, #0x20]
+0x100060D14   stp      x24, x23, [sp, #0x30]
+0x100060D18   stp      x22, x21, [sp, #0x40]
+0x100060D1C   stp      x20, x19, [sp, #0x50]
+0x100060D20   stp      x29, x30, [sp, #0x60]
+0x100060D24   add      x29, sp, #0x60
+0x100060D28   mov      x21, x4
+0x100060D2C   mov      x22, x3
+0x100060D30   mov      x20, x2
+0x100060D34   mov      x19, x0
+0x100060D38   mov      x0, x3
+0x100060D3C   bl       0x100039c0c
+0x100060D40   cbz      w0, 0x100060ea0
+0x100060D44   bl       _NSBeep
+0x100060D48   adrp     x8, 132              ; 0x1000e4000
+0x100060D4C   ldr      x0, [x8, #0xeb0]     ; _OBJC_CLASS_$_NSAlert@got
+0x100060D50   bl       _objc_opt_new
+0x100060D54   bl       _objc_autorelease
+0x100060D58   mov      x23, x0
+0x100060D5C   mov      w2, #0x2
+0x100060D60   bl       "_objc_msgSend$setAlertStyle:"
+0x100060D64   adrp     x25, 132             ; 0x1000e4000
+0x100060D68   ldr      x0, [x25, #0xa80]    ; _OBJC_CLASS_$_NSBundle@got
+0x100060D6C   bl       _objc_msgSend$mainBundle
+0x100060D70   adrp     x2, 127              ; 0x1000df000
+0x100060D74   add      x2, x2, #0xc10       ; @"Paste Blocked"
+0x100060D78   adrp     x24, 122             ; 0x1000da000
+0x100060D7C   add      x24, x24, #0x270     ; @""
+0x100060D80   mov      x3, x24
+0x100060D84   mov      x4, #0x0
+0x100060D88   bl       "_objc_msgSend$localizedStringForKey:value:table:"
+0x100060D8C   mov      x2, x0
+0x100060D90   mov      x0, x23
+0x100060D94   bl       "_objc_msgSend$setMessageText:"
+0x100060D98   ldr      x0, [x25, #0xa80]
+0x100060D9C   bl       _objc_msgSend$mainBundle
+0x100060DA0   adrp     x2, 127              ; 0x1000df000
+0x100060DA4   add      x2, x2, #0xc30
+0x100060DA8   mov      x3, x24
+0x100060DAC   mov      x4, #0x0
+0x100060DB0   bl       "_objc_msgSend$localizedStringForKey:value:table:"
+0x100060DB4   mov      x2, x0
+0x100060DB8   mov      x0, x23
+0x100060DBC   bl       "_objc_msgSend$setInformativeText:"
+0x100060DC0   ldr      x0, [x25, #0xa80]
+0x100060DC4   bl       _objc_msgSend$mainBundle
+0x100060DC8   adrp     x2, 127              ; 0x1000df000
+0x100060DCC   add      x2, x2, #0xc50       ; @"Paste Anyway"
+0x100060DD0   mov      x3, x24
+0x100060DD4   mov      x4, #0x0
+0x100060DD8   bl       "_objc_msgSend$localizedStringForKey:value:table:"
+0x100060DDC   mov      x2, x0
+0x100060DE0   mov      x0, x23
+0x100060DE4   bl       "_objc_msgSend$addButtonWithTitle:"
+0x100060DE8   ldr      x0, [x25, #0xa80]
+0x100060DEC   bl       _objc_msgSend$mainBundle
+0x100060DF0   adrp     x2, 127              ; 0x1000df000
+0x100060DF4   add      x2, x2, #0xc70       ; @"Done"
+0x100060DF8   mov      x3, x24
+0x100060DFC   mov      x4, #0x0
+0x100060E00   bl       "_objc_msgSend$localizedStringForKey:value:table:"
+0x100060E04   mov      x2, x0
+0x100060E08   mov      x0, x23
+0x100060E0C   bl       "_objc_msgSend$addButtonWithTitle:"
+0x100060E10   mov      x0, x23
+0x100060E14   bl       _objc_msgSend$buttons
+0x100060E18   mov      x2, #0x0
+0x100060E1C   bl       "_objc_msgSend$objectAtIndexedSubscript:"
+0x100060E20   mov      w2, #0x1
+0x100060E24   bl       "_objc_msgSend$setHasDestructiveAction:"
+0x100060E28   mov      x0, x23
+0x100060E2C   bl       _objc_msgSend$buttons
+0x100060E30   mov      w2, #0x1
+0x100060E34   bl       "_objc_msgSend$objectAtIndexedSubscript:"
+0x100060E38   adrp     x2, 127              ; 0x1000df000
+0x100060E3C   add      x2, x2, #0xc90       ; @""
+0x100060E40   bl       "_objc_msgSend$setKeyEquivalent:"
+0x100060E44   mov      x0, x23
+0x100060E48   bl       _objc_msgSend$runModal
+0x100060E4C   mov      x8, x0
+0x100060E50   adrp     x9, 132              ; 0x1000e4000
+0x100060E54   ldr      x0, [x9, #0x948]     ; (null)@got
+0x100060E58   cmp      x8, #0x3e9
+0x100060E5C   b.ne     0x100060e8c
+0x100060E60   mov      w2, #0x1
+0x100060E64   mov      x3, x22
+0x100060E68   bl       "_objc_msgSend$sendPasteWarningInteractionWithClick:sourceApp:"
+0x100060E6C   mov      w0, #0x0
+0x100060E70   bl       0x100039b40
+0x100060E74   cbz      x21, 0x100061248
+0x100060E78   mov      x0, x21
+0x100060E7C   bl       _objc_msgSend$clearContents
+0x100060E80   b        0x100061248
+0x100060E84   mov      w0, #0x0
+0x100060E88   ret
+0x100060E8C   mov      x2, #0x0
+0x100060E90   mov      x3, x22
+0x100060E94   bl       "_objc_msgSend$sendPasteWarningInteractionWithClick:sourceApp:"
+0x100060E98   mov      w0, #0x1
+0x100060E9C   bl       0x100039b40
+0x100060EA0   mov      x0, x19
+0x100060EA4   bl       _objc_msgSend$clearTextSelectionAndPoint
+0x100060EA8   adrp     x8, 158              ; 0x1000fe000
+0x100060EAC   ldrsw    x28, [x8, #0x670]
+0x100060EB0   add      x8, x19, x28
+0x100060EB4   ldr      x0, [x8]
+0x100060EB8   adrp     x8, 161              ; 0x100101000
+0x100060EBC   add      x8, x8, #0x718
+0x100060EC0   ldr      x2, [x8]
+0x100060EC4   bl       "_objc_msgSend$valueForKey:"
+0x100060EC8   bl       _objc_msgSend$boolValue
+0x100060ECC   cbz      w0, 0x100060edc
+0x100060ED0   mov      x0, x20
+0x100060ED4   bl       _objc_msgSend$stringByNormalizingNewlines
+0x100060ED8   mov      x20, x0
+0x100060EDC   adrp     x8, 158              ; 0x1000fe000
+0x100060EE0   ldrsw    x8, [x8, #0x5d0]
+0x100060EE4   add      x8, x19, x8
+0x100060EE8   ldr      x0, [x8]
+0x100060EEC   bl       _objc_msgSend$bracketedPasteMode
+0x100060EF0   mov      x21, x0
+0x100060EF4   cbz      w0, 0x100060f4c
+0x100060EF8   adrp     x2, 127              ; 0x1000df000
+0x100060EFC   add      x2, x2, #0xcb0       ; @"[201~"
+0x100060F00   mov      x0, x20
+0x100060F04   bl       "_objc_msgSend$rangeOfString:"
+0x100060F08   mov      x8, #0x7fffffffffffffff
+0x100060F0C   cmp      x0, x8
+0x100060F10   b.ne     0x100061174
+0x100060F14   adrp     x8, 158              ; 0x1000fe000
+0x100060F18   ldrsw    x8, [x8, #0x66c]
+0x100060F1C   add      x8, x19, x8
+0x100060F20   ldr      x0, [x8]
+0x100060F24   bl       _objc_msgSend$shell
+0x100060F28   mov      x22, x0
+0x100060F2C   adrp     x0, 127              ; 0x1000df000
+0x100060F30   add      x0, x0, #0xd10       ; @"[200~"
+0x100060F34   mov      w2, #0x4
+0x100060F38   bl       "_objc_msgSend$dataUsingEncoding:"
+0x100060F3C   mov      x2, x0
+0x100060F40   mov      x0, x22
+0x100060F44   bl       "_objc_msgSend$writeData:"
+0x100060F48   b        0x100061250
+0x100060F4C   adrp     x8, 168              ; 0x100108000
+0x100060F50   ldr      x8, [x8, #0xa80]
+0x100060F54   cmn      x8, #0x1
+0x100060F58   b.ne     0x100061324
+0x100060F5C   adrp     x8, 168              ; 0x100108000
+0x100060F60   ldr      x2, [x8, #0xa78]
+0x100060F64   mov      x0, x20
+0x100060F68   mov      w3, #0x2
+0x100060F6C   bl       "_objc_msgSend$rangeOfCharacterFromSet:options:"
+0x100060F70   mov      x8, #0x7fffffffffffffff
+0x100060F74   cmp      x0, x8
+0x100060F78   b.eq     0x100061250
+0x100060F7C   bl       _NSBeep
+0x100060F80   adrp     x8, 132              ; 0x1000e4000
+0x100060F84   ldr      x0, [x8, #0xeb0]     ; _OBJC_CLASS_$_NSAlert@got
+0x100060F88   bl       _objc_opt_new
+0x100060F8C   bl       _objc_autorelease
+0x100060F90   mov      x22, x0
+0x100060F94   mov      x2, #0x0
+0x100060F98   bl       "_objc_msgSend$setAlertStyle:"
+0x100060F9C   adrp     x24, 132             ; 0x1000e4000
+0x100060FA0   ldr      x0, [x24, #0xa80]    ; _OBJC_CLASS_$_NSBundle@got
+0x100060FA4   bl       _objc_msgSend$mainBundle
+0x100060FA8   adrp     x2, 127              ; 0x1000df000
+0x100060FAC   add      x2, x2, #0xd30       ; @"Paste control characters?"
+0x100060FB0   adrp     x23, 122             ; 0x1000da000
+0x100060FB4   add      x23, x23, #0x270     ; @""
+0x100060FB8   mov      x3, x23
+0x100060FBC   mov      x4, #0x0
+0x100060FC0   bl       "_objc_msgSend$localizedStringForKey:value:table:"
+0x100060FC4   mov      x2, x0
+0x100060FC8   mov      x0, x22
+0x100060FCC   bl       "_objc_msgSend$setMessageText:"
+0x100060FD0   ldr      x0, [x24, #0xa80]
+0x100060FD4   bl       _objc_msgSend$mainBundle
+0x100060FD8   adrp     x2, 127              ; 0x1000df000
+0x100060FDC   add      x2, x2, #0xd50       ; @"The text contains control characters, which could allow the pasted content to perform arbitrary commands.
+0x100060FE0   mov      x3, x23
+0x100060FE4   mov      x4, #0x0
+0x100060FE8   bl       "_objc_msgSend$localizedStringForKey:value:table:"
+0x100060FEC   mov      x2, x0
+0x100060FF0   mov      x0, x22
+0x100060FF4   bl       "_objc_msgSend$setInformativeText:"
+0x100060FF8   ldr      x0, [x24, #0xa80]
+0x100060FFC   bl       _objc_msgSend$mainBundle
+0x100061000   adrp     x2, 126              ; 0x1000df000
+0x100061004   add      x2, x2, #0xd70       ; @"Paste"
+0x100061008   mov      x3, x23
+0x10006100C   mov      x4, #0x0
+0x100061010   bl       "_objc_msgSend$localizedStringForKey:value:table:"
+0x100061014   mov      x2, x0
+0x100061018   mov      x0, x22
+0x10006101C   bl       "_objc_msgSend$addButtonWithTitle:"
+0x100061020   ldr      x0, [x24, #0xa80]
+0x100061024   bl       _objc_msgSend$mainBundle
+0x100061028   adrp     x2, 122              ; 0x1000db000
+0x10006102C   add      x2, x2, #0xd50       ; @"Cancel"
+0x100061030   mov      x3, x23
+0x100061034   mov      x4, #0x0
+0x100061038   bl       "_objc_msgSend$localizedStringForKey:value:table:"
+0x10006103C   mov      x2, x0
+0x100061040   mov      x0, x22
+0x100061044   bl       "_objc_msgSend$addButtonWithTitle:"
+0x100061048   ldr      x0, [x24, #0xa80]
+0x10006104C   bl       _objc_msgSend$mainBundle
+0x100061050   adrp     x2, 126              ; 0x1000df000
+0x100061054   add      x2, x2, #0xd90       ; @"Paste without Control Characters"
+0x100061058   mov      x3, x23
+0x10006105C   mov      x4, #0x0
+0x100061060   bl       "_objc_msgSend$localizedStringForKey:value:table:"
+0x100061064   mov      x2, x0
+0x100061068   mov      x0, x22
+0x10006106C   bl       "_objc_msgSend$addButtonWithTitle:"
+0x100061070   mov      x0, x22
+0x100061074   bl       _objc_msgSend$buttons
+0x100061078   mov      x2, #0x0
+0x10006107C   bl       "_objc_msgSend$objectAtIndexedSubscript:"
+0x100061080   adrp     x2, 122              ; 0x1000db000
+0x100061084   add      x2, x2, #0x990       ; @"
+0x100061088   bl       "_objc_msgSend$setKeyEquivalent:"
+0x10006108C   mov      x0, x22
+0x100061090   bl       _objc_msgSend$buttons
+0x100061094   mov      x2, #0x0
+0x100061098   bl       "_objc_msgSend$objectAtIndexedSubscript:"
+0x10006109C   mov      w2, #0x120000
+0x1000610A0   bl       "_objc_msgSend$setKeyEquivalentModifierMask:"
+0x1000610A4   mov      x0, x22
+0x1000610A8   bl       _objc_msgSend$buttons
+0x1000610AC   mov      w2, #0x2
+0x1000610B0   bl       "_objc_msgSend$objectAtIndexedSubscript:"
+0x1000610B4   adrp     x2, 126              ; 0x1000df000
+0x1000610B8   add      x2, x2, #0xdb0       ; @"p"
+0x1000610BC   bl       "_objc_msgSend$setKeyEquivalent:"
+0x1000610C0   mov      x0, x22
+0x1000610C4   bl       _objc_msgSend$buttons
+0x1000610C8   mov      w2, #0x2
+0x1000610CC   bl       "_objc_msgSend$objectAtIndexedSubscript:"
+0x1000610D0   mov      w2, #0x100000
+0x1000610D4   bl       "_objc_msgSend$setKeyEquivalentModifierMask:"
+0x1000610D8   mov      x0, x22
+0x1000610DC   bl       _objc_msgSend$runModal
+0x1000610E0   mov      x22, x0
+0x1000610E4   cmp      x0, #0x3ea
+0x1000610E8   b.ne     0x10006120c
+0x1000610EC   mov      x0, x20
+0x1000610F0   bl       _objc_msgSend$length
+0x1000610F4   mov      x24, x0
+0x1000610F8   adrp     x8, 131              ; 0x1000e4000
+0x1000610FC   ldr      x0, [x8, #0xb00]     ; _OBJC_CLASS_$_NSMutableString@got
+0x100061100   mov      x2, x24
+0x100061104   bl       "_objc_msgSend$stringWithCapacity:"
+0x100061108   mov      x23, x0
+0x10006110C   cbz      x24, 0x100061214
+0x100061110   str      x22, [sp, #0x8]
+0x100061114   mov      x25, #0x0
+0x100061118   mov      x22, #0x7fffffffffffffff
+0x10006111C   mov      x5, x24
+0x100061120   adrp     x8, 167              ; 0x100108000
+0x100061124   ldr      x2, [x8, #0xa78]
+0x100061128   mov      x0, x20
+0x10006112C   mov      w3, #0x2
+0x100061130   mov      x4, x25
+0x100061134   bl       "_objc_msgSend$rangeOfCharacterFromSet:options:range:"
+0x100061138   cmp      x0, x22
+0x10006113C   b.eq     0x10006121c
+0x100061140   mov      x26, x0
+0x100061144   mov      x27, x1
+0x100061148   sub      x3, x0, x25
+0x10006114C   mov      x0, x20
+0x100061150   mov      x2, x25
+0x100061154   bl       "_objc_msgSend$substringWithRange:"
+0x100061158   mov      x2, x0
+0x10006115C   mov      x0, x23
+0x100061160   bl       "_objc_msgSend$appendString:"
+0x100061164   add      x25, x26, x27
+0x100061168   subs     x5, x24, x25
+0x10006116C   b.hi     0x100061120
+0x100061170   b        0x100061238
+0x100061174   bl       _NSBeep
+0x100061178   adrp     x8, 131              ; 0x1000e4000
+0x10006117C   ldr      x0, [x8, #0xeb0]     ; _OBJC_CLASS_$_NSAlert@got
+0x100061180   bl       _objc_opt_new
+0x100061184   bl       _objc_autorelease
+0x100061188   mov      x20, x0
+0x10006118C   mov      w2, #0x2
+0x100061190   bl       "_objc_msgSend$setAlertStyle:"
+0x100061194   adrp     x22, 131             ; 0x1000e4000
+0x100061198   ldr      x0, [x22, #0xa80]    ; _OBJC_CLASS_$_NSBundle@got
+0x10006119C   bl       _objc_msgSend$mainBundle
+0x1000611A0   adrp     x2, 126              ; 0x1000df000
+0x1000611A4   add      x2, x2, #0xcd0       ; @"You cannot send the text to the terminal, because it contains invalid content for Bracketed Paste Mode."
+0x1000611A8   adrp     x21, 121             ; 0x1000da000
+0x1000611AC   add      x21, x21, #0x270     ; @""
+0x1000611B0   mov      x3, x21
+0x1000611B4   mov      x4, #0x0
+0x1000611B8   bl       "_objc_msgSend$localizedStringForKey:value:table:"
+0x1000611BC   mov      x2, x0
+0x1000611C0   mov      x0, x20
+0x1000611C4   bl       "_objc_msgSend$setMessageText:"
+0x1000611C8   ldr      x0, [x22, #0xa80]
+0x1000611CC   bl       _objc_msgSend$mainBundle
+0x1000611D0   adrp     x2, 126              ; 0x1000df000
+0x1000611D4   add      x2, x2, #0xcf0       ; @"Bracketed Paste Mode is enabled in the terminal and the text to send contains the escape sequence that marks the end of pasted text. This is invalid for Bracketed Paste Mode, and could allow subsequent
+0x1000611D8   mov      x3, x21
+0x1000611DC   mov      x4, #0x0
+0x1000611E0   bl       "_objc_msgSend$localizedStringForKey:value:table:"
+0x1000611E4   mov      x2, x0
+0x1000611E8   mov      x0, x20
+0x1000611EC   bl       "_objc_msgSend$setInformativeText:"
+0x1000611F0   mov      x0, x19
+0x1000611F4   bl       _objc_msgSend$window
+0x1000611F8   mov      x2, x0
+0x1000611FC   mov      x0, x20
+0x100061200   mov      x3, #0x0
+0x100061204   bl       "_objc_msgSend$beginSheetModalForWindow:completionHandler:"
+0x100061208   b        0x100061248
+0x10006120C   mov      x23, x20
+0x100061210   b        0x10006123c
+0x100061214   mov      x20, x23
+0x100061218   b        0x100061250
+0x10006121C   sub      x3, x24, x25
+0x100061220   mov      x0, x20
+0x100061224   mov      x2, x25
+0x100061228   bl       "_objc_msgSend$substringWithRange:"
+0x10006122C   mov      x2, x0
+0x100061230   mov      x0, x23
+0x100061234   bl       "_objc_msgSend$appendString:"
+0x100061238   ldr      x22, [sp, #0x8]
+0x10006123C   mov      x20, x23
+0x100061240   cmp      x22, #0x3e9
+0x100061244   b.ne     0x100061250
+0x100061248   mov      w0, #0x0
+0x10006124C   b        0x100061300
+0x100061250   adrp     x8, 157              ; 0x1000fe000
+0x100061254   ldrsw    x23, [x8, #0x66c]
+0x100061258   add      x8, x19, x23
+0x10006125C   ldr      x0, [x8]
+0x100061260   bl       _objc_msgSend$shell
+0x100061264   mov      x22, x0
+0x100061268   ldr      x0, [x19, x28]
+0x10006126C   adrp     x8, 160              ; 0x100101000
+0x100061270   add      x8, x8, #0x700
+0x100061274   ldr      x2, [x8]
+0x100061278   bl       "_objc_msgSend$valueForKey:"
+0x10006127C   bl       _objc_msgSend$intValue
+0x100061280   sxtw     x2, w0
+0x100061284   mov      x0, x20
+0x100061288   bl       "_objc_msgSend$dataUsingEncoding:"
+0x10006128C   mov      x2, x0
+0x100061290   mov      x0, x22
+0x100061294   bl       "_objc_msgSend$writeData:"
+0x100061298   cbz      w21, 0x1000612c4
+0x10006129C   ldr      x0, [x19, x23]
+0x1000612A0   bl       _objc_msgSend$shell
+0x1000612A4   mov      x20, x0
+0x1000612A8   adrp     x0, 126              ; 0x1000df000
+0x1000612AC   add      x0, x0, #0xcb0       ; @"[201~"
+0x1000612B0   mov      w2, #0x4
+0x1000612B4   bl       "_objc_msgSend$dataUsingEncoding:"
+0x1000612B8   mov      x2, x0
+0x1000612BC   mov      x0, x20
+0x1000612C0   bl       "_objc_msgSend$writeData:"
+0x1000612C4   mov      x0, x19
+0x1000612C8   bl       _objc_msgSend$_clearTabIsBusyForInput
+0x1000612CC   ldr      x0, [x19, x28]
+0x1000612D0   adrp     x8, 160              ; 0x100101000
+0x1000612D4   add      x8, x8, #0x960
+0x1000612D8   ldr      x2, [x8]
+0x1000612DC   bl       "_objc_msgSend$valueForKey:"
+0x1000612E0   bl       _objc_msgSend$boolValue
+0x1000612E4   cbz      w0, 0x1000612fc
+0x1000612E8   adrp     x8, 157              ; 0x1000fe000
+0x1000612EC   ldrsw    x8, [x8, #0x5d4]
+0x1000612F0   add      x8, x19, x8
+0x1000612F4   ldr      x0, [x8]
+0x1000612F8   bl       _objc_msgSend$scrollToBottom
+0x1000612FC   mov      w0, #0x1
+0x100061300   ldp      x29, x30, [sp, #0x60]
+0x100061304   ldp      x20, x19, [sp, #0x50]
+0x100061308   ldp      x22, x21, [sp, #0x40]
+0x10006130C   ldp      x24, x23, [sp, #0x30]
+0x100061310   ldp      x26, x25, [sp, #0x20]
+0x100061314   ldp      x28, x27, [sp, #0x10]
+0x100061318   add      sp, sp, #0x70
+0x10006131C   autibsp
+0x100061320   ret
+0x100061324   bl       0x10008f91c
+0x100061328   b        0x100060f5c

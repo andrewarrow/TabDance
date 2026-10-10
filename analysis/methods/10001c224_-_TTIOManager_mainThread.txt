@@ -1,0 +1,244 @@
+-[TTIOManager mainThread]
+0x10001C224   pacibsp
+0x10001C228   stp      x28, x27, [sp, #-0x60]!
+0x10001C22C   stp      x26, x25, [sp, #0x10]
+0x10001C230   stp      x24, x23, [sp, #0x20]
+0x10001C234   stp      x22, x21, [sp, #0x30]
+0x10001C238   stp      x20, x19, [sp, #0x40]
+0x10001C23C   stp      x29, x30, [sp, #0x50]
+0x10001C240   add      x29, sp, #0x50
+0x10001C244   sub      sp, sp, #0x1b0
+0x10001C248   mov      x19, x0
+0x10001C24C   adrp     x8, 200              ; 0x1000e4000
+0x10001C250   ldr      x8, [x8, #0x9b8]     ; ___stack_chk_guard@got
+0x10001C254   ldr      x8, [x8]
+0x10001C258   stur     x8, [x29, #-0x60]
+0x10001C25C   ldr      x0, [x0, #0x8]
+0x10001C260   bl       _objc_msgSend$lock
+0x10001C264   ldr      x0, [x19, #0x48]
+0x10001C268   bl       _objc_msgSend$copy
+0x10001C26C   bl       _objc_autorelease
+0x10001C270   mov      x20, x0
+0x10001C274   movi.2d  v0, #0000000000000000
+0x10001C278   stp      q0, q0, [sp, #0x80]
+0x10001C27C   stp      q0, q0, [sp, #0x60]
+0x10001C280   add      x2, sp, #0x60
+0x10001C284   sub      x3, x29, #0xe0
+0x10001C288   mov      w4, #0x10
+0x10001C28C   bl       "_objc_msgSend$countByEnumeratingWithState:objects:count:"
+0x10001C290   mov      x21, x0
+0x10001C294   cbz      x0, 0x10001c3a0
+0x10001C298   ldr      x8, [sp, #0x70]
+0x10001C29C   ldr      x26, [x8]
+0x10001C2A0   add      x27, sp, #0x40
+0x10001C2A4   mov      x28, #0x0
+0x10001C2A8   ldr      x8, [sp, #0x70]
+0x10001C2AC   ldr      x8, [x8]
+0x10001C2B0   cmp      x8, x26
+0x10001C2B4   b.eq     0x10001c2c0
+0x10001C2B8   mov      x0, x20
+0x10001C2BC   bl       _objc_enumerationMutation
+0x10001C2C0   ldr      x8, [sp, #0x68]
+0x10001C2C4   ldr      x22, [x8, x28, lsl #3]
+0x10001C2C8   ldr      x0, [x19, #0x48]
+0x10001C2CC   mov      x2, x22
+0x10001C2D0   bl       "_objc_msgSend$objectForKey:"
+0x10001C2D4   mov      x24, x0
+0x10001C2D8   cbz      x0, 0x10001c378
+0x10001C2DC   ldr      x0, [x19, #0x38]
+0x10001C2E0   mov      x2, x22
+0x10001C2E4   bl       "_objc_msgSend$objectForKey:"
+0x10001C2E8   mov      x23, x0
+0x10001C2EC   bl       _objc_msgSend$length
+0x10001C2F0   cbz      x0, 0x10001c378
+0x10001C2F4   mov      x0, x24
+0x10001C2F8   bl       _objc_msgSend$target
+0x10001C2FC   mov      x25, x0
+0x10001C300   mov      x0, x24
+0x10001C304   bl       _objc_msgSend$action
+0x10001C308   mov      x2, x0
+0x10001C30C   mov      x0, x25
+0x10001C310   mov      x3, x23
+0x10001C314   bl       "_objc_msgSend$performSelector:withObject:"
+0x10001C318   mov      x0, x23
+0x10001C31C   mov      x2, #0x0
+0x10001C320   bl       "_objc_msgSend$setLength:"
+0x10001C324   mov      x0, x22
+0x10001C328   bl       _objc_msgSend$intValue
+0x10001C32C   ldr      x8, [x19, #0x58]
+0x10001C330   sxtw     x22, w0
+0x10001C334   mov      x0, x8
+0x10001C338   mov      x2, x22
+0x10001C33C   bl       "_objc_msgSend$containsIndex:"
+0x10001C340   cbz      w0, 0x10001c378
+0x10001C344   ldr      x0, [x19, #0x58]
+0x10001C348   mov      x2, x22
+0x10001C34C   bl       "_objc_msgSend$removeIndex:"
+0x10001C350   str      x22, [sp, #0x40]
+0x10001C354   mov      w8, #0x4ffff
+0x10001C358   str      w8, [sp, #0x48]
+0x10001C35C   stur     xzr, [x27, #0x14]
+0x10001C360   stur     xzr, [x27, #0xc]
+0x10001C364   stur     wzr, [x27, #0x1c]
+0x10001C368   add      x2, sp, #0x40
+0x10001C36C   mov      x0, x19
+0x10001C370   mov      w3, #0x1
+0x10001C374   bl       "_objc_msgSend$applyKEventChanges:count:"
+0x10001C378   add      x28, x28, #0x1
+0x10001C37C   subs     x21, x21, #0x1
+0x10001C380   b.ne     0x10001c2a8
+0x10001C384   add      x2, sp, #0x60
+0x10001C388   sub      x3, x29, #0xe0
+0x10001C38C   mov      x0, x20
+0x10001C390   mov      w4, #0x10
+0x10001C394   bl       "_objc_msgSend$countByEnumeratingWithState:objects:count:"
+0x10001C398   mov      x21, x0
+0x10001C39C   cbnz     x0, 0x10001c2a4
+0x10001C3A0   ldr      x0, [x19, #0x8]
+0x10001C3A4   bl       _objc_msgSend$unlock
+0x10001C3A8   cbnz     w21, 0x10001c4ec
+0x10001C3AC   ldr      x0, [x19, #0x18]
+0x10001C3B0   bl       _objc_msgSend$lock
+0x10001C3B4   ldr      x0, [x19, #0x50]
+0x10001C3B8   mov      x22, #0x0
+0x10001C3BC   bl       _objc_msgSend$copy
+0x10001C3C0   mov      x20, x0
+0x10001C3C4   ldr      x0, [x19, #0x50]
+0x10001C3C8   mov      x22, x20
+0x10001C3CC   bl       _objc_msgSend$removeAllObjects
+0x10001C3D0   mov      w21, #0x0
+0x10001C3D4   ldr      x0, [x19, #0x18]
+0x10001C3D8   bl       _objc_msgSend$unlock
+0x10001C3DC   cbnz     w21, 0x10001c500
+0x10001C3E0   movi.2d  v0, #0000000000000000
+0x10001C3E4   stp      q0, q0, [sp, #0x20]
+0x10001C3E8   stp      q0, q0, [sp]
+0x10001C3EC   mov      x2, sp
+0x10001C3F0   add      x3, sp, #0xa0
+0x10001C3F4   mov      x0, x20
+0x10001C3F8   mov      w4, #0x10
+0x10001C3FC   bl       "_objc_msgSend$countByEnumeratingWithState:objects:count:"
+0x10001C400   mov      x21, x0
+0x10001C404   cbz      x0, 0x10001c484
+0x10001C408   ldr      x8, [sp, #0x10]
+0x10001C40C   ldr      x23, [x8]
+0x10001C410   mov      x24, #0x0
+0x10001C414   ldr      x8, [sp, #0x10]
+0x10001C418   ldr      x8, [x8]
+0x10001C41C   cmp      x8, x23
+0x10001C420   b.eq     0x10001c42c
+0x10001C424   mov      x0, x20
+0x10001C428   bl       _objc_enumerationMutation
+0x10001C42C   ldr      x8, [sp, #0x8]
+0x10001C430   ldr      x2, [x8, x24, lsl #3]
+0x10001C434   mov      x0, x20
+0x10001C438   bl       "_objc_msgSend$objectForKey:"
+0x10001C43C   mov      x22, x0
+0x10001C440   cbz      x0, 0x10001c45c
+0x10001C444   mov      x0, x22
+0x10001C448   mov      x2, x19
+0x10001C44C   bl       "_objc_msgSend$ioManagerDidEncounterError:"
+0x10001C450   mov      x0, x19
+0x10001C454   mov      x2, x22
+0x10001C458   bl       "_objc_msgSend$removeShell:"
+0x10001C45C   add      x24, x24, #0x1
+0x10001C460   subs     x21, x21, #0x1
+0x10001C464   b.ne     0x10001c414
+0x10001C468   mov      x2, sp
+0x10001C46C   add      x3, sp, #0xa0
+0x10001C470   mov      x0, x20
+0x10001C474   mov      w4, #0x10
+0x10001C478   bl       "_objc_msgSend$countByEnumeratingWithState:objects:count:"
+0x10001C47C   mov      x21, x0
+0x10001C480   cbnz     x0, 0x10001c410
+0x10001C484   mov      x0, x20
+0x10001C488   bl       _objc_release
+0x10001C48C   mov      w21, #0x0
+0x10001C490   ldr      x0, [x19, #0x20]
+0x10001C494   bl       _objc_msgSend$lock
+0x10001C498   mov      w8, #0x1
+0x10001C49C   strb     w8, [x19, #0x60]
+0x10001C4A0   ldr      x0, [x19, #0x20]
+0x10001C4A4   bl       _objc_msgSend$unlock
+0x10001C4A8   mov      x0, x19
+0x10001C4AC   bl       _objc_msgSend$signalIOThread
+0x10001C4B0   cbnz     w21, 0x10001c4f4
+0x10001C4B4   ldur     x8, [x29, #-0x60]
+0x10001C4B8   adrp     x9, 200              ; 0x1000e4000
+0x10001C4BC   ldr      x9, [x9, #0x9b8]     ; ___stack_chk_guard@got
+0x10001C4C0   ldr      x9, [x9]
+0x10001C4C4   cmp      x9, x8
+0x10001C4C8   b.ne     0x10001c4fc
+0x10001C4CC   add      sp, sp, #0x1b0
+0x10001C4D0   ldp      x29, x30, [sp, #0x50]
+0x10001C4D4   ldp      x20, x19, [sp, #0x40]
+0x10001C4D8   ldp      x22, x21, [sp, #0x30]
+0x10001C4DC   ldp      x24, x23, [sp, #0x20]
+0x10001C4E0   ldp      x26, x25, [sp, #0x10]
+0x10001C4E4   ldp      x28, x27, [sp], #0x60
+0x10001C4E8   retab
+0x10001C4EC   bl       _objc_exception_rethrow
+0x10001C4F0   b        0x10001c504
+0x10001C4F4   bl       _objc_exception_rethrow
+0x10001C4F8   b        0x10001c504
+0x10001C4FC   bl       ___stack_chk_fail
+0x10001C500   bl       _objc_exception_rethrow
+0x10001C504   brk      #0x1
+0x10001C508   b        0x10001c5c0
+0x10001C50C   b        0x10001c5c0
+0x10001C510   mov      x20, x0
+0x10001C514   cbnz     w1, 0x10001c528
+0x10001C518   b        0x10001c59c
+0x10001C51C   mov      x20, x0
+0x10001C520   cbz      w1, 0x10001c59c
+0x10001C524   cbz      w21, 0x10001c5c8
+0x10001C528   bl       _objc_end_catch
+0x10001C52C   b        0x10001c5c8
+0x10001C530   mov      x20, x0
+0x10001C534   b        0x10001c58c
+0x10001C538   b        0x10001c5c0
+0x10001C53C   b        0x10001c5d8
+0x10001C540   mov      x20, x0
+0x10001C544   cbnz     w1, 0x10001c558
+0x10001C548   b        0x10001c59c
+0x10001C54C   mov      x20, x0
+0x10001C550   cbz      w1, 0x10001c59c
+0x10001C554   cbz      w21, 0x10001c5c8
+0x10001C558   bl       _objc_end_catch
+0x10001C55C   b        0x10001c5c8
+0x10001C560   b        0x10001c5c0
+0x10001C564   mov      x20, x0
+0x10001C568   cbz      w1, 0x10001c59c
+0x10001C56C   mov      x0, x20
+0x10001C570   bl       _objc_begin_catch
+0x10001C574   mov      w21, #0x1
+0x10001C578   mov      x20, x22
+0x10001C57C   b        0x10001c3d4
+0x10001C580   b        0x10001c5d8
+0x10001C584   mov      x20, x0
+0x10001C588   cbz      w21, 0x10001c59c
+0x10001C58C   bl       _objc_end_catch
+0x10001C590   b        0x10001c59c
+0x10001C594   cbnz     w1, 0x10001c5a4
+0x10001C598   mov      x20, x0
+0x10001C59C   mov      x0, x20
+0x10001C5A0   bl       __Unwind_Resume
+0x10001C5A4   bl       _objc_terminate
+0x10001C5A8   b        0x10001c5d8
+0x10001C5AC   b        0x10001c5c0
+0x10001C5B0   b        0x10001c5d8
+0x10001C5B4   b        0x10001c5d8
+0x10001C5B8   b        0x10001c5d8
+0x10001C5BC   b        0x10001c5d8
+0x10001C5C0   mov      x20, x0
+0x10001C5C4   cbz      w1, 0x10001c59c
+0x10001C5C8   mov      x0, x20
+0x10001C5CC   bl       _objc_begin_catch
+0x10001C5D0   mov      w21, #0x1
+0x10001C5D4   b        0x10001c490
+0x10001C5D8   mov      x20, x0
+0x10001C5DC   cbz      w1, 0x10001c59c
+0x10001C5E0   mov      x0, x20
+0x10001C5E4   bl       _objc_begin_catch
+0x10001C5E8   mov      w21, #0x1
+0x10001C5EC   b        0x10001c3a0

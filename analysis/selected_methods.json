@@ -1,0 +1,110 @@
+{
+  "methods": [
+    {
+      "address": "0x100036ca4",
+      "end_exclusive": "0x1000379e0",
+      "file": "methods/100036ca4_-_TTShell_initWithAction_target_profile_controller_customShell_commandAsShell_workingDirectory_sessionClass_restoreSession_provenance.txt",
+      "instruction_count": 847,
+      "name": "-[TTShell initWithAction:target:profile:controller:customShell:commandAsShell:workingDirectory:sessionClass:restoreSession:provenance:]"
+    },
+    {
+      "address": "0x100010644",
+      "end_exclusive": "0x1000106d0",
+      "file": "methods/100010644_-_TTShell_updateContentSize_rowCount_columnCount.txt",
+      "instruction_count": 35,
+      "name": "-[TTShell updateContentSize:rowCount:columnCount:]"
+    },
+    {
+      "address": "0x10001c824",
+      "end_exclusive": "0x10001c960",
+      "file": "methods/10001c824_-_TTEncodingConverter_alignData_usingEncoding.txt",
+      "instruction_count": 79,
+      "name": "-[TTEncodingConverter alignData:usingEncoding:]"
+    },
+    {
+      "address": "0x10001c698",
+      "end_exclusive": "0x10001c824",
+      "file": "methods/10001c698_-_TTEncodingConverter_decodeData.txt",
+      "instruction_count": 99,
+      "name": "-[TTEncodingConverter decodeData:]"
+    },
+    {
+      "address": "0x10001c630",
+      "end_exclusive": "0x10001c698",
+      "file": "methods/10001c630_-_TTTabController_shellDidReceiveData.txt",
+      "instruction_count": 26,
+      "name": "-[TTTabController shellDidReceiveData:]"
+    },
+    {
+      "address": "0x1000126c4",
+      "end_exclusive": "0x100012770",
+      "file": "methods/1000126c4_-_TTLogicalScreen_displayWidthForCharacter.txt",
+      "instruction_count": 43,
+      "name": "-[TTLogicalScreen displayWidthForCharacter:]"
+    },
+    {
+      "address": "0x100050bf4",
+      "end_exclusive": "0x1000522f4",
+      "file": "methods/100050bf4_-_TTView_drawAttributedString_forLine_inContext_atPoint_isTextMarked_size_containsCursor_atColumn_containsInsertionPoint_atColumn_selectedTextRanges_selectionColor_withANSIBackgroundColor.txt",
+      "instruction_count": 1472,
+      "name": "-[TTView drawAttributedString:forLine:inContext:atPoint:isTextMarked:size:containsCursor:atColumn:containsInsertionPoint:atColumn:selectedTextRanges:selectionColor:withANSIBackgroundColor:]"
+    },
+    {
+      "address": "0x100060d00",
+      "end_exclusive": "0x10006132c",
+      "file": "methods/100060d00_-_TTView_readSelectionFromString_source_pasteboard.txt",
+      "instruction_count": 395,
+      "name": "-[TTView readSelectionFromString:source:pasteboard:]"
+    },
+    {
+      "address": "0x10001c9b4",
+      "end_exclusive": "0x10001fa80",
+      "file": "methods/10001c9b4_-_TTVT100Emulator_decodeData.txt",
+      "instruction_count": 3123,
+      "name": "-[TTVT100Emulator decodeData:]"
+    },
+    {
+      "address": "0x100066930",
+      "end_exclusive": "0x100066ee0",
+      "file": "methods/100066930_-_TTVT100Emulator_encodeKeyDownEvent.txt",
+      "instruction_count": 364,
+      "name": "-[TTVT100Emulator encodeKeyDownEvent:]"
+    },
+    {
+      "address": "0x100020cf0",
+      "end_exclusive": "0x10002130c",
+      "file": "methods/100020cf0_-_TTVT100Emulator_performOperatingSystemCommand.txt",
+      "instruction_count": 391,
+      "name": "-[TTVT100Emulator performOperatingSystemCommand]"
+    },
+    {
+      "address": "0x10000acf4",
+      "end_exclusive": "0x10000aeb0",
+      "file": "methods/10000acf4_-_TTIOManager_init.txt",
+      "instruction_count": 111,
+      "name": "-[TTIOManager init]"
+    },
+    {
+      "address": "0x1000241e8",
+      "end_exclusive": "0x100024328",
+      "file": "methods/1000241e8_-_TTIOManager_writeData_forShell.txt",
+      "instruction_count": 80,
+      "name": "-[TTIOManager writeData:forShell:]"
+    },
+    {
+      "address": "0x10000b170",
+      "end_exclusive": "0x10000b81c",
+      "file": "methods/10000b170_-_TTIOManager_IOThread.txt",
+      "instruction_count": 427,
+      "name": "-[TTIOManager IOThread]"
+    },
+    {
+      "address": "0x10001c224",
+      "end_exclusive": "0x10001c5f0",
+      "file": "methods/10001c224_-_TTIOManager_mainThread.txt",
+      "instruction_count": 243,
+      "name": "-[TTIOManager mainThread]"
+    }
+  ],
+  "range_source": "raw/dyld_function_starts.txt"
+}

@@ -1,0 +1,4 @@
+/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho [arm64e]:
+    -platform:
+        platform     minOS      sdk
+           macOS     27.0      27.0   

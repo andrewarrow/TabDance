@@ -1,0 +1,2 @@
+/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho [arm64e]:
+    -inits:

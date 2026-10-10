@@ -1,0 +1,81 @@
+-[TTIOManager writeData:forShell:]
+0x1000241E8   pacibsp
+0x1000241EC   sub      sp, sp, #0x80
+0x1000241F0   stp      x24, x23, [sp, #0x40]
+0x1000241F4   stp      x22, x21, [sp, #0x50]
+0x1000241F8   stp      x20, x19, [sp, #0x60]
+0x1000241FC   stp      x29, x30, [sp, #0x70]
+0x100024200   add      x29, sp, #0x70
+0x100024204   mov      x20, x3
+0x100024208   mov      x21, x2
+0x10002420C   mov      x19, x0
+0x100024210   mov      x0, x2
+0x100024214   bl       _objc_msgSend$length
+0x100024218   cbz      x0, 0x1000242d8
+0x10002421C   mov      x0, x20
+0x100024220   bl       _objc_msgSend$fileDescriptor
+0x100024224   mov      x20, x0
+0x100024228   adrp     x8, 193              ; 0x1000e5000
+0x10002422C   ldr      x22, [x8, #0x1d0]    ; _OBJC_CLASS_$_NSMutableDictionary@got
+0x100024230   adrp     x23, 192             ; 0x1000e4000
+0x100024234   ldr      x0, [x23, #0xb20]    ; _OBJC_CLASS_$_NSNumber@got
+0x100024238   mov      x2, #0x0
+0x10002423C   bl       "_objc_msgSend$numberWithUnsignedInteger:"
+0x100024240   adrp     x8, 190              ; 0x1000e2000
+0x100024244   add      x8, x8, #0x410       ; @"Offset"
+0x100024248   stp      x8, xzr, [sp, #0x10]
+0x10002424C   adrp     x8, 190              ; 0x1000e2000
+0x100024250   add      x8, x8, #0x3f0       ; @"Data"
+0x100024254   stp      x8, x0, [sp]
+0x100024258   mov      x0, x22
+0x10002425C   mov      x2, x21
+0x100024260   bl       "_objc_msgSend$dictionaryWithObjectsAndKeys:"
+0x100024264   mov      x21, x0
+0x100024268   ldr      x0, [x19, #0x10]
+0x10002426C   bl       _objc_msgSend$lock
+0x100024270   ldr      x22, [x19, #0x40]
+0x100024274   ldr      x0, [x23, #0xb20]
+0x100024278   mov      x2, x20
+0x10002427C   bl       "_objc_msgSend$numberWithInt:"
+0x100024280   mov      x2, x0
+0x100024284   mov      x0, x22
+0x100024288   bl       "_objc_msgSend$objectForKey:"
+0x10002428C   cbz      x0, 0x1000242c8
+0x100024290   mov      x2, x21
+0x100024294   bl       "_objc_msgSend$addObject:"
+0x100024298   sxtw     x8, w20
+0x10002429C   str      x8, [sp, #0x20]
+0x1000242A0   mov      w8, #0xfffe
+0x1000242A4   movk     w8, #0x4, lsl #16
+0x1000242A8   str      w8, [sp, #0x28]
+0x1000242AC   stur     xzr, [sp, #0x34]
+0x1000242B0   stur     xzr, [sp, #0x2c]
+0x1000242B4   str      wzr, [sp, #0x3c]
+0x1000242B8   add      x2, sp, #0x20
+0x1000242BC   mov      x0, x19
+0x1000242C0   mov      w3, #0x1
+0x1000242C4   bl       "_objc_msgSend$applyKEventChanges:count:"
+0x1000242C8   mov      w20, #0x0
+0x1000242CC   ldr      x0, [x19, #0x10]
+0x1000242D0   bl       _objc_msgSend$unlock
+0x1000242D4   cbnz     w20, 0x1000242f0
+0x1000242D8   ldp      x29, x30, [sp, #0x70]
+0x1000242DC   ldp      x20, x19, [sp, #0x60]
+0x1000242E0   ldp      x22, x21, [sp, #0x50]
+0x1000242E4   ldp      x24, x23, [sp, #0x40]
+0x1000242E8   add      sp, sp, #0x80
+0x1000242EC   retab
+0x1000242F0   bl       _objc_exception_rethrow
+0x1000242F4   brk      #0x1
+0x1000242F8   b        0x10002431c
+0x1000242FC   mov      x19, x0
+0x100024300   b        0x10002430c
+0x100024304   mov      x19, x0
+0x100024308   cbz      w20, 0x100024310
+0x10002430C   bl       _objc_end_catch
+0x100024310   mov      x0, x19
+0x100024314   bl       __Unwind_Resume
+0x100024318   bl       _objc_terminate
+0x10002431C   bl       _objc_begin_catch
+0x100024320   mov      w20, #0x1
+0x100024324   b        0x1000242cc

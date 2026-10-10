@@ -1,0 +1,100 @@
+-[TTEncodingConverter decodeData:]
+0x10001C698   pacibsp
+0x10001C69C   sub      sp, sp, #0x90
+0x10001C6A0   stp      x24, x23, [sp, #0x50]
+0x10001C6A4   stp      x22, x21, [sp, #0x60]
+0x10001C6A8   stp      x20, x19, [sp, #0x70]
+0x10001C6AC   stp      x29, x30, [sp, #0x80]
+0x10001C6B0   add      x29, sp, #0x80
+0x10001C6B4   mov      x20, x0
+0x10001C6B8   ldr      x3, [x0, #0x20]
+0x10001C6BC   bl       "_objc_msgSend$alignData:usingEncoding:"
+0x10001C6C0   mov      x19, x0
+0x10001C6C4   ldr      x8, [x20, #0x20]
+0x10001C6C8   cmp      x8, #0x4
+0x10001C6CC   b.eq     0x10001c75c
+0x10001C6D0   adrp     x8, 200              ; 0x1000e4000
+0x10001C6D4   ldr      x0, [x8, #0xb70]     ; _OBJC_CLASS_$_NSString@got
+0x10001C6D8   bl       _objc_alloc
+0x10001C6DC   ldr      x3, [x20, #0x20]
+0x10001C6E0   mov      x2, x19
+0x10001C6E4   bl       "_objc_msgSend$initWithData:encoding:"
+0x10001C6E8   cbz      x0, 0x10001c708
+0x10001C6EC   mov      x21, x0
+0x10001C6F0   mov      w2, #0x4
+0x10001C6F4   bl       "_objc_msgSend$dataUsingEncoding:"
+0x10001C6F8   mov      x19, x0
+0x10001C6FC   mov      x0, x21
+0x10001C700   bl       _objc_autorelease
+0x10001C704   b        0x10001c75c
+0x10001C708   stur     xzr, [x29, #-0x38]
+0x10001C70C   stp      xzr, xzr, [sp, #0x28]
+0x10001C710   str      xzr, [sp, #0x20]
+0x10001C714   mov      w0, #0x100
+0x10001C718   mov      w1, #0x0
+0x10001C71C   mov      w2, #0x2
+0x10001C720   bl       _CreateTextEncoding
+0x10001C724   str      w0, [sp, #0x3c]
+0x10001C728   ldr      x0, [x20, #0x20]
+0x10001C72C   bl       _CFStringConvertNSStringEncodingToEncoding
+0x10001C730   mov      w8, #-0x1
+0x10001C734   stp      w0, w8, [sp, #0x40]
+0x10001C738   add      x0, sp, #0x3c
+0x10001C73C   sub      x1, x29, #0x38
+0x10001C740   bl       _CreateTextToUnicodeInfo
+0x10001C744   cbz      w0, 0x10001c778
+0x10001C748   mov      x19, #0x0
+0x10001C74C   ldur     x8, [x29, #-0x38]
+0x10001C750   cbz      x8, 0x10001c75c
+0x10001C754   sub      x0, x29, #0x38
+0x10001C758   bl       _DisposeTextToUnicodeInfo
+0x10001C75C   mov      x0, x19
+0x10001C760   ldp      x29, x30, [sp, #0x80]
+0x10001C764   ldp      x20, x19, [sp, #0x70]
+0x10001C768   ldp      x22, x21, [sp, #0x60]
+0x10001C76C   ldp      x24, x23, [sp, #0x50]
+0x10001C770   add      sp, sp, #0x90
+0x10001C774   retab
+0x10001C778   mov      x0, x19
+0x10001C77C   bl       _objc_msgSend$length
+0x10001C780   lsl      x21, x0, #2
+0x10001C784   mov      x0, x21
+0x10001C788   mov      w1, #0xc7d5
+0x10001C78C   movk     w1, #0x85bc, lsl #16
+0x10001C790   bl       _malloc_type_malloc
+0x10001C794   cbz      x0, 0x10001c748
+0x10001C798   mov      x20, x0
+0x10001C79C   ldur     x22, [x29, #-0x38]
+0x10001C7A0   mov      x0, x19
+0x10001C7A4   bl       _objc_msgSend$length
+0x10001C7A8   mov      x23, x0
+0x10001C7AC   mov      x0, x19
+0x10001C7B0   bl       _objc_msgSend$bytes
+0x10001C7B4   mov      x2, x0
+0x10001C7B8   add      x8, sp, #0x28
+0x10001C7BC   stp      x8, x20, [sp, #0x10]
+0x10001C7C0   add      x8, sp, #0x30
+0x10001C7C4   stp      x21, x8, [sp]
+0x10001C7C8   add      x6, sp, #0x20
+0x10001C7CC   mov      x0, x22
+0x10001C7D0   mov      x1, x23
+0x10001C7D4   mov      w3, #0x21
+0x10001C7D8   mov      x4, #0x0
+0x10001C7DC   mov      x5, #0x0
+0x10001C7E0   mov      x7, #0x0
+0x10001C7E4   bl       _ConvertFromTextToUnicode
+0x10001C7E8   ldr      x8, [sp, #0x28]
+0x10001C7EC   cbz      x8, 0x10001c818
+0x10001C7F0   adrp     x8, 201              ; 0x1000e5000
+0x10001C7F4   ldr      x0, [x8, #0x190]     ; _OBJC_CLASS_$_NSData@got
+0x10001C7F8   bl       _objc_alloc
+0x10001C7FC   ldr      x3, [sp, #0x28]
+0x10001C800   mov      x2, x20
+0x10001C804   mov      w4, #0x1
+0x10001C808   bl       "_objc_msgSend$initWithBytesNoCopy:length:freeWhenDone:"
+0x10001C80C   bl       _objc_autorelease
+0x10001C810   mov      x19, x0
+0x10001C814   b        0x10001c74c
+0x10001C818   mov      x0, x20
+0x10001C81C   bl       _free
+0x10001C820   b        0x10001c748

@@ -1,0 +1,4 @@
+/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho [arm64e]:
+    -exports:
+        offset      symbol
+        0x00000000  __mh_execute_header

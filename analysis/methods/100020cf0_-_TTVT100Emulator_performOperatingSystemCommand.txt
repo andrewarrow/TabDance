@@ -1,0 +1,392 @@
+-[TTVT100Emulator performOperatingSystemCommand]
+0x100020CF0   pacibsp
+0x100020CF4   stp      x28, x27, [sp, #-0x60]!
+0x100020CF8   stp      x26, x25, [sp, #0x10]
+0x100020CFC   stp      x24, x23, [sp, #0x20]
+0x100020D00   stp      x22, x21, [sp, #0x30]
+0x100020D04   stp      x20, x19, [sp, #0x40]
+0x100020D08   stp      x29, x30, [sp, #0x50]
+0x100020D0C   add      x29, sp, #0x50
+0x100020D10   mov      x19, x0
+0x100020D14   ldr      w8, [x0, #0x48]
+0x100020D18   cmn      w8, #0x2
+0x100020D1C   b.lo     0x100020d74
+0x100020D20   str      wzr, [x19, #0x48]
+0x100020D24   ldr      x8, [x19, #0xc8]
+0x100020D28   cbz      x8, 0x100020d38
+0x100020D2C   ldr      x0, [x19, #0x10]
+0x100020D30   mov      x2, #0x0
+0x100020D34   bl       "_objc_msgSend$setTabTitle:"
+0x100020D38   ldr      x20, [x19, #0xc8]
+0x100020D3C   cbz      x20, 0x1000212e4
+0x100020D40   mov      x0, x20
+0x100020D44   bl       _objc_msgSend$length
+0x100020D48   cbnz     x0, 0x100020d64
+0x100020D4C   ldr      x0, [x19, #0x20]
+0x100020D50   adrp     x8, 225              ; 0x100101000
+0x100020D54   add      x8, x8, #0x968
+0x100020D58   ldr      x2, [x8]
+0x100020D5C   bl       "_objc_msgSend$valueForKey:"
+0x100020D60   mov      x20, x0
+0x100020D64   ldr      x0, [x19, #0x10]
+0x100020D68   mov      x2, x20
+0x100020D6C   bl       "_objc_msgSend$setWindowTitle:"
+0x100020D70   b        0x1000212e4
+0x100020D74   cmp      w8, #0x67
+0x100020D78   b.gt     0x100020ee8
+0x100020D7C   cmp      w8, #0x5
+0x100020D80   b.le     0x100020f38
+0x100020D84   sub      w9, w8, #0xa
+0x100020D88   cmp      w9, #0xa
+0x100020D8C   b.hs     0x1000210c4
+0x100020D90   ldr      x0, [x19, #0xc8]
+0x100020D94   adrp     x2, 192              ; 0x1000e0000
+0x100020D98   add      x2, x2, #0x4f0       ; @";"
+0x100020D9C   bl       "_objc_msgSend$componentsSeparatedByString:"
+0x100020DA0   mov      x20, x0
+0x100020DA4   bl       _objc_msgSend$count
+0x100020DA8   cbz      x0, 0x1000212e4
+0x100020DAC   mov      x21, x0
+0x100020DB0   mov      x22, #0x0
+0x100020DB4   adrp     x23, 186             ; 0x1000da000
+0x100020DB8   add      x23, x23, #0x950     ; @"?"
+0x100020DBC   adrp     x26, 196             ; 0x1000e4000
+0x100020DC0   mov      x0, x20
+0x100020DC4   mov      x2, x22
+0x100020DC8   bl       "_objc_msgSend$objectAtIndexedSubscript:"
+0x100020DCC   ldrsw    x27, [x19, #0x48]
+0x100020DD0   add      x8, x22, x27
+0x100020DD4   sub      x24, x8, #0xa
+0x100020DD8   cmp      x24, #0x9
+0x100020DDC   b.hi     0x1000212e4
+0x100020DE0   mov      x25, x0
+0x100020DE4   mov      x2, x23
+0x100020DE8   bl       "_objc_msgSend$isEqualToString:"
+0x100020DEC   cbz      w0, 0x100020e20
+0x100020DF0   mov      x16, x24
+0x100020DF4   cmp      x16, #0x9
+0x100020DF8   csel     x16, x16, xzr, ls
+0x100020DFC   adrp     x17, 1               ; 0x100021000
+0x100020E00   add      x17, x17, #0x30c
+0x100020E04   ldrsw    x16, [x17, x16, lsl #2]
+0x100020E08   adr      x17, #0
+0x100020E0C   add      x16, x17, x16
+0x100020E10   br       x16
+0x100020E14   ldr      x0, [x26, #0xef8]
+0x100020E18   bl       _objc_msgSend$blackColor
+0x100020E1C   b        0x100020ec0
+0x100020E20   mov      x0, x19
+0x100020E24   mov      x2, x25
+0x100020E28   bl       "_objc_msgSend$colorForSpec:"
+0x100020E2C   cbz      x0, 0x1000212e4
+0x100020E30   mov      x2, x0
+0x100020E34   cmp      x24, #0x1
+0x100020E38   b.gt     0x100020e54
+0x100020E3C   cbz      x24, 0x100020e88
+0x100020E40   cmp      x24, #0x1
+0x100020E44   b.ne     0x100020ed8
+0x100020E48   ldr      x0, [x19, #0x10]
+0x100020E4C   bl       "_objc_msgSend$setBackgroundColor:"
+0x100020E50   b        0x100020ed8
+0x100020E54   cmp      x24, #0x2
+0x100020E58   b.eq     0x100020e94
+0x100020E5C   cmp      x24, #0x7
+0x100020E60   b.ne     0x100020ed8
+0x100020E64   ldr      x0, [x19, #0x10]
+0x100020E68   bl       "_objc_msgSend$setSelectionColor:"
+0x100020E6C   b        0x100020ed8
+0x100020E70   ldr      x0, [x19, #0x10]
+0x100020E74   bl       _objc_msgSend$foregroundColor
+0x100020E78   b        0x100020ec0
+0x100020E7C   ldr      x0, [x26, #0xef8]
+0x100020E80   bl       _objc_msgSend$whiteColor
+0x100020E84   b        0x100020ec0
+0x100020E88   ldr      x0, [x19, #0x10]
+0x100020E8C   bl       "_objc_msgSend$setForegroundColor:"
+0x100020E90   b        0x100020ed8
+0x100020E94   ldr      x0, [x19, #0x10]
+0x100020E98   bl       "_objc_msgSend$setCursorColor:"
+0x100020E9C   b        0x100020ed8
+0x100020EA0   ldr      x0, [x19, #0x10]
+0x100020EA4   bl       _objc_msgSend$selectionColor
+0x100020EA8   b        0x100020ec0
+0x100020EAC   ldr      x0, [x19, #0x10]
+0x100020EB0   bl       _objc_msgSend$backgroundColor
+0x100020EB4   b        0x100020ec0
+0x100020EB8   ldr      x0, [x19, #0x10]
+0x100020EBC   bl       _objc_msgSend$cursorColor
+0x100020EC0   mov      x2, x0
+0x100020EC4   cbz      x0, 0x1000212e4
+0x100020EC8   add      x3, x22, x27
+0x100020ECC   mov      x0, x19
+0x100020ED0   mov      w4, #0x2
+0x100020ED4   bl       "_objc_msgSend$reportColor:forIndex:kind:"
+0x100020ED8   add      x22, x22, #0x1
+0x100020EDC   cmp      x21, x22
+0x100020EE0   b.ne     0x100020dc0
+0x100020EE4   b        0x1000212e4
+0x100020EE8   sub      w9, w8, #0x6e
+0x100020EEC   cmp      w9, #0xa
+0x100020EF0   b.hs     0x100021058
+0x100020EF4   ldr      x0, [x19, #0xc8]
+0x100020EF8   bl       _objc_msgSend$length
+0x100020EFC   cbnz     x0, 0x1000212e4
+0x100020F00   ldr      w8, [x19, #0x48]
+0x100020F04   sub      w9, w8, #0x6e
+0x100020F08   cmp      w9, #0x9
+0x100020F0C   b.hi     0x1000212e4
+0x100020F10   cmp      w8, #0x6f
+0x100020F14   b.gt     0x100021264
+0x100020F18   cmp      w8, #0x6e
+0x100020F1C   b.eq     0x1000212a8
+0x100020F20   cmp      w8, #0x6f
+0x100020F24   b.ne     0x1000212e4
+0x100020F28   ldr      x0, [x19, #0x10]
+0x100020F2C   mov      x2, #0x0
+0x100020F30   bl       "_objc_msgSend$setBackgroundColor:"
+0x100020F34   b        0x1000212e4
+0x100020F38   cmp      w8, #0x1
+0x100020F3C   b.le     0x100021038
+0x100020F40   cmp      w8, #0x2
+0x100020F44   b.eq     0x100020d38
+0x100020F48   cmp      w8, #0x4
+0x100020F4C   b.eq     0x1000210ec
+0x100020F50   cmp      w8, #0x5
+0x100020F54   b.ne     0x1000212e4
+0x100020F58   ldr      x0, [x19, #0xc8]
+0x100020F5C   adrp     x2, 192              ; 0x1000e0000
+0x100020F60   add      x2, x2, #0x4f0       ; @";"
+0x100020F64   bl       "_objc_msgSend$componentsSeparatedByString:"
+0x100020F68   mov      x20, x0
+0x100020F6C   bl       _objc_msgSend$count
+0x100020F70   cbz      x0, 0x1000212e4
+0x100020F74   mov      x21, x0
+0x100020F78   mov      x22, #0x0
+0x100020F7C   adrp     x23, 186             ; 0x1000da000
+0x100020F80   add      x23, x23, #0x950     ; @"?"
+0x100020F84   adrp     x27, 196             ; 0x1000e4000
+0x100020F88   add      x24, x22, #0x1
+0x100020F8C   cmp      x24, x21
+0x100020F90   b.hs     0x100021028
+0x100020F94   mov      x0, x20
+0x100020F98   mov      x2, x22
+0x100020F9C   bl       "_objc_msgSend$objectAtIndexedSubscript:"
+0x100020FA0   mov      x26, x0
+0x100020FA4   mov      x0, x20
+0x100020FA8   mov      x2, x24
+0x100020FAC   bl       "_objc_msgSend$objectAtIndexedSubscript:"
+0x100020FB0   mov      x25, x0
+0x100020FB4   mov      x0, x26
+0x100020FB8   bl       _objc_msgSend$integerValue
+0x100020FBC   cmp      x0, #0x4
+0x100020FC0   b.hi     0x1000212e4
+0x100020FC4   mov      x24, x0
+0x100020FC8   mov      x0, x25
+0x100020FCC   mov      x2, x23
+0x100020FD0   bl       "_objc_msgSend$isEqualToString:"
+0x100020FD4   cbz      w0, 0x100020fe8
+0x100020FD8   cbz      x24, 0x10002100c
+0x100020FDC   ldr      x0, [x27, #0xef8]
+0x100020FE0   bl       _objc_msgSend$blackColor
+0x100020FE4   b        0x100021014
+0x100020FE8   cbnz     x24, 0x100021028
+0x100020FEC   mov      x0, x19
+0x100020FF0   mov      x2, x25
+0x100020FF4   bl       "_objc_msgSend$colorForSpec:"
+0x100020FF8   cbz      x0, 0x1000212e4
+0x100020FFC   mov      x2, x0
+0x100021000   ldr      x0, [x19, #0x10]
+0x100021004   bl       "_objc_msgSend$setBoldColor:"
+0x100021008   b        0x100021028
+0x10002100C   ldr      x0, [x19, #0x10]
+0x100021010   bl       _objc_msgSend$boldColor
+0x100021014   mov      x2, x0
+0x100021018   mov      x0, x19
+0x10002101C   mov      x3, x24
+0x100021020   mov      w4, #0x1
+0x100021024   bl       "_objc_msgSend$reportColor:forIndex:kind:"
+0x100021028   add      x22, x22, #0x2
+0x10002102C   cmp      x22, x21
+0x100021030   b.lo     0x100020f88
+0x100021034   b        0x1000212e4
+0x100021038   cbz      w8, 0x100020d24
+0x10002103C   cmp      w8, #0x1
+0x100021040   b.ne     0x1000212e4
+0x100021044   ldr      x2, [x19, #0xc8]
+0x100021048   cbz      x2, 0x1000212e4
+0x10002104C   ldr      x0, [x19, #0x10]
+0x100021050   bl       "_objc_msgSend$setTabTitle:"
+0x100021054   b        0x1000212e4
+0x100021058   cmp      w8, #0x68
+0x10002105C   b.eq     0x1000211fc
+0x100021060   cmp      w8, #0x69
+0x100021064   b.ne     0x1000212e4
+0x100021068   ldr      x0, [x19, #0xc8]
+0x10002106C   adrp     x2, 191              ; 0x1000e0000
+0x100021070   add      x2, x2, #0x4f0       ; @";"
+0x100021074   bl       "_objc_msgSend$componentsSeparatedByString:"
+0x100021078   mov      x20, x0
+0x10002107C   bl       _objc_msgSend$count
+0x100021080   cbz      x0, 0x1000212e4
+0x100021084   mov      x21, x0
+0x100021088   mov      x22, #0x0
+0x10002108C   mov      x0, x20
+0x100021090   mov      x2, x22
+0x100021094   bl       "_objc_msgSend$objectAtIndexedSubscript:"
+0x100021098   bl       _objc_msgSend$integerValue
+0x10002109C   cmp      x0, #0x4
+0x1000210A0   b.hi     0x1000212e4
+0x1000210A4   cbnz     x0, 0x1000210b4
+0x1000210A8   ldr      x0, [x19, #0x10]
+0x1000210AC   mov      x2, #0x0
+0x1000210B0   bl       "_objc_msgSend$setBoldColor:"
+0x1000210B4   add      x22, x22, #0x1
+0x1000210B8   cmp      x21, x22
+0x1000210BC   b.ne     0x10002108c
+0x1000210C0   b        0x1000212e4
+0x1000210C4   cmp      w8, #0x6
+0x1000210C8   b.eq     0x100021284
+0x1000210CC   cmp      w8, #0x7
+0x1000210D0   b.ne     0x1000212e4
+0x1000210D4   ldr      x0, [x19, #0xc8]
+0x1000210D8   cbz      x0, 0x1000212e4
+0x1000210DC   bl       _objc_msgSend$length
+0x1000210E0   cbz      x0, 0x1000212d8
+0x1000210E4   ldr      x2, [x19, #0xc8]
+0x1000210E8   b        0x1000212dc
+0x1000210EC   ldr      x0, [x19, #0xc8]
+0x1000210F0   adrp     x2, 191              ; 0x1000e0000
+0x1000210F4   add      x2, x2, #0x4f0       ; @";"
+0x1000210F8   bl       "_objc_msgSend$componentsSeparatedByString:"
+0x1000210FC   mov      x20, x0
+0x100021100   bl       _objc_msgSend$count
+0x100021104   cbz      x0, 0x1000212e4
+0x100021108   mov      x21, x0
+0x10002110C   mov      x22, #0x0
+0x100021110   adrp     x23, 185             ; 0x1000da000
+0x100021114   add      x23, x23, #0x950     ; @"?"
+0x100021118   add      x24, x22, #0x1
+0x10002111C   cmp      x24, x21
+0x100021120   b.hs     0x1000212e4
+0x100021124   mov      x0, x20
+0x100021128   mov      x2, x22
+0x10002112C   bl       "_objc_msgSend$objectAtIndexedSubscript:"
+0x100021130   mov      x26, x0
+0x100021134   mov      x0, x20
+0x100021138   mov      x2, x24
+0x10002113C   bl       "_objc_msgSend$objectAtIndexedSubscript:"
+0x100021140   mov      x25, x0
+0x100021144   mov      x0, x26
+0x100021148   bl       _objc_msgSend$integerValue
+0x10002114C   cmp      x0, #0x104
+0x100021150   b.hi     0x1000212e4
+0x100021154   mov      x24, x0
+0x100021158   mov      x0, x25
+0x10002115C   mov      x2, x23
+0x100021160   bl       "_objc_msgSend$isEqualToString:"
+0x100021164   cbz      w0, 0x100021180
+0x100021168   cmp      x24, #0xff
+0x10002116C   b.hi     0x1000211ac
+0x100021170   ldr      x0, [x19, #0x10]
+0x100021174   mov      x2, x24
+0x100021178   bl       "_objc_msgSend$colorAtIndex:"
+0x10002117C   b        0x1000211d8
+0x100021180   mov      x0, x19
+0x100021184   mov      x2, x25
+0x100021188   bl       "_objc_msgSend$colorForSpec:"
+0x10002118C   cbz      x0, 0x1000212e4
+0x100021190   mov      x2, x0
+0x100021194   cmp      x24, #0xff
+0x100021198   b.hi     0x1000211c0
+0x10002119C   ldr      x0, [x19, #0x10]
+0x1000211A0   mov      x3, x24
+0x1000211A4   bl       "_objc_msgSend$setColor:atIndex:"
+0x1000211A8   b        0x1000211ec
+0x1000211AC   ldr      x0, [x19, #0x10]
+0x1000211B0   cmp      x24, #0x100
+0x1000211B4   b.ne     0x1000211d4
+0x1000211B8   bl       _objc_msgSend$boldColor
+0x1000211BC   b        0x1000211d8
+0x1000211C0   cmp      x24, #0x100
+0x1000211C4   b.ne     0x1000211ec
+0x1000211C8   ldr      x0, [x19, #0x10]
+0x1000211CC   bl       "_objc_msgSend$setBoldColor:"
+0x1000211D0   b        0x1000211ec
+0x1000211D4   bl       _objc_msgSend$foregroundColor
+0x1000211D8   mov      x2, x0
+0x1000211DC   mov      x0, x19
+0x1000211E0   mov      x3, x24
+0x1000211E4   mov      x4, #0x0
+0x1000211E8   bl       "_objc_msgSend$reportColor:forIndex:kind:"
+0x1000211EC   add      x22, x22, #0x2
+0x1000211F0   cmp      x22, x21
+0x1000211F4   b.lo     0x100021118
+0x1000211F8   b        0x1000212e4
+0x1000211FC   ldr      x0, [x19, #0xc8]
+0x100021200   bl       _objc_msgSend$length
+0x100021204   cbz      x0, 0x10002129c
+0x100021208   ldr      x0, [x19, #0xc8]
+0x10002120C   adrp     x2, 191              ; 0x1000e0000
+0x100021210   add      x2, x2, #0x4f0       ; @";"
+0x100021214   bl       "_objc_msgSend$componentsSeparatedByString:"
+0x100021218   mov      x20, x0
+0x10002121C   bl       _objc_msgSend$count
+0x100021220   cbz      x0, 0x1000212e4
+0x100021224   mov      x21, x0
+0x100021228   mov      x22, #0x0
+0x10002122C   mov      x0, x20
+0x100021230   mov      x2, x22
+0x100021234   bl       "_objc_msgSend$objectAtIndexedSubscript:"
+0x100021238   bl       _objc_msgSend$integerValue
+0x10002123C   cmp      x0, #0xff
+0x100021240   b.hi     0x1000212e4
+0x100021244   mov      x3, x0
+0x100021248   ldr      x0, [x19, #0x10]
+0x10002124C   mov      x2, #0x0
+0x100021250   bl       "_objc_msgSend$setColor:atIndex:"
+0x100021254   add      x22, x22, #0x1
+0x100021258   cmp      x21, x22
+0x10002125C   b.ne     0x10002122c
+0x100021260   b        0x1000212e4
+0x100021264   cmp      w8, #0x70
+0x100021268   b.eq     0x1000212b8
+0x10002126C   cmp      w8, #0x75
+0x100021270   b.ne     0x1000212e4
+0x100021274   ldr      x0, [x19, #0x10]
+0x100021278   mov      x2, #0x0
+0x10002127C   bl       "_objc_msgSend$setSelectionColor:"
+0x100021280   b        0x1000212e4
+0x100021284   ldr      x0, [x19, #0xc8]
+0x100021288   cbz      x0, 0x1000212e4
+0x10002128C   bl       _objc_msgSend$length
+0x100021290   cbz      x0, 0x1000212c8
+0x100021294   ldr      x2, [x19, #0xc8]
+0x100021298   b        0x1000212cc
+0x10002129C   ldr      x0, [x19, #0x10]
+0x1000212A0   bl       _objc_msgSend$resetColorTable
+0x1000212A4   b        0x1000212e4
+0x1000212A8   ldr      x0, [x19, #0x10]
+0x1000212AC   mov      x2, #0x0
+0x1000212B0   bl       "_objc_msgSend$setForegroundColor:"
+0x1000212B4   b        0x1000212e4
+0x1000212B8   ldr      x0, [x19, #0x10]
+0x1000212BC   mov      x2, #0x0
+0x1000212C0   bl       "_objc_msgSend$setCursorColor:"
+0x1000212C4   b        0x1000212e4
+0x1000212C8   mov      x2, #0x0
+0x1000212CC   ldr      x0, [x19, #0x10]
+0x1000212D0   bl       "_objc_msgSend$setRepresentedURLString:"
+0x1000212D4   b        0x1000212e4
+0x1000212D8   mov      x2, #0x0
+0x1000212DC   ldr      x0, [x19, #0x10]
+0x1000212E0   bl       "_objc_msgSend$setWorkingDirectoryURLString:"
+0x1000212E4   ldr      x0, [x19, #0xc8]
+0x1000212E8   bl       _objc_release
+0x1000212EC   str      xzr, [x19, #0xc8]
+0x1000212F0   ldp      x29, x30, [sp, #0x50]
+0x1000212F4   ldp      x20, x19, [sp, #0x40]
+0x1000212F8   ldp      x22, x21, [sp, #0x30]
+0x1000212FC   ldp      x24, x23, [sp, #0x20]
+0x100021300   ldp      x26, x25, [sp, #0x10]
+0x100021304   ldp      x28, x27, [sp], #0x60
+0x100021308   retab

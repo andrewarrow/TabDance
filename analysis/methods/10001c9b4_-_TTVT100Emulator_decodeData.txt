@@ -1,0 +1,3124 @@
+-[TTVT100Emulator decodeData:]
+0x10001C9B4   pacibsp
+0x10001C9B8   sub      sp, sp, #0x150
+0x10001C9BC   stp      d11, d10, [sp, #0xd0]
+0x10001C9C0   stp      d9, d8, [sp, #0xe0]
+0x10001C9C4   stp      x28, x27, [sp, #0xf0]
+0x10001C9C8   stp      x26, x25, [sp, #0x100]
+0x10001C9CC   stp      x24, x23, [sp, #0x110]
+0x10001C9D0   stp      x22, x21, [sp, #0x120]
+0x10001C9D4   stp      x20, x19, [sp, #0x130]
+0x10001C9D8   stp      x29, x30, [sp, #0x140]
+0x10001C9DC   add      x29, sp, #0x140
+0x10001C9E0   mov      x21, x2
+0x10001C9E4   mov      x19, x0
+0x10001C9E8   mov      x0, x2
+0x10001C9EC   bl       _objc_msgSend$length
+0x10001C9F0   mov      x20, x0
+0x10001C9F4   mov      x0, x21
+0x10001C9F8   bl       _objc_msgSend$bytes
+0x10001C9FC   mov      x24, x0
+0x10001CA00   ldr      x0, [x19, #0x10]
+0x10001CA04   bl       _objc_msgSend$columnCount
+0x10001CA08   stur     x20, [x29, #-0x88]
+0x10001CA0C   cbz      w20, 0x10001fa54
+0x10001CA10   mov      x23, x0
+0x10001CA14   mov      w8, #0x4950
+0x10001CA18   add      x8, x19, x8
+0x10001CA1C   stur     x8, [x29, #-0x90]
+0x10001CA20   mov      w8, #0x2938
+0x10001CA24   add      x8, x19, x8
+0x10001CA28   stur     x8, [x29, #-0x98]
+0x10001CA2C   adrp     x8, 200              ; 0x1000e4000
+0x10001CA30   ldr      x0, [x8, #0xb18]     ; _OBJC_CLASS_$_NSNotificationCenter@got
+0x10001CA34   bl       _objc_msgSend$defaultCenter
+0x10001CA38   adrp     x2, 194              ; 0x1000de000
+0x10001CA3C   add      x2, x2, #0xe50       ; @"TTEmulatorWillDecodeData"
+0x10001CA40   mov      x3, x19
+0x10001CA44   bl       "_objc_msgSend$postNotificationName:object:"
+0x10001CA48   mov      w22, #0x0
+0x10001CA4C   str      wzr, [sp, #0x9c]
+0x10001CA50   add      x8, x19, #0x48
+0x10001CA54   str      x8, [sp, #0x78]
+0x10001CA58   mov      w8, #0x3550
+0x10001CA5C   add      x8, x19, x8
+0x10001CA60   str      x8, [sp, #0xa0]
+0x10001CA64   add      x25, x24, w22, sxtw
+0x10001CA68   ldrb     w9, [x25]
+0x10001CA6C   sturb    w9, [x29, #-0x79]
+0x10001CA70   ldr      x8, [x19, #0x8]
+0x10001CA74   cmp      x8, #0x1
+0x10001CA78   b.ne     0x10001cb04
+0x10001CA7C   mov      x28, x22
+0x10001CA80   mov      x22, x24
+0x10001CA84   mov      x20, x23
+0x10001CA88   ldp      x24, x8, [x29, #-0x98]
+0x10001CA8C   ldr      w8, [x8]
+0x10001CA90   lsl      x8, x8, #10
+0x10001CA94   ldr      x11, [sp, #0xa0]
+0x10001CA98   add      x10, x11, x8
+0x10001CA9C   ldr      x23, [x10, x9, lsl #3]
+0x10001CAA0   ldrb     w8, [x23, #0x14]
+0x10001CAA4   tbz      w8, #0x0, 0x10001cab4
+0x10001CAA8   ldurh    w8, [x24, #0x4]
+0x10001CAAC   orr      w8, w8, #0x100
+0x10001CAB0   sturh    w8, [x24, #0x4]
+0x10001CAB4   ldrh     w21, [x24]
+0x10001CAB8   ldr      x25, [x19, #0x10]
+0x10001CABC   ldr      x26, [x23, #0x8]
+0x10001CAC0   ldr      w27, [x23, #0x10]
+0x10001CAC4   mov      x0, x25
+0x10001CAC8   bl       _objc_msgSend$cursorPosition
+0x10001CACC   mov      x6, x0
+0x10001CAD0   ldur     x4, [x24, #0x4]
+0x10001CAD4   ldr      w8, [x19, #0x2944]
+0x10001CAD8   tbnz     w21, #0x9, 0x10001cb64
+0x10001CADC   ldr      x9, [sp, #0x88]
+0x10001CAE0   and      x9, x9, #0xffffffff00000000
+0x10001CAE4   orr      x5, x9, x8
+0x10001CAE8   mov      x0, x25
+0x10001CAEC   mov      x2, x26
+0x10001CAF0   mov      x3, x27
+0x10001CAF4   str      x5, [sp, #0x88]
+0x10001CAF8   mov      x7, x1
+0x10001CAFC   bl       "_objc_msgSend$overwriteUTF8Characters:length:withAttributes:atPosition:"
+0x10001CB00   b        0x10001cb88
+0x10001CB04   ldr      x8, [x19, #0x30]
+0x10001CB08   add      x10, x8, #0x400
+0x10001CB0C   add      x11, x8, x9, lsl #3
+0x10001CB10   cmp      w9, #0x80
+0x10001CB14   csel     x8, x10, x11, hi
+0x10001CB18   ldr      x8, [x8]
+0x10001CB1C   str      x8, [x19, #0x8]
+0x10001CB20   cbz      x8, 0x10001cbd4
+0x10001CB24   sub      x16, x8, #0x1
+0x10001CB28   cmp      x16, #0x64
+0x10001CB2C   b.hi     0x10001f5dc
+0x10001CB30   mov      x26, #-0x1
+0x10001CB34   mov      x27, #-0x1
+0x10001CB38   cmp      x16, #0x64
+0x10001CB3C   csel     x16, x16, xzr, ls
+0x10001CB40   adrp     x17, 3               ; 0x10001f000
+0x10001CB44   add      x17, x17, #0xa80
+0x10001CB48   ldrsw    x16, [x17, x16, lsl #2]
+0x10001CB4C   adr      x17, #0
+0x10001CB50   add      x16, x17, x16
+0x10001CB54   br       x16
+0x10001CB58   adrp     x8, 230              ; 0x100102000
+0x10001CB5C   add      x8, x8, #0x4f8
+0x10001CB60   b        0x10001ef78
+0x10001CB64   ldr      x9, [sp, #0x90]
+0x10001CB68   and      x9, x9, #0xffffffff00000000
+0x10001CB6C   orr      x5, x9, x8
+0x10001CB70   mov      x0, x25
+0x10001CB74   mov      x2, x26
+0x10001CB78   mov      x3, x27
+0x10001CB7C   str      x5, [sp, #0x90]
+0x10001CB80   mov      x7, x1
+0x10001CB84   bl       "_objc_msgSend$insertUTF8Characters:length:withAttributes:atPosition:"
+0x10001CB88   mov      x27, x0
+0x10001CB8C   mov      x26, x1
+0x10001CB90   ldur     x9, [x29, #-0x90]
+0x10001CB94   ldr      w8, [x9, #0xc]
+0x10001CB98   mov      x24, x22
+0x10001CB9C   cbz      w8, 0x10001cbac
+0x10001CBA0   str      wzr, [x9, #0xc]
+0x10001CBA4   ldr      w8, [sp, #0x9c]
+0x10001CBA8   str      w8, [x9]
+0x10001CBAC   ldrb     w8, [x23, #0x14]
+0x10001CBB0   mov      x22, x28
+0x10001CBB4   tbz      w8, #0x0, 0x10001cbc8
+0x10001CBB8   ldur     x9, [x29, #-0x98]
+0x10001CBBC   ldurh    w8, [x9, #0x4]
+0x10001CBC0   and      w8, w8, #0xfffffeff
+0x10001CBC4   sturh    w8, [x9, #0x4]
+0x10001CBC8   str      xzr, [x19, #0x8]
+0x10001CBCC   mov      x23, x20
+0x10001CBD0   b        0x10001ef7c
+0x10001CBD4   ldur     x14, [x29, #-0x90]
+0x10001CBD8   ldr      w8, [x14, #0xc]
+0x10001CBDC   str      x23, [sp, #0x80]
+0x10001CBE0   cbz      w8, 0x10001cbfc
+0x10001CBE4   ldr      w10, [x14]
+0x10001CBE8   str      w10, [sp, #0x9c]
+0x10001CBEC   str      w8, [x14]
+0x10001CBF0   mov      w8, #0x1
+0x10001CBF4   ldur     x26, [x29, #-0x98]
+0x10001CBF8   b        0x10001cc10
+0x10001CBFC   ldur     x8, [x29, #-0x88]
+0x10001CC00   sub      w8, w8, w22
+0x10001CC04   cmp      w8, #0x1
+0x10001CC08   ldur     x26, [x29, #-0x98]
+0x10001CC0C   b.lt     0x10001cc18
+0x10001CC10   ldr      x10, [x19, #0x8]
+0x10001CC14   cbz      x10, 0x10001ccc4
+0x10001CC18   mov      w23, #0x0
+0x10001CC1C   mov      x28, x24
+0x10001CC20   ldrb     w8, [x19, #0xe1]
+0x10001CC24   cmp      w8, #0x1
+0x10001CC28   b.ne     0x10001cc58
+0x10001CC2C   ldr      x0, [x19, #0x10]
+0x10001CC30   bl       _objc_msgSend$autoWrap
+0x10001CC34   cbz      w0, 0x10001cc58
+0x10001CC38   mov      x0, x19
+0x10001CC3C   bl       _objc_msgSend$advanceCursorRow
+0x10001CC40   ldr      x0, [x19, #0x10]
+0x10001CC44   mov      w2, #0x1
+0x10001CC48   bl       "_objc_msgSend$setCursorRowWrapped:"
+0x10001CC4C   mov      x0, x19
+0x10001CC50   mov      w2, #0x1
+0x10001CC54   bl       "_objc_msgSend$setCursorColumn:"
+0x10001CC58   subs     w21, w23, #0x1
+0x10001CC5C   b.lt     0x10001ccb0
+0x10001CC60   mov      x24, x22
+0x10001CC64   ldrh     w22, [x26]
+0x10001CC68   ldr      x27, [x19, #0x10]
+0x10001CC6C   mov      w20, w23
+0x10001CC70   mov      x0, x27
+0x10001CC74   bl       _objc_msgSend$cursorPosition
+0x10001CC78   mov      x6, x0
+0x10001CC7C   ldur     x4, [x26, #0x4]
+0x10001CC80   ldr      w8, [x19, #0x2944]
+0x10001CC84   tbnz     w22, #0x9, 0x10001ce38
+0x10001CC88   ldr      x9, [sp, #0x68]
+0x10001CC8C   and      x9, x9, #0xffffffff00000000
+0x10001CC90   orr      x5, x9, x8
+0x10001CC94   mov      x0, x27
+0x10001CC98   mov      x2, x25
+0x10001CC9C   mov      x3, x20
+0x10001CCA0   str      x5, [sp, #0x68]
+0x10001CCA4   mov      x7, x1
+0x10001CCA8   bl       "_objc_msgSend$overwriteUTF8Characters:length:withAttributes:atPosition:"
+0x10001CCAC   b        0x10001ce5c
+0x10001CCB0   mov      x26, #-0x1
+0x10001CCB4   mov      x27, #-0x1
+0x10001CCB8   mov      x24, x28
+0x10001CCBC   ldur     x9, [x29, #-0x90]
+0x10001CCC0   b        0x10001ce78
+0x10001CCC4   mov      w23, #0x0
+0x10001CCC8   mov      x10, x9
+0x10001CCCC   tbnz     w10, #0x7, 0x10001cd14
+0x10001CCD0   ldr      w9, [x14]
+0x10001CCD4   and      x10, x10, #0xff
+0x10001CCD8   lsl      x9, x9, #10
+0x10001CCDC   ldr      x12, [sp, #0xa0]
+0x10001CCE0   add      x11, x12, x9
+0x10001CCE4   ldr      x9, [x11, x10, lsl #3]
+0x10001CCE8   cbz      x9, 0x10001ceac
+0x10001CCEC   ldr      w10, [x9, #0x10]
+0x10001CCF0   cmp      w10, #0x1
+0x10001CCF4   b.ne     0x10001ceac
+0x10001CCF8   ldrb     w10, [x9, #0x14]
+0x10001CCFC   tbnz     w10, #0x0, 0x10001ceac
+0x10001CD00   ldr      x9, [x9, #0x8]
+0x10001CD04   ldrb     w9, [x9]
+0x10001CD08   strb     w9, [x25, w23, sxtw]
+0x10001CD0C   add      w9, w23, #0x1
+0x10001CD10   b        0x10001cd34
+0x10001CD14   sxtw     x10, w23
+0x10001CD18   add      x9, x10, #0x1
+0x10001CD1C   ldrb     w11, [x25, w23, sxtw]
+0x10001CD20   sub      w12, w11, #0xf5
+0x10001CD24   cmn      w12, #0x33
+0x10001CD28   ldur     x12, [x29, #-0x88]
+0x10001CD2C   ccmp     w9, w12, #0x4, hs
+0x10001CD30   b.ne     0x10001cd68
+0x10001CD34   cmp      w9, w8
+0x10001CD38   b.ge     0x10001cea4
+0x10001CD3C   ldrb     w10, [x25, w9, sxtw]
+0x10001CD40   ldr      x11, [x19, #0x30]
+0x10001CD44   add      x12, x11, #0x400
+0x10001CD48   add      x13, x11, x10, lsl #3
+0x10001CD4C   cmp      w10, #0x80
+0x10001CD50   csel     x11, x12, x13, hi
+0x10001CD54   ldr      x11, [x11]
+0x10001CD58   str      x11, [x19, #0x8]
+0x10001CD5C   mov      x23, x9
+0x10001CD60   cbz      x11, 0x10001cccc
+0x10001CD64   b        0x10001cea4
+0x10001CD68   ldrb     w12, [x25, x9]
+0x10001CD6C   and      w13, w11, #0xf0
+0x10001CD70   cmp      w13, #0xe0
+0x10001CD74   b.ne     0x10001cdbc
+0x10001CD78   and      x11, x11, #0xf
+0x10001CD7C   adrp     x13, 152             ; 0x1000b4000
+0x10001CD80   add      x13, x13, #0xcd9
+0x10001CD84   ldrb     w11, [x13, x11]
+0x10001CD88   lsr      w12, w12, #5
+0x10001CD8C   lsr      w11, w11, w12
+0x10001CD90   tbz      w11, #0x0, 0x10001cd34
+0x10001CD94   add      x10, x10, #0x2
+0x10001CD98   ldur     x11, [x29, #-0x88]
+0x10001CD9C   mov      x9, x11
+0x10001CDA0   cmp      w10, w11
+0x10001CDA4   b.eq     0x10001cd34
+0x10001CDA8   ldrsb    w9, [x25, x10]
+0x10001CDAC   add      w11, w23, #0x3
+0x10001CDB0   cmn      w9, #0x40
+0x10001CDB4   csel     w9, w11, w10, lt
+0x10001CDB8   b        0x10001cd34
+0x10001CDBC   cmp      w11, #0xdf
+0x10001CDC0   b.hi     0x10001cdd8
+0x10001CDC4   sxtb     w10, w12
+0x10001CDC8   add      w11, w23, #0x2
+0x10001CDCC   cmn      w10, #0x40
+0x10001CDD0   csel     w9, w11, w9, lt
+0x10001CDD4   b        0x10001cd34
+0x10001CDD8   lsr      x12, x12, #4
+0x10001CDDC   adrp     x13, 146             ; 0x1000ae000
+0x10001CDE0   add      x13, x13, #0xf80
+0x10001CDE4   ldrb     w12, [x13, x12]
+0x10001CDE8   and      w11, w11, #0x7
+0x10001CDEC   lsr      w11, w12, w11
+0x10001CDF0   tbz      w11, #0x0, 0x10001cd34
+0x10001CDF4   add      x11, x10, #0x2
+0x10001CDF8   ldur     x12, [x29, #-0x88]
+0x10001CDFC   mov      x9, x12
+0x10001CE00   cmp      w11, w12
+0x10001CE04   b.eq     0x10001cd34
+0x10001CE08   ldrsb    w12, [x25, x11]
+0x10001CE0C   mov      x9, x11
+0x10001CE10   cmn      w12, #0x41
+0x10001CE14   b.gt     0x10001cd34
+0x10001CE18   add      x10, x10, #0x3
+0x10001CE1C   ldur     x11, [x29, #-0x88]
+0x10001CE20   mov      x9, x11
+0x10001CE24   cmp      w10, w11
+0x10001CE28   b.eq     0x10001cd34
+0x10001CE2C   ldrsb    w9, [x25, x10]
+0x10001CE30   add      w11, w23, #0x4
+0x10001CE34   b        0x10001cdb0
+0x10001CE38   ldr      x9, [sp, #0x70]
+0x10001CE3C   and      x9, x9, #0xffffffff00000000
+0x10001CE40   orr      x5, x9, x8
+0x10001CE44   mov      x0, x27
+0x10001CE48   mov      x2, x25
+0x10001CE4C   mov      x3, x20
+0x10001CE50   str      x5, [sp, #0x70]
+0x10001CE54   mov      x7, x1
+0x10001CE58   bl       "_objc_msgSend$insertUTF8Characters:length:withAttributes:atPosition:"
+0x10001CE5C   mov      x27, x0
+0x10001CE60   mov      x26, x1
+0x10001CE64   mov      x22, x24
+0x10001CE68   ldrb     w8, [x25, w21, uxtw]
+0x10001CE6C   ldur     x9, [x29, #-0x90]
+0x10001CE70   strb     w8, [x9, #0x20]
+0x10001CE74   mov      x24, x28
+0x10001CE78   ldr      w8, [x9, #0xc]
+0x10001CE7C   cbz      w8, 0x10001ce98
+0x10001CE80   ldr      x8, [x19, #0x8]
+0x10001CE84   cmp      x8, #0x1
+0x10001CE88   b.eq     0x10001ce98
+0x10001CE8C   str      wzr, [x9, #0xc]
+0x10001CE90   ldr      w8, [sp, #0x9c]
+0x10001CE94   str      w8, [x9]
+0x10001CE98   add      w22, w23, w22
+0x10001CE9C   ldr      x23, [sp, #0x80]
+0x10001CEA0   b        0x10001f048
+0x10001CEA4   mov      x23, x9
+0x10001CEA8   b        0x10001cc1c
+0x10001CEAC   mov      w8, #0x1
+0x10001CEB0   str      x8, [x19, #0x8]
+0x10001CEB4   b        0x10001cc1c
+0x10001CEB8   ldr      x0, [x19, #0x10]
+0x10001CEBC   mov      x2, #0x0
+0x10001CEC0   b        0x10001ed10
+0x10001CEC4   mov      x0, x19
+0x10001CEC8   bl       _objc_msgSend$performOperatingSystemCommand
+0x10001CECC   b        0x10001ef74
+0x10001CED0   ldr      x8, [x19, #0x38]
+0x10001CED4   adrp     x9, 233              ; 0x100105000
+0x10001CED8   add      x9, x9, #0x558
+0x10001CEDC   cmp      x8, x9
+0x10001CEE0   b.ne     0x10001ef7c
+0x10001CEE4   mov      w8, #0x4
+0x10001CEE8   b        0x10001d618
+0x10001CEEC   ldr      x8, [x19, #0x38]
+0x10001CEF0   adrp     x9, 233              ; 0x100105000
+0x10001CEF4   add      x9, x9, #0x558
+0x10001CEF8   cmp      x8, x9
+0x10001CEFC   b.ne     0x10001f9d0
+0x10001CF00   ldr      x25, [x19, #0x10]
+0x10001CF04   mov      x0, x25
+0x10001CF08   bl       _objc_msgSend$columnCount
+0x10001CF0C   mov      x26, x0
+0x10001CF10   ldr      x0, [x19, #0x10]
+0x10001CF14   bl       _objc_msgSend$cursorColumn
+0x10001CF18   sub      x26, x26, x0
+0x10001CF1C   ldr      x0, [x19, #0x10]
+0x10001CF20   bl       _objc_msgSend$cursorPosition
+0x10001CF24   mov      x3, x0
+0x10001CF28   mov      x0, x25
+0x10001CF2C   mov      x2, x26
+0x10001CF30   mov      x4, x1
+0x10001CF34   bl       "_objc_msgSend$deleteUTF8Characters:atPosition:"
+0x10001CF38   b        0x10001f9cc
+0x10001CF3C   ldur     x8, [x29, #-0x88]
+0x10001CF40   sub      w8, w8, w22
+0x10001CF44   cmp      w8, #0x1
+0x10001CF48   b.lt     0x10001ef7c
+0x10001CF4C   mov      x20, x23
+0x10001CF50   mov      w23, #0x0
+0x10001CF54   mov      x10, x9
+0x10001CF58   sxtw     x9, w23
+0x10001CF5C   add      x23, x9, #0x1
+0x10001CF60   tbz      w10, #0x7, 0x10001cf7c
+0x10001CF64   ldrb     w10, [x25, x9]
+0x10001CF68   sub      w11, w10, #0xf5
+0x10001CF6C   cmn      w11, #0x33
+0x10001CF70   ldur     x11, [x29, #-0x88]
+0x10001CF74   ccmp     w23, w11, #0x4, hs
+0x10001CF78   b.ne     0x10001cfb0
+0x10001CF7C   cmp      w23, w8
+0x10001CF80   b.ge     0x10001edb8
+0x10001CF84   ldrb     w10, [x25, w23, sxtw]
+0x10001CF88   ldr      x9, [x19, #0x30]
+0x10001CF8C   add      x11, x9, #0x400
+0x10001CF90   add      x12, x9, x10, lsl #3
+0x10001CF94   cmp      w10, #0x80
+0x10001CF98   csel     x9, x11, x12, hi
+0x10001CF9C   ldr      x9, [x9]
+0x10001CFA0   str      x9, [x19, #0x8]
+0x10001CFA4   cmp      x9, #0x5d
+0x10001CFA8   b.eq     0x10001cf58
+0x10001CFAC   b        0x10001edb8
+0x10001CFB0   ldrb     w11, [x25, x23]
+0x10001CFB4   and      w12, w10, #0xf0
+0x10001CFB8   cmp      w12, #0xe0
+0x10001CFBC   b.ne     0x10001d004
+0x10001CFC0   and      x10, x10, #0xf
+0x10001CFC4   adrp     x12, 152             ; 0x1000b4000
+0x10001CFC8   add      x12, x12, #0xcd9
+0x10001CFCC   ldrb     w10, [x12, x10]
+0x10001CFD0   lsr      w11, w11, #5
+0x10001CFD4   lsr      w10, w10, w11
+0x10001CFD8   tbz      w10, #0x0, 0x10001cf7c
+0x10001CFDC   add      x10, x9, #0x2
+0x10001CFE0   ldur     x11, [x29, #-0x88]
+0x10001CFE4   mov      x23, x11
+0x10001CFE8   cmp      w10, w11
+0x10001CFEC   b.eq     0x10001cf7c
+0x10001CFF0   ldrsb    w11, [x25, x10]
+0x10001CFF4   add      w9, w9, #0x3
+0x10001CFF8   cmn      w11, #0x40
+0x10001CFFC   csel     w23, w9, w10, lt
+0x10001D000   b        0x10001cf7c
+0x10001D004   cmp      w10, #0xdf
+0x10001D008   b.hi     0x10001d020
+0x10001D00C   sxtb     w10, w11
+0x10001D010   add      w9, w9, #0x2
+0x10001D014   cmn      w10, #0x40
+0x10001D018   csel     w23, w9, w23, lt
+0x10001D01C   b        0x10001cf7c
+0x10001D020   lsr      x11, x11, #4
+0x10001D024   adrp     x12, 145             ; 0x1000ae000
+0x10001D028   add      x12, x12, #0xf80
+0x10001D02C   ldrb     w11, [x12, x11]
+0x10001D030   and      w10, w10, #0x7
+0x10001D034   lsr      w10, w11, w10
+0x10001D038   tbz      w10, #0x0, 0x10001cf7c
+0x10001D03C   add      x10, x9, #0x2
+0x10001D040   ldur     x11, [x29, #-0x88]
+0x10001D044   mov      x23, x11
+0x10001D048   cmp      w10, w11
+0x10001D04C   b.eq     0x10001cf7c
+0x10001D050   ldrsb    w11, [x25, x10]
+0x10001D054   mov      x23, x10
+0x10001D058   cmn      w11, #0x41
+0x10001D05C   b.gt     0x10001cf7c
+0x10001D060   add      x10, x9, #0x3
+0x10001D064   ldur     x11, [x29, #-0x88]
+0x10001D068   mov      x23, x11
+0x10001D06C   cmp      w10, w11
+0x10001D070   b.eq     0x10001cf7c
+0x10001D074   ldrsb    w11, [x25, x10]
+0x10001D078   add      w9, w9, #0x4
+0x10001D07C   b        0x10001cff8
+0x10001D080   ldr      x8, [x19, #0x38]
+0x10001D084   adrp     x9, 232              ; 0x100105000
+0x10001D088   add      x9, x9, #0x558
+0x10001D08C   cmp      x8, x9
+0x10001D090   b.ne     0x10001ef78
+0x10001D094   ldr      x25, [x19, #0x18]
+0x10001D098   adrp     x0, 195              ; 0x1000e0000
+0x10001D09C   add      x0, x0, #0x130       ; @"/Z"
+0x10001D0A0   b        0x10001f2a8
+0x10001D0A4   ldr      x0, [x19, #0x10]
+0x10001D0A8   mov      w2, #0x1
+0x10001D0AC   b        0x10001ed10
+0x10001D0B0   ldr      x8, [x19, #0x38]
+0x10001D0B4   adrp     x9, 232              ; 0x100105000
+0x10001D0B8   add      x9, x9, #0x558
+0x10001D0BC   cmp      x8, x9
+0x10001D0C0   b.ne     0x10001ef78
+0x10001D0C4   ldr      x9, [sp, #0x78]
+0x10001D0C8   ldr      w8, [x9]
+0x10001D0CC   add      w8, w8, #0x2
+0x10001D0D0   cmp      w8, #0x2
+0x10001D0D4   b.hi     0x10001d0dc
+0x10001D0D8   str      wzr, [x9]
+0x10001D0DC   mov      x0, x19
+0x10001D0E0   bl       _objc_msgSend$rowCount
+0x10001D0E4   ldr      w8, [x19, #0x48]
+0x10001D0E8   cmp      w0, w8
+0x10001D0EC   csel     w2, w0, w8, lo
+0x10001D0F0   mov      x0, x19
+0x10001D0F4   bl       "_objc_msgSend$setCursorRow:"
+0x10001D0F8   ldr      x0, [x19, #0x10]
+0x10001D0FC   bl       _objc_msgSend$columnCount
+0x10001D100   ldurb    w8, [x29, #-0x79]
+0x10001D104   cmp      w8, #0x20
+0x10001D108   mov      w9, #0x20
+0x10001D10C   csel     w8, w8, w9, hi
+0x10001D110   sub      w8, w8, #0x1f
+0x10001D114   cmp      x0, x8
+0x10001D118   csel     x2, x0, x8, lo
+0x10001D11C   mov      x0, x19
+0x10001D120   b        0x10001dfdc
+0x10001D124   ldr      x10, [sp, #0x78]
+0x10001D128   ldr      w8, [x10]
+0x10001D12C   add      w9, w8, #0x2
+0x10001D130   cmp      w9, #0x2
+0x10001D134   b.hi     0x10001d140
+0x10001D138   mov      w8, #0x1
+0x10001D13C   str      w8, [x10]
+0x10001D140   cmp      w8, #0x1
+0x10001D144   csinc    w8, w8, wzr, gt
+0x10001D148   b        0x10001d6f4
+0x10001D14C   ldr      x8, [x19, #0x38]
+0x10001D150   adrp     x9, 232              ; 0x100105000
+0x10001D154   add      x9, x9, #0x558
+0x10001D158   cmp      x8, x9
+0x10001D15C   b.ne     0x10001ef78
+0x10001D160   mov      x0, x19
+0x10001D164   bl       _objc_msgSend$rowCount
+0x10001D168   mov      x25, x0
+0x10001D16C   mov      x0, x19
+0x10001D170   bl       _objc_msgSend$cursorRow
+0x10001D174   add      x8, x0, #0x1
+0x10001D178   mov      w9, w25
+0x10001D17C   cmp      x8, w25, uxtw
+0x10001D180   csinc    x2, x9, x0, hs
+0x10001D184   b        0x10001ebc8
+0x10001D188   mov      x20, x23
+0x10001D18C   ldr      x23, [x19, #0x4968]
+0x10001D190   mov      x0, x19
+0x10001D194   bl       _objc_msgSend$cursorColumn
+0x10001D198   mov      x2, x0
+0x10001D19C   mov      x0, x23
+0x10001D1A0   mov      x23, x20
+0x10001D1A4   bl       "_objc_msgSend$addIndex:"
+0x10001D1A8   b        0x10001ee30
+0x10001D1AC   ldr      w8, [x19, #0x44]
+0x10001D1B0   ldr      x0, [sp, #0x78]
+0x10001D1B4   cbz      w8, 0x10001d1c4
+0x10001D1B8   lsl      x2, x8, #2
+0x10001D1BC   mov      w1, #0xff
+0x10001D1C0   bl       _memset
+0x10001D1C4   mov      w8, #0x1
+0x10001D1C8   str      w8, [x19, #0x44]
+0x10001D1CC   ldr      x0, [x19, #0xc8]
+0x10001D1D0   cbz      x0, 0x10001d1dc
+0x10001D1D4   bl       _objc_release
+0x10001D1D8   str      xzr, [x19, #0xc8]
+0x10001D1DC   adrp     x8, 231              ; 0x100104000
+0x10001D1E0   add      x8, x8, #0x940
+0x10001D1E4   b        0x10001ef78
+0x10001D1E8   ldr      x8, [x19, #0x38]
+0x10001D1EC   adrp     x9, 232              ; 0x100105000
+0x10001D1F0   add      x9, x9, #0x558
+0x10001D1F4   cmp      x8, x9
+0x10001D1F8   b.ne     0x10001ef7c
+0x10001D1FC   adrp     x8, 232              ; 0x100105000
+0x10001D200   add      x8, x8, #0xd58
+0x10001D204   b        0x10001ef78
+0x10001D208   ldr      x0, [x19, #0x10]
+0x10001D20C   mov      w2, #0x2
+0x10001D210   b        0x10001ed10
+0x10001D214   ldr      x10, [sp, #0x78]
+0x10001D218   ldr      w8, [x10]
+0x10001D21C   add      w9, w8, #0x2
+0x10001D220   cmp      w9, #0x2
+0x10001D224   b.hi     0x10001d230
+0x10001D228   mov      w8, #0x1
+0x10001D22C   str      w8, [x10]
+0x10001D230   ldr      x25, [x19, #0x10]
+0x10001D234   sxtw     x26, w8
+0x10001D238   mov      x0, x25
+0x10001D23C   bl       _objc_msgSend$cursorPosition
+0x10001D240   mov      x3, x0
+0x10001D244   ldr      w5, [x19, #0x2944]
+0x10001D248   mov      x0, x25
+0x10001D24C   mov      x2, x26
+0x10001D250   mov      x4, x1
+0x10001D254   bl       "_objc_msgSend$deleteUTF8Characters:atPosition:withANSIBackgroundColor:"
+0x10001D258   ldr      x0, [x19, #0x10]
+0x10001D25C   mov      w2, #0x0
+0x10001D260   bl       "_objc_msgSend$setCursorRowWrappedToNextRow:"
+0x10001D264   b        0x10001f9cc
+0x10001D268   ldr      w8, [x19, #0x44]
+0x10001D26C   cmp      w8, #0x1
+0x10001D270   b.hi     0x10001ef74
+0x10001D274   ldr      x8, [sp, #0x78]
+0x10001D278   ldr      w8, [x8]
+0x10001D27C   add      w8, w8, #0x2
+0x10001D280   cmp      w8, #0x2
+0x10001D284   b.hi     0x10001ef74
+0x10001D288   ldr      x25, [x19, #0x18]
+0x10001D28C   adrp     x0, 195              ; 0x1000e0000
+0x10001D290   add      x0, x0, #0x1b0       ; @"[>1;95;0c"
+0x10001D294   b        0x10001f2a8
+0x10001D298   mov      w8, #0x1
+0x10001D29C   ldur     x9, [x29, #-0x90]
+0x10001D2A0   strb     w8, [x9, #0x10]
+0x10001D2A4   adrp     x8, 230              ; 0x100103000
+0x10001D2A8   add      x8, x8, #0x920
+0x10001D2AC   b        0x10001ef78
+0x10001D2B0   mov      w8, #0x1
+0x10001D2B4   b        0x10001e284
+0x10001D2B8   adrp     x8, 230              ; 0x100103000
+0x10001D2BC   add      x8, x8, #0x110
+0x10001D2C0   b        0x10001ef78
+0x10001D2C4   ldr      x8, [x19, #0x38]
+0x10001D2C8   adrp     x9, 232              ; 0x100105000
+0x10001D2CC   add      x9, x9, #0x558
+0x10001D2D0   cmp      x8, x9
+0x10001D2D4   b.ne     0x10001ef78
+0x10001D2D8   mov      x0, x19
+0x10001D2DC   bl       _objc_msgSend$cursorColumn
+0x10001D2E0   sub      x8, x0, #0x1
+0x10001D2E4   b        0x10001ee84
+0x10001D2E8   ldur     x9, [x29, #-0x98]
+0x10001D2EC   ldrh     w8, [x9]
+0x10001D2F0   and      w8, w8, #0xffffffbf
+0x10001D2F4   b        0x10001d324
+0x10001D2F8   ldr      x8, [x19, #0x38]
+0x10001D2FC   adrp     x9, 232              ; 0x100105000
+0x10001D300   add      x9, x9, #0x558
+0x10001D304   cmp      x8, x9
+0x10001D308   b.ne     0x10001ef7c
+0x10001D30C   adrp     x8, 232              ; 0x100105000
+0x10001D310   add      x8, x8, #0x958
+0x10001D314   b        0x10001ef78
+0x10001D318   ldur     x9, [x29, #-0x98]
+0x10001D31C   ldrh     w8, [x9]
+0x10001D320   orr      w8, w8, #0x40
+0x10001D324   strh     w8, [x9]
+0x10001D328   b        0x10001ef74
+0x10001D32C   str      x24, [sp, #0x60]
+0x10001D330   mov      x20, x23
+0x10001D334   ldr      w8, [x19, #0x44]
+0x10001D338   cbz      w8, 0x10001df94
+0x10001D33C   mov      x23, #0x0
+0x10001D340   ldp      x21, x10, [x29, #-0x98]
+0x10001D344   ldr      x24, [sp, #0x78]
+0x10001D348   ldr      w8, [x24, x23, lsl #2]
+0x10001D34C   cmn      w8, #0x3
+0x10001D350   b.hi     0x10001df94
+0x10001D354   cmp      w8, #0x2e
+0x10001D358   b.le     0x10001d388
+0x10001D35C   cmp      w8, #0x3ec
+0x10001D360   b.gt     0x10001d3bc
+0x10001D364   cmp      w8, #0x3e9
+0x10001D368   b.le     0x10001d454
+0x10001D36C   sub      w9, w8, #0x3ea
+0x10001D370   cmp      w9, #0x2
+0x10001D374   b.lo     0x10001d464
+0x10001D378   cmp      w8, #0x3ec
+0x10001D37C   b.ne     0x10001d53c
+0x10001D380   strb     wzr, [x10, #0x2b]
+0x10001D384   b        0x10001d53c
+0x10001D388   cmp      w8, #0x5
+0x10001D38C   b.le     0x10001d3e0
+0x10001D390   cmp      w8, #0x7
+0x10001D394   b.le     0x10001d428
+0x10001D398   cmp      w8, #0x8
+0x10001D39C   b.eq     0x10001d4f0
+0x10001D3A0   cmp      w8, #0x19
+0x10001D3A4   b.eq     0x10001d4e0
+0x10001D3A8   cmp      w8, #0x28
+0x10001D3AC   b.ne     0x10001d53c
+0x10001D3B0   ldrh     w8, [x21]
+0x10001D3B4   and      w8, w8, #0xfffffbff
+0x10001D3B8   b        0x10001d504
+0x10001D3BC   cmp      w8, #0x418
+0x10001D3C0   b.gt     0x10001d498
+0x10001D3C4   sub      w9, w8, #0x3ed
+0x10001D3C8   cmp      w9, #0x2
+0x10001D3CC   b.lo     0x10001d3d8
+0x10001D3D0   cmp      w8, #0x3f7
+0x10001D3D4   b.ne     0x10001d53c
+0x10001D3D8   str      wzr, [x10, #0x24]
+0x10001D3DC   b        0x10001d53c
+0x10001D3E0   cmp      w8, #0x2
+0x10001D3E4   b.gt     0x10001d408
+0x10001D3E8   cmp      w8, #0x1
+0x10001D3EC   b.eq     0x10001d4b8
+0x10001D3F0   cmp      w8, #0x2
+0x10001D3F4   b.ne     0x10001d53c
+0x10001D3F8   mov      x0, x19
+0x10001D3FC   mov      w2, #0x1
+0x10001D400   bl       "_objc_msgSend$vt52EmulationMode:"
+0x10001D404   b        0x10001d538
+0x10001D408   cmp      w8, #0x3
+0x10001D40C   b.eq     0x10001d4c4
+0x10001D410   cmp      w8, #0x5
+0x10001D414   b.ne     0x10001d53c
+0x10001D418   ldr      x0, [x19, #0x10]
+0x10001D41C   mov      w2, #0x0
+0x10001D420   bl       "_objc_msgSend$setInverted:"
+0x10001D424   b        0x10001d538
+0x10001D428   cmp      w8, #0x6
+0x10001D42C   b.eq     0x10001d4fc
+0x10001D430   cmp      w8, #0x7
+0x10001D434   b.ne     0x10001d53c
+0x10001D438   ldrh     w8, [x21]
+0x10001D43C   and      w8, w8, #0xfffffffb
+0x10001D440   strh     w8, [x21]
+0x10001D444   ldr      x0, [x19, #0x10]
+0x10001D448   mov      w2, #0x0
+0x10001D44C   bl       "_objc_msgSend$setAutoWrap:"
+0x10001D450   b        0x10001d538
+0x10001D454   cmp      w8, #0x2f
+0x10001D458   b.eq     0x10001d50c
+0x10001D45C   cmp      w8, #0x3e8
+0x10001D460   b.ne     0x10001d53c
+0x10001D464   adrp     x25, 195             ; 0x1000e0000
+0x10001D468   add      x25, x25, #0xf0      ; @"encodingMouseEvents"
+0x10001D46C   mov      x0, x19
+0x10001D470   mov      x2, x25
+0x10001D474   bl       "_objc_msgSend$willChangeValueForKey:"
+0x10001D478   ldur     x8, [x29, #-0x90]
+0x10001D47C   sturh    wzr, [x8, #0x21]
+0x10001D480   ldur     x8, [x29, #-0x90]
+0x10001D484   strb     wzr, [x8, #0x23]
+0x10001D488   mov      x0, x19
+0x10001D48C   mov      x2, x25
+0x10001D490   bl       "_objc_msgSend$didChangeValueForKey:"
+0x10001D494   b        0x10001d538
+0x10001D498   cmp      w8, #0x419
+0x10001D49C   b.eq     0x10001d520
+0x10001D4A0   cmp      w8, #0x7d4
+0x10001D4A4   b.ne     0x10001d53c
+0x10001D4A8   ldr      x0, [x19, #0x10]
+0x10001D4AC   mov      w2, #0x0
+0x10001D4B0   bl       "_objc_msgSend$setBracketedPasteMode:"
+0x10001D4B4   b        0x10001d538
+0x10001D4B8   ldrh     w8, [x21]
+0x10001D4BC   and      w8, w8, #0xffffff7f
+0x10001D4C0   b        0x10001d504
+0x10001D4C4   ldrh     w8, [x21]
+0x10001D4C8   tbz      w8, #0xa, 0x10001d53c
+0x10001D4CC   mov      w20, #0x50
+0x10001D4D0   mov      x0, x19
+0x10001D4D4   mov      w2, #0x50
+0x10001D4D8   bl       "_objc_msgSend$setColumnCount:"
+0x10001D4DC   b        0x10001d538
+0x10001D4E0   ldr      x0, [x19, #0x10]
+0x10001D4E4   mov      w2, #0x0
+0x10001D4E8   bl       "_objc_msgSend$setCursorVisible:"
+0x10001D4EC   b        0x10001d538
+0x10001D4F0   ldrh     w8, [x21]
+0x10001D4F4   and      w8, w8, #0xffffffdf
+0x10001D4F8   b        0x10001d504
+0x10001D4FC   ldrh     w8, [x21]
+0x10001D500   and      w8, w8, #0xfffffffd
+0x10001D504   strh     w8, [x21]
+0x10001D508   b        0x10001d53c
+0x10001D50C   ldr      x0, [x19, #0x10]
+0x10001D510   mov      w2, #0x0
+0x10001D514   mov      w3, #0x0
+0x10001D518   bl       "_objc_msgSend$activateAlternateScreen:clearing:"
+0x10001D51C   b        0x10001d538
+0x10001D520   ldr      x0, [x19, #0x10]
+0x10001D524   mov      w2, #0x0
+0x10001D528   mov      w3, #0x0
+0x10001D52C   bl       "_objc_msgSend$activateAlternateScreen:clearing:"
+0x10001D530   mov      x0, x19
+0x10001D534   bl       _objc_msgSend$restoreCursorState
+0x10001D538   ldur     x10, [x29, #-0x90]
+0x10001D53C   add      x23, x23, #0x1
+0x10001D540   ldr      w8, [x19, #0x44]
+0x10001D544   cmp      x23, x8
+0x10001D548   b.lo     0x10001d348
+0x10001D54C   b        0x10001df94
+0x10001D550   ldr      x10, [sp, #0x78]
+0x10001D554   ldr      w8, [x10]
+0x10001D558   add      w9, w8, #0x2
+0x10001D55C   cmp      w9, #0x2
+0x10001D560   b.hi     0x10001d56c
+0x10001D564   mov      w8, #0x1
+0x10001D568   str      w8, [x10]
+0x10001D56C   ldr      x20, [sp, #0x40]
+0x10001D570   adrp     x9, 235              ; 0x100108000
+0x10001D574   add      x9, x9, #0x778
+0x10001D578   ldr      x25, [x9]
+0x10001D57C   ldr      w21, [x19, #0x2944]
+0x10001D580   ldr      x26, [x19, #0x10]
+0x10001D584   sxtw     x27, w8
+0x10001D588   mov      x0, x26
+0x10001D58C   bl       _objc_msgSend$cursorPosition
+0x10001D590   mov      x5, x0
+0x10001D594   and      x8, x20, #0xffffffff00000000
+0x10001D598   orr      x4, x8, x21
+0x10001D59C   mov      x0, x26
+0x10001D5A0   mov      x2, x27
+0x10001D5A4   mov      x3, x25
+0x10001D5A8   str      x4, [sp, #0x40]
+0x10001D5AC   mov      x6, x1
+0x10001D5B0   bl       "_objc_msgSend$eraseUTF8Characters:withAttributes:atPosition:"
+0x10001D5B4   b        0x10001f5dc
+0x10001D5B8   ldr      x9, [sp, #0x78]
+0x10001D5BC   ldr      w8, [x9]
+0x10001D5C0   cmn      w8, #0x2
+0x10001D5C4   b.lo     0x10001ee04
+0x10001D5C8   str      wzr, [x9]
+0x10001D5CC   b        0x10001ee10
+0x10001D5D0   ldr      x20, [sp, #0x78]
+0x10001D5D4   ldr      w0, [x20]
+0x10001D5D8   b        0x10001e0e4
+0x10001D5DC   ldr      x9, [sp, #0x78]
+0x10001D5E0   ldr      w8, [x9]
+0x10001D5E4   add      w8, w8, #0x2
+0x10001D5E8   cmp      w8, #0x2
+0x10001D5EC   b.hi     0x10001d5f8
+0x10001D5F0   mov      w8, #0x1
+0x10001D5F4   str      w8, [x9]
+0x10001D5F8   mov      x0, x19
+0x10001D5FC   bl       _objc_msgSend$cursorRow
+0x10001D600   ldr      w8, [x19, #0x48]
+0x10001D604   sub      w8, w0, w8
+0x10001D608   cmp      w8, #0x1
+0x10001D60C   csinc    w2, w8, wzr, gt
+0x10001D610   b        0x10001ef68
+0x10001D614   mov      w8, #0x1
+0x10001D618   ldur     x9, [x29, #-0x90]
+0x10001D61C   b        0x10001ecc8
+0x10001D620   ldr      x9, [sp, #0x78]
+0x10001D624   ldr      w8, [x9]
+0x10001D628   add      w8, w8, #0x2
+0x10001D62C   cmp      w8, #0x2
+0x10001D630   b.hi     0x10001d63c
+0x10001D634   mov      w8, #0x1
+0x10001D638   str      w8, [x9]
+0x10001D63C   ldr      w8, [x19, #0x44]
+0x10001D640   cmp      w8, #0x2
+0x10001D644   b.hs     0x10001ee3c
+0x10001D648   mov      w9, #0x1
+0x10001D64C   str      w9, [x19, #0x4c]
+0x10001D650   add      w8, w8, #0x1
+0x10001D654   str      w8, [x19, #0x44]
+0x10001D658   b        0x10001ee54
+0x10001D65C   mov      x20, x23
+0x10001D660   ldr      x9, [sp, #0x78]
+0x10001D664   ldr      w8, [x9]
+0x10001D668   add      w8, w8, #0x2
+0x10001D66C   cmp      w8, #0x2
+0x10001D670   b.hi     0x10001d67c
+0x10001D674   mov      w8, #0x1
+0x10001D678   str      w8, [x9]
+0x10001D67C   mov      x0, x19
+0x10001D680   bl       _objc_msgSend$rowCount
+0x10001D684   mov      x23, x0
+0x10001D688   mov      x0, x19
+0x10001D68C   bl       _objc_msgSend$cursorRow
+0x10001D690   mov      w8, w23
+0x10001D694   ldrsw    x9, [x19, #0x48]
+0x10001D698   add      x9, x0, x9
+0x10001D69C   cmp      x9, w23, uxtw
+0x10001D6A0   csel     x2, x9, x8, lo
+0x10001D6A4   mov      x0, x19
+0x10001D6A8   bl       "_objc_msgSend$setCursorRow:"
+0x10001D6AC   mov      x0, x19
+0x10001D6B0   mov      w2, #0x1
+0x10001D6B4   bl       "_objc_msgSend$setCursorColumn:"
+0x10001D6B8   strb     wzr, [x19, #0xe1]
+0x10001D6BC   ldr      x8, [x19, #0x38]
+0x10001D6C0   str      x8, [x19, #0x30]
+0x10001D6C4   b        0x10001cbcc
+0x10001D6C8   ldr      x9, [sp, #0x78]
+0x10001D6CC   ldr      w8, [x9]
+0x10001D6D0   add      w8, w8, #0x2
+0x10001D6D4   cmp      w8, #0x2
+0x10001D6D8   b.hi     0x10001d6e4
+0x10001D6DC   mov      w8, #0x1
+0x10001D6E0   str      w8, [x9]
+0x10001D6E4   mov      x0, x19
+0x10001D6E8   bl       _objc_msgSend$cursorColumn
+0x10001D6EC   ldrsw    x8, [x19, #0x48]
+0x10001D6F0   add      x8, x0, x8
+0x10001D6F4   cmp      x23, x8
+0x10001D6F8   csel     x2, x23, x8, lo
+0x10001D6FC   b        0x10001ee8c
+0x10001D700   mov      x0, x19
+0x10001D704   bl       _objc_msgSend$advanceCursorRow
+0x10001D708   ldur     x8, [x29, #-0x98]
+0x10001D70C   ldrh     w8, [x8]
+0x10001D710   tbz      w8, #0x0, 0x10001ef7c
+0x10001D714   mov      x0, x19
+0x10001D718   mov      w2, #0x1
+0x10001D71C   bl       "_objc_msgSend$setCursorColumn:"
+0x10001D720   b        0x10001ef7c
+0x10001D724   ldr      w8, [x19, #0x44]
+0x10001D728   ldur     x11, [x29, #-0x98]
+0x10001D72C   ldr      x12, [sp, #0x78]
+0x10001D730   cbz      w8, 0x10001f5dc
+0x10001D734   mov      x9, #0x0
+0x10001D738   ldr      w10, [x12, x9, lsl #2]
+0x10001D73C   cmn      w10, #0x3
+0x10001D740   b.hi     0x10001f5dc
+0x10001D744   sub      w10, w10, #0x2
+0x10001D748   ror      w10, w10, #0x1
+0x10001D74C   cmp      w10, #0x4
+0x10001D750   b.gt     0x10001d76c
+0x10001D754   cbz      w10, 0x10001d788
+0x10001D758   cmp      w10, #0x1
+0x10001D75C   b.ne     0x10001d7a0
+0x10001D760   ldrh     w10, [x11]
+0x10001D764   orr      w10, w10, #0x200
+0x10001D768   b        0x10001d79c
+0x10001D76C   cmp      w10, #0x5
+0x10001D770   b.eq     0x10001d794
+0x10001D774   cmp      w10, #0x9
+0x10001D778   b.ne     0x10001d7a0
+0x10001D77C   ldrh     w10, [x11]
+0x10001D780   orr      w10, w10, #0x1
+0x10001D784   b        0x10001d79c
+0x10001D788   ldrh     w10, [x11]
+0x10001D78C   orr      w10, w10, #0x10
+0x10001D790   b        0x10001d79c
+0x10001D794   ldrh     w10, [x11]
+0x10001D798   and      w10, w10, #0xfffffeff
+0x10001D79C   strh     w10, [x11]
+0x10001D7A0   add      x9, x9, #0x1
+0x10001D7A4   subs     x8, x8, #0x1
+0x10001D7A8   b.ne     0x10001d738
+0x10001D7AC   b        0x10001f5dc
+0x10001D7B0   mov      x0, x19
+0x10001D7B4   mov      w2, #0x0
+0x10001D7B8   bl       "_objc_msgSend$vt52EmulationMode:"
+0x10001D7BC   b        0x10001ef7c
+0x10001D7C0   ldr      x8, [x19, #0x38]
+0x10001D7C4   adrp     x9, 232              ; 0x100105000
+0x10001D7C8   add      x9, x9, #0x558
+0x10001D7CC   cmp      x8, x9
+0x10001D7D0   b.ne     0x10001f5dc
+0x10001D7D4   ldr      x25, [x19, #0x10]
+0x10001D7D8   mov      x0, x25
+0x10001D7DC   bl       _objc_msgSend$columnCount
+0x10001D7E0   mov      x26, x0
+0x10001D7E4   ldr      x0, [x19, #0x10]
+0x10001D7E8   bl       _objc_msgSend$cursorColumn
+0x10001D7EC   sub      x26, x26, x0
+0x10001D7F0   ldr      x0, [x19, #0x10]
+0x10001D7F4   bl       _objc_msgSend$cursorPosition
+0x10001D7F8   mov      x3, x0
+0x10001D7FC   mov      x0, x25
+0x10001D800   mov      x2, x26
+0x10001D804   mov      x4, x1
+0x10001D808   bl       "_objc_msgSend$deleteUTF8Characters:atPosition:"
+0x10001D80C   mov      x0, x19
+0x10001D810   bl       _objc_msgSend$cursorRow
+0x10001D814   mov      x25, x0
+0x10001D818   ldr      x0, [x19, #0x10]
+0x10001D81C   bl       _objc_msgSend$rowCount
+0x10001D820   cmp      x25, x0
+0x10001D824   b.hs     0x10001f5dc
+0x10001D828   mov      x0, x19
+0x10001D82C   bl       _objc_msgSend$cursorRow
+0x10001D830   add      x8, x0, #0x1
+0x10001D834   ldr      x9, [x19, #0xd0]
+0x10001D838   subs     x8, x8, x9
+0x10001D83C   b.lo     0x10001f5dc
+0x10001D840   ldr      x9, [x19, #0xd8]
+0x10001D844   cmp      x8, x9
+0x10001D848   b.hs     0x10001f5dc
+0x10001D84C   ldr      x25, [x19, #0x10]
+0x10001D850   mov      x0, x19
+0x10001D854   bl       _objc_msgSend$cursorRow
+0x10001D858   mov      x26, x0
+0x10001D85C   ldr      x0, [x19, #0x10]
+0x10001D860   bl       _objc_msgSend$rowCount
+0x10001D864   mov      x27, x0
+0x10001D868   mov      x0, x19
+0x10001D86C   bl       _objc_msgSend$cursorRow
+0x10001D870   sub      x3, x27, x0
+0x10001D874   mov      x0, x25
+0x10001D878   mov      x2, x26
+0x10001D87C   bl       "_objc_msgSend$deleteUTF8CharactersInLineRange:"
+0x10001D880   b        0x10001f5dc
+0x10001D884   ldr      x9, [sp, #0x78]
+0x10001D888   ldr      w8, [x9]
+0x10001D88C   cmn      w8, #0x2
+0x10001D890   b.lo     0x10001ee98
+0x10001D894   str      wzr, [x9]
+0x10001D898   mov      x0, x19
+0x10001D89C   bl       _objc_msgSend$unshiftedCursorRow
+0x10001D8A0   cmp      x0, #0x1
+0x10001D8A4   b.ne     0x10001d8d4
+0x10001D8A8   mov      x0, x19
+0x10001D8AC   bl       _objc_msgSend$cursorColumn
+0x10001D8B0   cmp      x0, #0x1
+0x10001D8B4   b.ne     0x10001d8d4
+0x10001D8B8   adrp     x8, 200              ; 0x1000e5000
+0x10001D8BC   ldr      x0, [x8, #0x208]     ; _OBJC_CLASS_$_NSUserDefaults@got
+0x10001D8C0   bl       _objc_msgSend$standardUserDefaults
+0x10001D8C4   adrp     x2, 195              ; 0x1000e0000
+0x10001D8C8   add      x2, x2, #0x110       ; @"EraseInDisplayAtHomeSavesToScrollback"
+0x10001D8CC   bl       "_objc_msgSend$boolForKey:"
+0x10001D8D0   cbnz     w0, 0x10001f5a8
+0x10001D8D4   ldr      x25, [x19, #0x10]
+0x10001D8D8   mov      x0, x25
+0x10001D8DC   bl       _objc_msgSend$columnCount
+0x10001D8E0   mov      x26, x0
+0x10001D8E4   ldr      x0, [x19, #0x10]
+0x10001D8E8   bl       _objc_msgSend$cursorColumn
+0x10001D8EC   sub      x26, x26, x0
+0x10001D8F0   ldr      x0, [x19, #0x10]
+0x10001D8F4   bl       _objc_msgSend$cursorPosition
+0x10001D8F8   mov      x3, x0
+0x10001D8FC   ldr      w5, [x19, #0x2944]
+0x10001D900   mov      x0, x25
+0x10001D904   mov      x2, x26
+0x10001D908   mov      x4, x1
+0x10001D90C   bl       "_objc_msgSend$deleteUTF8Characters:atPosition:withANSIBackgroundColor:"
+0x10001D910   mov      x0, x19
+0x10001D914   bl       _objc_msgSend$unshiftedCursorRow
+0x10001D918   mov      x25, x0
+0x10001D91C   ldr      x0, [x19, #0x10]
+0x10001D920   bl       _objc_msgSend$rowCount
+0x10001D924   mov      x0, x19
+0x10001D928   bl       _objc_msgSend$unshiftedCursorRow
+0x10001D92C   mov      x0, x19
+0x10001D930   bl       _objc_msgSend$unshiftedCursorRow
+0x10001D934   ldr      x0, [x19, #0x10]
+0x10001D938   bl       _objc_msgSend$rowCount
+0x10001D93C   mov      x26, x0
+0x10001D940   mov      x0, x19
+0x10001D944   bl       _objc_msgSend$unshiftedCursorRow
+0x10001D948   sub      x27, x26, x0
+0x10001D94C   ldr      x0, [x19, #0x10]
+0x10001D950   ldr      w4, [x19, #0x2944]
+0x10001D954   mov      x2, x25
+0x10001D958   mov      x3, x27
+0x10001D95C   bl       "_objc_msgSend$deleteUTF8CharactersInLineRange:withANSIBackgroundColor:"
+0x10001D960   ldr      x0, [x19, #0x10]
+0x10001D964   bl       _objc_msgSend$lineCount
+0x10001D968   mov      x26, x0
+0x10001D96C   ldr      x0, [x19, #0x10]
+0x10001D970   bl       _objc_msgSend$rowCount
+0x10001D974   add      x21, x27, x25
+0x10001D978   cmp      x21, w25, sxtw
+0x10001D97C   b.ls     0x10001f5dc
+0x10001D980   mov      x20, x23
+0x10001D984   sxtw     x23, w25
+0x10001D988   add      x8, x26, x23
+0x10001D98C   sub      x25, x8, x0
+0x10001D990   ldr      x0, [x19, #0x10]
+0x10001D994   mov      x2, #0x0
+0x10001D998   mov      x3, x25
+0x10001D99C   bl       "_objc_msgSend$setSize:forLine:"
+0x10001D9A0   add      x23, x23, #0x1
+0x10001D9A4   add      x25, x25, #0x1
+0x10001D9A8   cmp      x21, x23
+0x10001D9AC   b.hi     0x10001d990
+0x10001D9B0   mov      x23, x20
+0x10001D9B4   b        0x10001f5dc
+0x10001D9B8   ldr      x9, [sp, #0x78]
+0x10001D9BC   ldr      w8, [x9]
+0x10001D9C0   add      w8, w8, #0x2
+0x10001D9C4   cmp      w8, #0x2
+0x10001D9C8   b.hi     0x10001d9d4
+0x10001D9CC   mov      w8, #0x1
+0x10001D9D0   str      w8, [x9]
+0x10001D9D4   mov      x0, x19
+0x10001D9D8   bl       _objc_msgSend$rowCount
+0x10001D9DC   mov      x25, x0
+0x10001D9E0   mov      x0, x19
+0x10001D9E4   bl       _objc_msgSend$cursorRow
+0x10001D9E8   mov      w8, w25
+0x10001D9EC   ldrsw    x9, [x19, #0x48]
+0x10001D9F0   add      x9, x0, x9
+0x10001D9F4   cmp      x9, w25, uxtw
+0x10001D9F8   csel     x2, x9, x8, lo
+0x10001D9FC   b        0x10001ef68
+0x10001DA00   ldur     x8, [x29, #-0x90]
+0x10001DA04   str      wzr, [x8]
+0x10001DA08   b        0x10001ef7c
+0x10001DA0C   ldr      x10, [sp, #0x78]
+0x10001DA10   ldr      w8, [x10]
+0x10001DA14   add      w9, w8, #0x2
+0x10001DA18   cmp      w9, #0x2
+0x10001DA1C   b.hi     0x10001da28
+0x10001DA20   mov      w8, #0x1
+0x10001DA24   str      w8, [x10]
+0x10001DA28   ldr      x0, [x19, #0x10]
+0x10001DA2C   ldp      x9, x3, [x19, #0xd0]
+0x10001DA30   sub      x2, x9, #0x1
+0x10001DA34   sxtw     x5, w8
+0x10001DA38   ldr      w6, [x19, #0x2944]
+0x10001DA3C   mov      x4, #0x0
+0x10001DA40   b        0x10001e634
+0x10001DA44   mov      x0, x19
+0x10001DA48   bl       _objc_msgSend$unshiftedCursorRow
+0x10001DA4C   ldr      x8, [x19, #0xd0]
+0x10001DA50   cmp      x0, x8
+0x10001DA54   b.ne     0x10001ef5c
+0x10001DA58   ldr      x8, [x19, #0x10]
+0x10001DA5C   sub      x2, x0, #0x1
+0x10001DA60   ldr      x3, [x19, #0xd8]
+0x10001DA64   ldr      w6, [x19, #0x2944]
+0x10001DA68   mov      x0, x8
+0x10001DA6C   mov      w4, #0x1
+0x10001DA70   mov      w5, #0x1
+0x10001DA74   bl       "_objc_msgSend$shiftLineRange:inDirection:byAmount:withANSIBackgroundColor:"
+0x10001DA78   b        0x10001ef70
+0x10001DA7C   mov      x0, x19
+0x10001DA80   bl       _objc_msgSend$saveCursorState
+0x10001DA84   b        0x10001ef74
+0x10001DA88   adrp     x8, 231              ; 0x100104000
+0x10001DA8C   add      x8, x8, #0x538
+0x10001DA90   b        0x10001ef78
+0x10001DA94   adrp     x8, 199              ; 0x1000e4000
+0x10001DA98   ldr      x0, [x8, #0xb18]     ; _OBJC_CLASS_$_NSNotificationCenter@got
+0x10001DA9C   bl       _objc_msgSend$defaultCenter
+0x10001DAA0   adrp     x2, 193              ; 0x1000de000
+0x10001DAA4   add      x2, x2, #0xe30       ; @"TTEmulatorDidBeep"
+0x10001DAA8   mov      x3, x19
+0x10001DAAC   bl       "_objc_msgSend$postNotificationName:object:"
+0x10001DAB0   b        0x10001ef7c
+0x10001DAB4   ldr      x8, [sp, #0x78]
+0x10001DAB8   ldr      w21, [x8]
+0x10001DABC   cmn      w21, #0x2
+0x10001DAC0   b.lo     0x10001f110
+0x10001DAC4   mov      w21, #0x1
+0x10001DAC8   str      w21, [x8]
+0x10001DACC   b        0x10001f118
+0x10001DAD0   mov      x20, x23
+0x10001DAD4   ldr      x9, [sp, #0x78]
+0x10001DAD8   ldr      w23, [x9]
+0x10001DADC   add      w8, w23, #0x2
+0x10001DAE0   cmp      w8, #0x2
+0x10001DAE4   b.hi     0x10001daf0
+0x10001DAE8   mov      w23, #0x1
+0x10001DAEC   str      w23, [x9]
+0x10001DAF0   ldur     x21, [x29, #-0x98]
+0x10001DAF4   ldr      x0, [x19, #0x10]
+0x10001DAF8   bl       _objc_msgSend$isCursorRowWrapped
+0x10001DAFC   ldrh     w8, [x21]
+0x10001DB00   tbnz     w8, #0x3, 0x10001f134
+0x10001DB04   mov      x0, x19
+0x10001DB08   bl       _objc_msgSend$cursorColumn
+0x10001DB0C   sub      w8, w0, w23
+0x10001DB10   cmp      w8, #0x1
+0x10001DB14   csinc    w2, w8, wzr, gt
+0x10001DB18   b        0x10001f69c
+0x10001DB1C   ldr      x9, [sp, #0x78]
+0x10001DB20   ldr      w8, [x9]
+0x10001DB24   cmn      w8, #0x2
+0x10001DB28   b.lo     0x10001f164
+0x10001DB2C   str      wzr, [x9]
+0x10001DB30   ldr      x20, [sp, #0x28]
+0x10001DB34   ldr      x25, [x19, #0x10]
+0x10001DB38   mov      x0, x25
+0x10001DB3C   bl       _objc_msgSend$columnCount
+0x10001DB40   mov      x26, x0
+0x10001DB44   ldr      x0, [x19, #0x10]
+0x10001DB48   bl       _objc_msgSend$cursorColumn
+0x10001DB4C   sub      x26, x26, x0
+0x10001DB50   ldr      x0, [x19, #0x10]
+0x10001DB54   bl       _objc_msgSend$cursorPosition
+0x10001DB58   mov      x3, x0
+0x10001DB5C   ldr      w5, [x19, #0x2944]
+0x10001DB60   mov      x0, x25
+0x10001DB64   mov      x2, x26
+0x10001DB68   mov      x4, x1
+0x10001DB6C   bl       "_objc_msgSend$deleteUTF8Characters:atPosition:withANSIBackgroundColor:"
+0x10001DB70   ldr      x0, [x19, #0x10]
+0x10001DB74   mov      w2, #0x0
+0x10001DB78   bl       "_objc_msgSend$setCursorRowWrappedToNextRow:"
+0x10001DB7C   str      x20, [sp, #0x28]
+0x10001DB80   b        0x10001f9cc
+0x10001DB84   adrp     x8, 231              ; 0x100104000
+0x10001DB88   add      x8, x8, #0x130
+0x10001DB8C   b        0x10001ef78
+0x10001DB90   ldr      x0, [x19, #0x10]
+0x10001DB94   bl       _objc_msgSend$isCursorRowWrapped
+0x10001DB98   ldur     x8, [x29, #-0x98]
+0x10001DB9C   ldrh     w8, [x8]
+0x10001DBA0   tbnz     w8, #0x3, 0x10001f184
+0x10001DBA4   mov      x0, x19
+0x10001DBA8   bl       _objc_msgSend$cursorColumn
+0x10001DBAC   cmp      w0, #0x2
+0x10001DBB0   mov      w9, #0x2
+0x10001DBB4   csel     w8, w0, w9, gt
+0x10001DBB8   sub      w2, w8, #0x1
+0x10001DBBC   b        0x10001f6d4
+0x10001DBC0   ldr      x9, [sp, #0x78]
+0x10001DBC4   ldr      w8, [x9]
+0x10001DBC8   add      w8, w8, #0x2
+0x10001DBCC   cmp      w8, #0x2
+0x10001DBD0   b.hi     0x10001dbdc
+0x10001DBD4   mov      w8, #0x1
+0x10001DBD8   str      w8, [x9]
+0x10001DBDC   mov      x0, x19
+0x10001DBE0   bl       _objc_msgSend$unshiftedCursorRow
+0x10001DBE4   ldr      x8, [x19, #0xd0]
+0x10001DBE8   subs     x8, x0, x8
+0x10001DBEC   b.lo     0x10001f9cc
+0x10001DBF0   ldr      x9, [x19, #0xd8]
+0x10001DBF4   cmp      x8, x9
+0x10001DBF8   b.hs     0x10001f9cc
+0x10001DBFC   ldr      x25, [x19, #0x10]
+0x10001DC00   mov      x0, x19
+0x10001DC04   bl       _objc_msgSend$unshiftedCursorRow
+0x10001DC08   mov      x26, x0
+0x10001DC0C   mov      x0, x19
+0x10001DC10   bl       _objc_msgSend$unshiftedCursorRow
+0x10001DC14   sub      x26, x26, #0x1
+0x10001DC18   mov      x0, x19
+0x10001DC1C   bl       _objc_msgSend$unshiftedCursorRow
+0x10001DC20   ldp      x8, x9, [x19, #0xd0]
+0x10001DC24   add      x21, x9, x8
+0x10001DC28   mov      x0, x19
+0x10001DC2C   bl       _objc_msgSend$unshiftedCursorRow
+0x10001DC30   sub      x3, x21, x0
+0x10001DC34   ldrsw    x5, [x19, #0x48]
+0x10001DC38   ldr      w6, [x19, #0x2944]
+0x10001DC3C   mov      x0, x25
+0x10001DC40   mov      x2, x26
+0x10001DC44   mov      w4, #0x1
+0x10001DC48   b        0x10001ddc4
+0x10001DC4C   ldr      w8, [x19, #0x44]
+0x10001DC50   cmp      w8, #0x20
+0x10001DC54   b.hi     0x10001ef7c
+0x10001DC58   sub      w8, w8, #0x1
+0x10001DC5C   ldr      x12, [sp, #0x78]
+0x10001DC60   ldr      w10, [x12, w8, uxtw #2]
+0x10001DC64   cmn      w10, #0x2
+0x10001DC68   b.eq     0x10001ef7c
+0x10001DC6C   cmn      w10, #0x1
+0x10001DC70   csel     w10, w10, wzr, ne
+0x10001DC74   mov      w11, #0xa
+0x10001DC78   smull    x10, w10, w11
+0x10001DC7C   cmp      x10, w10, sxtw
+0x10001DC80   cset     w11, ne
+0x10001DC84   sub      w9, w9, #0x30
+0x10001DC88   adds     w9, w9, w10
+0x10001DC8C   csinc    w10, w11, wzr, vc
+0x10001DC90   mov      w11, #-0x2
+0x10001DC94   cmp      w10, #0x0
+0x10001DC98   csel     w9, w11, w9, ne
+0x10001DC9C   str      w9, [x12, w8, uxtw #2]
+0x10001DCA0   b        0x10001ef7c
+0x10001DCA4   ldr      w8, [x19, #0x44]
+0x10001DCA8   cmp      w8, #0x1f
+0x10001DCAC   b.hi     0x10001ef7c
+0x10001DCB0   add      w9, w8, #0x1
+0x10001DCB4   str      w9, [x19, #0x44]
+0x10001DCB8   mov      w9, #-0x1
+0x10001DCBC   ldr      x10, [sp, #0x78]
+0x10001DCC0   str      w9, [x10, x8, lsl #2]
+0x10001DCC4   b        0x10001ef7c
+0x10001DCC8   ldr      w8, [x19, #0x44]
+0x10001DCCC   cmp      w8, #0x1
+0x10001DCD0   b.hi     0x10001ef74
+0x10001DCD4   ldr      x8, [sp, #0x78]
+0x10001DCD8   ldr      w8, [x8]
+0x10001DCDC   add      w8, w8, #0x2
+0x10001DCE0   cmp      w8, #0x2
+0x10001DCE4   b.hi     0x10001ef74
+0x10001DCE8   ldr      x25, [x19, #0x18]
+0x10001DCEC   adrp     x0, 195              ; 0x1000e0000
+0x10001DCF0   add      x0, x0, #0x190       ; @"[?1;2c"
+0x10001DCF4   b        0x10001f2a8
+0x10001DCF8   mov      x0, x19
+0x10001DCFC   mov      w2, #0x1
+0x10001DD00   bl       "_objc_msgSend$setCursorColumn:"
+0x10001DD04   mov      x0, x19
+0x10001DD08   bl       _objc_msgSend$advanceCursorRow
+0x10001DD0C   b        0x10001ef74
+0x10001DD10   ldr      w8, [x19, #0x44]
+0x10001DD14   cbz      w8, 0x10001dd28
+0x10001DD18   lsl      x2, x8, #2
+0x10001DD1C   ldr      x0, [sp, #0x78]
+0x10001DD20   mov      w1, #0xff
+0x10001DD24   bl       _memset
+0x10001DD28   mov      w8, #0x1
+0x10001DD2C   str      w8, [x19, #0x44]
+0x10001DD30   adrp     x8, 229              ; 0x100102000
+0x10001DD34   add      x8, x8, #0x900
+0x10001DD38   b        0x10001ef78
+0x10001DD3C   ldr      x9, [sp, #0x78]
+0x10001DD40   ldr      w8, [x9]
+0x10001DD44   add      w8, w8, #0x2
+0x10001DD48   cmp      w8, #0x2
+0x10001DD4C   b.hi     0x10001dd58
+0x10001DD50   mov      w8, #0x1
+0x10001DD54   str      w8, [x9]
+0x10001DD58   mov      x0, x19
+0x10001DD5C   bl       _objc_msgSend$unshiftedCursorRow
+0x10001DD60   ldr      x8, [x19, #0xd0]
+0x10001DD64   subs     x8, x0, x8
+0x10001DD68   b.lo     0x10001f9cc
+0x10001DD6C   ldr      x9, [x19, #0xd8]
+0x10001DD70   cmp      x8, x9
+0x10001DD74   b.hs     0x10001f9cc
+0x10001DD78   ldr      x25, [x19, #0x10]
+0x10001DD7C   mov      x0, x19
+0x10001DD80   bl       _objc_msgSend$unshiftedCursorRow
+0x10001DD84   mov      x26, x0
+0x10001DD88   mov      x0, x19
+0x10001DD8C   bl       _objc_msgSend$unshiftedCursorRow
+0x10001DD90   sub      x26, x26, #0x1
+0x10001DD94   mov      x0, x19
+0x10001DD98   bl       _objc_msgSend$unshiftedCursorRow
+0x10001DD9C   ldp      x8, x9, [x19, #0xd0]
+0x10001DDA0   add      x21, x9, x8
+0x10001DDA4   mov      x0, x19
+0x10001DDA8   bl       _objc_msgSend$unshiftedCursorRow
+0x10001DDAC   sub      x3, x21, x0
+0x10001DDB0   ldrsw    x5, [x19, #0x48]
+0x10001DDB4   ldr      w6, [x19, #0x2944]
+0x10001DDB8   mov      x0, x25
+0x10001DDBC   mov      x2, x26
+0x10001DDC0   mov      x4, #0x0
+0x10001DDC4   bl       "_objc_msgSend$shiftLineRange:inDirection:byAmount:withANSIBackgroundColor:"
+0x10001DDC8   b        0x10001f9cc
+0x10001DDCC   adrp     x8, 229              ; 0x100102000
+0x10001DDD0   add      x8, x8, #0xd08
+0x10001DDD4   b        0x10001ef78
+0x10001DDD8   str      x24, [sp, #0x60]
+0x10001DDDC   mov      x20, x23
+0x10001DDE0   ldr      w8, [x19, #0x44]
+0x10001DDE4   cbz      w8, 0x10001df94
+0x10001DDE8   mov      x23, #0x0
+0x10001DDEC   ldur     x21, [x29, #-0x98]
+0x10001DDF0   ldr      x24, [sp, #0x78]
+0x10001DDF4   ldr      w8, [x24, x23, lsl #2]
+0x10001DDF8   cmn      w8, #0x3
+0x10001DDFC   b.hi     0x10001df94
+0x10001DE00   cmp      w8, #0x6
+0x10001DE04   b.gt     0x10001de34
+0x10001DE08   cmp      w8, #0x2
+0x10001DE0C   b.le     0x10001de90
+0x10001DE10   cmp      w8, #0x3
+0x10001DE14   b.eq     0x10001df08
+0x10001DE18   cmp      w8, #0x5
+0x10001DE1C   b.eq     0x10001df4c
+0x10001DE20   cmp      w8, #0x6
+0x10001DE24   b.ne     0x10001df74
+0x10001DE28   ldrh     w8, [x21]
+0x10001DE2C   eor      w8, w8, #0x2
+0x10001DE30   b        0x10001df70
+0x10001DE34   cmp      w8, #0x18
+0x10001DE38   b.le     0x10001dec0
+0x10001DE3C   cmp      w8, #0x19
+0x10001DE40   b.eq     0x10001df30
+0x10001DE44   cmp      w8, #0x28
+0x10001DE48   b.eq     0x10001df68
+0x10001DE4C   cmp      w8, #0x2f
+0x10001DE50   b.ne     0x10001df74
+0x10001DE54   ldr      x25, [x19, #0x10]
+0x10001DE58   mov      x0, x25
+0x10001DE5C   bl       _objc_msgSend$isAlternateScreenActive
+0x10001DE60   eor      w2, w0, #0x1
+0x10001DE64   mov      x0, x25
+0x10001DE68   mov      w3, #0x0
+0x10001DE6C   bl       "_objc_msgSend$activateAlternateScreen:clearing:"
+0x10001DE70   ldr      x0, [x19, #0x10]
+0x10001DE74   bl       _objc_msgSend$isAlternateScreenActive
+0x10001DE78   cbz      w0, 0x10001df74
+0x10001DE7C   ldr      x0, [x19, #0x10]
+0x10001DE80   mov      x2, #0x0
+0x10001DE84   mov      x3, #0x0
+0x10001DE88   bl       "_objc_msgSend$setCursorPosition:"
+0x10001DE8C   b        0x10001df74
+0x10001DE90   cmp      w8, #0x1
+0x10001DE94   b.eq     0x10001dedc
+0x10001DE98   cmp      w8, #0x2
+0x10001DE9C   b.ne     0x10001df74
+0x10001DEA0   ldr      x8, [x19, #0x30]
+0x10001DEA4   adrp     x9, 229              ; 0x100102000
+0x10001DEA8   add      x9, x9, #0xf0
+0x10001DEAC   mov      x0, x19
+0x10001DEB0   cmp      x8, x9
+0x10001DEB4   b.eq     0x10001df88
+0x10001DEB8   mov      w2, #0x0
+0x10001DEBC   b        0x10001df8c
+0x10001DEC0   cmp      w8, #0x7
+0x10001DEC4   b.eq     0x10001dee8
+0x10001DEC8   cmp      w8, #0x8
+0x10001DECC   b.ne     0x10001df74
+0x10001DED0   ldrh     w8, [x21]
+0x10001DED4   eor      w8, w8, #0x20
+0x10001DED8   b        0x10001df70
+0x10001DEDC   ldrh     w8, [x21]
+0x10001DEE0   eor      w8, w8, #0x80
+0x10001DEE4   b        0x10001df70
+0x10001DEE8   ldrh     w8, [x21]
+0x10001DEEC   eor      w9, w8, #0x4
+0x10001DEF0   strh     w9, [x21]
+0x10001DEF4   tst      w8, #0x4
+0x10001DEF8   cset     w2, eq
+0x10001DEFC   ldr      x0, [x19, #0x10]
+0x10001DF00   bl       "_objc_msgSend$setAutoWrap:"
+0x10001DF04   b        0x10001df74
+0x10001DF08   ldrh     w8, [x21]
+0x10001DF0C   tbz      w8, #0xa, 0x10001df74
+0x10001DF10   mov      w8, #0x84
+0x10001DF14   mov      w9, #0x50
+0x10001DF18   cmp      x20, #0x84
+0x10001DF1C   csel     x2, x9, x8, eq
+0x10001DF20   mov      x0, x19
+0x10001DF24   mov      x20, x2
+0x10001DF28   bl       "_objc_msgSend$setColumnCount:"
+0x10001DF2C   b        0x10001df74
+0x10001DF30   ldr      x25, [x19, #0x10]
+0x10001DF34   mov      x0, x25
+0x10001DF38   bl       _objc_msgSend$isCursorVisible
+0x10001DF3C   eor      w2, w0, #0x1
+0x10001DF40   mov      x0, x25
+0x10001DF44   bl       "_objc_msgSend$setCursorVisible:"
+0x10001DF48   b        0x10001df74
+0x10001DF4C   ldr      x25, [x19, #0x10]
+0x10001DF50   mov      x0, x25
+0x10001DF54   bl       _objc_msgSend$isInverted
+0x10001DF58   eor      w2, w0, #0x1
+0x10001DF5C   mov      x0, x25
+0x10001DF60   bl       "_objc_msgSend$setInverted:"
+0x10001DF64   b        0x10001df74
+0x10001DF68   ldrh     w8, [x21]
+0x10001DF6C   eor      w8, w8, #0x400
+0x10001DF70   strh     w8, [x21]
+0x10001DF74   add      x23, x23, #0x1
+0x10001DF78   ldr      w8, [x19, #0x44]
+0x10001DF7C   cmp      x23, x8
+0x10001DF80   b.lo     0x10001ddf4
+0x10001DF84   b        0x10001df94
+0x10001DF88   mov      w2, #0x1
+0x10001DF8C   bl       "_objc_msgSend$vt52EmulationMode:"
+0x10001DF90   b        0x10001df74
+0x10001DF94   ldr      x8, [x19, #0x38]
+0x10001DF98   str      x8, [x19, #0x30]
+0x10001DF9C   mov      x26, #-0x1
+0x10001DFA0   mov      x27, #-0x1
+0x10001DFA4   mov      x23, x20
+0x10001DFA8   b        0x10001eb54
+0x10001DFAC   mov      w8, #0x2
+0x10001DFB0   b        0x10001e284
+0x10001DFB4   ldr      x8, [x19, #0x38]
+0x10001DFB8   adrp     x9, 232              ; 0x100105000
+0x10001DFBC   add      x9, x9, #0x558
+0x10001DFC0   cmp      x8, x9
+0x10001DFC4   b.ne     0x10001ef78
+0x10001DFC8   mov      x0, x19
+0x10001DFCC   mov      w2, #0x1
+0x10001DFD0   bl       "_objc_msgSend$setCursorRow:"
+0x10001DFD4   mov      x0, x19
+0x10001DFD8   mov      w2, #0x1
+0x10001DFDC   bl       "_objc_msgSend$setCursorColumn:"
+0x10001DFE0   b        0x10001ef74
+0x10001DFE4   ldr      x8, [x19, #0x38]
+0x10001DFE8   adrp     x9, 232              ; 0x100105000
+0x10001DFEC   add      x9, x9, #0x558
+0x10001DFF0   cmp      x8, x9
+0x10001DFF4   b.ne     0x10001ef78
+0x10001DFF8   mov      x0, x19
+0x10001DFFC   bl       _objc_msgSend$cursorColumn
+0x10001E000   add      x8, x0, #0x1
+0x10001E004   cmp      x23, x8
+0x10001E008   csinc    x2, x23, x0, lo
+0x10001E00C   b        0x10001ee8c
+0x10001E010   ldur     x20, [x29, #-0x98]
+0x10001E014   ldurh    w8, [x20, #0x4]
+0x10001E018   orr      w8, w8, #0x40
+0x10001E01C   sturh    w8, [x20, #0x4]
+0x10001E020   ldr      x25, [x19, #0x4968]
+0x10001E024   mov      x0, x19
+0x10001E028   bl       _objc_msgSend$cursorColumn
+0x10001E02C   mov      x2, x0
+0x10001E030   mov      x0, x25
+0x10001E034   bl       "_objc_msgSend$indexGreaterThanIndex:"
+0x10001E038   cmp      x23, x0
+0x10001E03C   csel     x8, x23, x0, lo
+0x10001E040   mov      x9, #0x7fffffffffffffff
+0x10001E044   cmp      x0, x9
+0x10001E048   csel     x21, x23, x8, eq
+0x10001E04C   ldr      x0, [x19, #0x10]
+0x10001E050   bl       _objc_msgSend$cursorLineSize
+0x10001E054   lsr      x8, x23, #1
+0x10001E058   cmp      x8, x21
+0x10001E05C   csel     x8, x8, x21, lo
+0x10001E060   cmp      x0, #0x0
+0x10001E064   csel     x25, x21, x8, eq
+0x10001E068   ldr      x26, [x19, #0x10]
+0x10001E06C   mov      x0, x26
+0x10001E070   bl       _objc_msgSend$cursorLine
+0x10001E074   mov      x2, x0
+0x10001E078   mov      x0, x26
+0x10001E07C   bl       "_objc_msgSend$logicalWidthForRow:"
+0x10001E080   mov      x26, x0
+0x10001E084   ldr      x0, [x19, #0x10]
+0x10001E088   bl       _objc_msgSend$cursorColumn
+0x10001E08C   cmp      x0, x26
+0x10001E090   b.lo     0x10001e0a4
+0x10001E094   mov      x0, x19
+0x10001E098   bl       _objc_msgSend$cursorColumn
+0x10001E09C   cmp      x25, x0
+0x10001E0A0   b.hs     0x10001f3c8
+0x10001E0A4   mov      x0, x19
+0x10001E0A8   mov      x2, x25
+0x10001E0AC   bl       "_objc_msgSend$setCursorColumn:"
+0x10001E0B0   strb     wzr, [x19, #0xe1]
+0x10001E0B4   mov      x26, #-0x1
+0x10001E0B8   ldr      x21, [sp, #0x48]
+0x10001E0BC   str      x21, [sp, #0x48]
+0x10001E0C0   ldur     x9, [x29, #-0x98]
+0x10001E0C4   ldurh    w8, [x9, #0x4]
+0x10001E0C8   and      w8, w8, #0xffffffbf
+0x10001E0CC   sturh    w8, [x9, #0x4]
+0x10001E0D0   b        0x10001ef74
+0x10001E0D4   mov      x0, x19
+0x10001E0D8   bl       _objc_msgSend$unshiftedCursorRow
+0x10001E0DC   str      w0, [x19, #0x48]
+0x10001E0E0   ldr      x20, [sp, #0x78]
+0x10001E0E4   add      w8, w0, #0x2
+0x10001E0E8   cmp      w8, #0x2
+0x10001E0EC   b.hi     0x10001e0f8
+0x10001E0F0   mov      w8, #0x1
+0x10001E0F4   str      w8, [x20]
+0x10001E0F8   ldr      w8, [x19, #0x44]
+0x10001E0FC   cmp      w8, #0x2
+0x10001E100   b.lo     0x10001e114
+0x10001E104   ldr      w0, [x19, #0x4c]
+0x10001E108   add      w8, w0, #0x2
+0x10001E10C   cmp      w8, #0x2
+0x10001E110   b.hi     0x10001e134
+0x10001E114   ldr      x0, [x19, #0x10]
+0x10001E118   bl       _objc_msgSend$rowCount
+0x10001E11C   str      w0, [x19, #0x4c]
+0x10001E120   ldr      w8, [x19, #0x44]
+0x10001E124   cmp      w8, #0x1
+0x10001E128   b.hi     0x10001e134
+0x10001E12C   add      w8, w8, #0x1
+0x10001E130   str      w8, [x19, #0x44]
+0x10001E134   ldrsw    x25, [x20]
+0x10001E138   cmp      w0, w25
+0x10001E13C   b.le     0x10001ef7c
+0x10001E140   sub      w8, w0, w25
+0x10001E144   add      w26, w8, #0x1
+0x10001E148   ldr      x0, [x19, #0x10]
+0x10001E14C   bl       _objc_msgSend$rowCount
+0x10001E150   mov      x3, x0
+0x10001E154   mov      w21, #0x1
+0x10001E158   mov      x0, x25
+0x10001E15C   mov      x1, x26
+0x10001E160   mov      w2, #0x1
+0x10001E164   bl       _NSIntersectionRange
+0x10001E168   mov      x2, x0
+0x10001E16C   mov      x0, x19
+0x10001E170   mov      x3, x1
+0x10001E174   bl       "_objc_msgSend$setScrollRange:"
+0x10001E178   ldr      x8, [x19, #0xd0]
+0x10001E17C   cmp      x8, #0x1
+0x10001E180   b.ne     0x10001e198
+0x10001E184   ldr      x21, [x19, #0xd8]
+0x10001E188   ldr      x0, [x19, #0x10]
+0x10001E18C   bl       _objc_msgSend$rowCount
+0x10001E190   cmp      x21, x0
+0x10001E194   cset     w21, ne
+0x10001E198   strb     w21, [x19, #0xe0]
+0x10001E19C   mov      x0, x19
+0x10001E1A0   mov      w2, #0x1
+0x10001E1A4   bl       "_objc_msgSend$setCursorRow:"
+0x10001E1A8   mov      x0, x19
+0x10001E1AC   mov      w2, #0x1
+0x10001E1B0   bl       "_objc_msgSend$setCursorColumn:"
+0x10001E1B4   b        0x10001f9cc
+0x10001E1B8   ldr      w8, [x19, #0x44]
+0x10001E1BC   ldur     x11, [x29, #-0x98]
+0x10001E1C0   ldr      x12, [sp, #0x78]
+0x10001E1C4   cbz      w8, 0x10001f5dc
+0x10001E1C8   mov      x9, #0x0
+0x10001E1CC   ldr      w10, [x12, x9, lsl #2]
+0x10001E1D0   cmn      w10, #0x3
+0x10001E1D4   b.hi     0x10001f5dc
+0x10001E1D8   sub      w10, w10, #0x2
+0x10001E1DC   ror      w10, w10, #0x1
+0x10001E1E0   cmp      w10, #0x4
+0x10001E1E4   b.gt     0x10001e200
+0x10001E1E8   cbz      w10, 0x10001e21c
+0x10001E1EC   cmp      w10, #0x1
+0x10001E1F0   b.ne     0x10001e234
+0x10001E1F4   ldrh     w10, [x11]
+0x10001E1F8   and      w10, w10, #0xfffffdff
+0x10001E1FC   b        0x10001e230
+0x10001E200   cmp      w10, #0x5
+0x10001E204   b.eq     0x10001e228
+0x10001E208   cmp      w10, #0x9
+0x10001E20C   b.ne     0x10001e234
+0x10001E210   ldrh     w10, [x11]
+0x10001E214   and      w10, w10, #0xfffffffe
+0x10001E218   b        0x10001e230
+0x10001E21C   ldrh     w10, [x11]
+0x10001E220   and      w10, w10, #0xffffffef
+0x10001E224   b        0x10001e230
+0x10001E228   ldrh     w10, [x11]
+0x10001E22C   orr      w10, w10, #0x100
+0x10001E230   strh     w10, [x11]
+0x10001E234   add      x9, x9, #0x1
+0x10001E238   subs     x8, x8, #0x1
+0x10001E23C   b.ne     0x10001e1cc
+0x10001E240   b        0x10001f5dc
+0x10001E244   ldr      x0, [x19, #0x10]
+0x10001E248   bl       _objc_msgSend$rowCount
+0x10001E24C   mov      x3, x0
+0x10001E250   mov      x0, x19
+0x10001E254   mov      w2, #0x1
+0x10001E258   bl       "_objc_msgSend$setScrollRange:"
+0x10001E25C   strb     wzr, [x19, #0xe0]
+0x10001E260   b        0x10001ef74
+0x10001E264   adrp     x8, 198              ; 0x1000e4000
+0x10001E268   ldr      x0, [x8, #0xb00]     ; _OBJC_CLASS_$_NSMutableString@got
+0x10001E26C   bl       _objc_alloc_init
+0x10001E270   adrp     x8, 230              ; 0x100104000
+0x10001E274   add      x8, x8, #0xd48
+0x10001E278   str      x0, [x19, #0xc8]
+0x10001E27C   b        0x10001ef78
+0x10001E280   mov      w8, #0x3
+0x10001E284   ldur     x9, [x29, #-0x90]
+0x10001E288   str      w8, [x9, #0x8]
+0x10001E28C   strb     wzr, [x9, #0x10]
+0x10001E290   b        0x10001e850
+0x10001E294   str      x24, [sp, #0x60]
+0x10001E298   str      x23, [sp, #0x80]
+0x10001E29C   ldr      w8, [x19, #0x44]
+0x10001E2A0   ldur     x20, [x29, #-0x98]
+0x10001E2A4   ldr      x24, [sp, #0x78]
+0x10001E2A8   cbz      w8, 0x10001e5e8
+0x10001E2AC   mov      w23, #0x0
+0x10001E2B0   sxtw     x9, w23
+0x10001E2B4   ldr      w16, [x24, w23, sxtw #2]
+0x10001E2B8   cmn      w16, #0x2
+0x10001E2BC   b.lo     0x10001e2e0
+0x10001E2C0   str      wzr, [x24, x9, lsl #2]
+0x10001E2C4   adrp     x8, 234              ; 0x100108000
+0x10001E2C8   add      x8, x8, #0x778
+0x10001E2CC   ldr      x9, [x8]
+0x10001E2D0   ldr      w8, [x8, #0x8]
+0x10001E2D4   stur     w8, [x20, #0xc]
+0x10001E2D8   stur     x9, [x20, #0x4]
+0x10001E2DC   b        0x10001e528
+0x10001E2E0   cmp      w16, #0x6b
+0x10001E2E4   b.hi     0x10001e528
+0x10001E2E8   cmp      x16, #0x6b
+0x10001E2EC   csel     x16, x16, xzr, ls
+0x10001E2F0   adrp     x17, 1               ; 0x10001f000
+0x10001E2F4   add      x17, x17, #0xc5c
+0x10001E2F8   ldrsw    x16, [x17, x16, lsl #2]
+0x10001E2FC   adr      x17, #0
+0x10001E300   add      x16, x17, x16
+0x10001E304   br       x16
+0x10001E308   ldurh    w8, [x20, #0x4]
+0x10001E30C   orr      w8, w8, #0x1
+0x10001E310   b        0x10001e4dc
+0x10001E314   mov      w8, #0xa
+0x10001E318   b        0x10001e524
+0x10001E31C   mov      w8, #0x10
+0x10001E320   b        0x10001e524
+0x10001E324   add      x21, x9, #0x2
+0x10001E328   cmp      w21, w8
+0x10001E32C   b.hs     0x10001e53c
+0x10001E330   lsl      x10, x9, #2
+0x10001E334   add      x10, x10, #0x4
+0x10001E338   ldr      w10, [x24, x10]
+0x10001E33C   cmp      w10, #0x5
+0x10001E340   b.ne     0x10001e53c
+0x10001E344   lsl      x8, x21, #2
+0x10001E348   ldrb     w8, [x24, x8]
+0x10001E34C   orr      w8, w8, #0x1000000
+0x10001E350   str      w8, [x19, #0x2944]
+0x10001E354   b        0x10001e440
+0x10001E358   mov      w8, #0xe
+0x10001E35C   b        0x10001e518
+0x10001E360   mov      w8, #0xd
+0x10001E364   b        0x10001e518
+0x10001E368   mov      w8, #0xb
+0x10001E36C   b        0x10001e518
+0x10001E370   mov      w8, #0x3
+0x10001E374   b        0x10001e524
+0x10001E378   mov      w8, #0xb
+0x10001E37C   b        0x10001e524
+0x10001E380   mov      w8, #0x5
+0x10001E384   b        0x10001e518
+0x10001E388   str      wzr, [x19, #0x2944]
+0x10001E38C   b        0x10001e528
+0x10001E390   mov      w8, #0x8
+0x10001E394   b        0x10001e518
+0x10001E398   ldurh    w8, [x20, #0x4]
+0x10001E39C   and      w8, w8, #0xffffffdf
+0x10001E3A0   b        0x10001e4dc
+0x10001E3A4   mov      w8, #0x2
+0x10001E3A8   b        0x10001e524
+0x10001E3AC   ldurh    w8, [x20, #0x4]
+0x10001E3B0   and      w8, w8, #0xfffc
+0x10001E3B4   b        0x10001e4dc
+0x10001E3B8   ldurh    w8, [x20, #0x4]
+0x10001E3BC   orr      w8, w8, #0x8
+0x10001E3C0   b        0x10001e4dc
+0x10001E3C4   str      wzr, [x19, #0x2940]
+0x10001E3C8   b        0x10001e528
+0x10001E3CC   mov      w8, #0xf
+0x10001E3D0   b        0x10001e518
+0x10001E3D4   ldurh    w8, [x20, #0x4]
+0x10001E3D8   and      w8, w8, #0xfffffffb
+0x10001E3DC   b        0x10001e4dc
+0x10001E3E0   mov      w8, #0x5
+0x10001E3E4   b        0x10001e524
+0x10001E3E8   ldurh    w8, [x20, #0x4]
+0x10001E3EC   orr      w8, w8, #0x200
+0x10001E3F0   b        0x10001e4dc
+0x10001E3F4   mov      w8, #0x6
+0x10001E3F8   b        0x10001e524
+0x10001E3FC   mov      w8, #0x8
+0x10001E400   b        0x10001e524
+0x10001E404   ldurh    w8, [x20, #0x4]
+0x10001E408   orr      w8, w8, #0x2
+0x10001E40C   b        0x10001e4dc
+0x10001E410   add      x21, x9, #0x2
+0x10001E414   cmp      w21, w8
+0x10001E418   b.hs     0x10001e590
+0x10001E41C   lsl      x10, x9, #2
+0x10001E420   add      x10, x10, #0x4
+0x10001E424   ldr      w10, [x24, x10]
+0x10001E428   cmp      w10, #0x5
+0x10001E42C   b.ne     0x10001e590
+0x10001E430   lsl      x8, x21, #2
+0x10001E434   ldrb     w8, [x24, x8]
+0x10001E438   orr      w8, w8, #0x1000000
+0x10001E43C   str      w8, [x19, #0x2940]
+0x10001E440   mov      x23, x21
+0x10001E444   b        0x10001e528
+0x10001E448   ldurh    w8, [x20, #0x4]
+0x10001E44C   and      w8, w8, #0xfffffff7
+0x10001E450   b        0x10001e4dc
+0x10001E454   mov      w8, #0x6
+0x10001E458   b        0x10001e518
+0x10001E45C   ldurh    w8, [x20, #0x4]
+0x10001E460   and      w8, w8, #0xffffffef
+0x10001E464   b        0x10001e4dc
+0x10001E468   mov      w8, #0x10
+0x10001E46C   b        0x10001e518
+0x10001E470   mov      w8, #0xc
+0x10001E474   b        0x10001e524
+0x10001E478   ldurh    w8, [x20, #0x4]
+0x10001E47C   orr      w8, w8, #0x4
+0x10001E480   b        0x10001e4dc
+0x10001E484   mov      w8, #0xf
+0x10001E488   b        0x10001e524
+0x10001E48C   mov      w8, #0x1
+0x10001E490   b        0x10001e524
+0x10001E494   mov      w8, #0xd
+0x10001E498   b        0x10001e524
+0x10001E49C   ldurh    w8, [x20, #0x4]
+0x10001E4A0   orr      w8, w8, #0x10
+0x10001E4A4   b        0x10001e4dc
+0x10001E4A8   mov      w8, #0xc
+0x10001E4AC   b        0x10001e518
+0x10001E4B0   mov      w8, #0x7
+0x10001E4B4   b        0x10001e524
+0x10001E4B8   mov      w8, #0x1
+0x10001E4BC   b        0x10001e518
+0x10001E4C0   mov      w8, #0x2
+0x10001E4C4   b        0x10001e518
+0x10001E4C8   ldurh    w8, [x20, #0x4]
+0x10001E4CC   orr      w8, w8, #0x20
+0x10001E4D0   b        0x10001e4dc
+0x10001E4D4   ldurh    w8, [x20, #0x4]
+0x10001E4D8   and      w8, w8, #0xfffffdff
+0x10001E4DC   sturh    w8, [x20, #0x4]
+0x10001E4E0   b        0x10001e528
+0x10001E4E4   mov      w8, #0x9
+0x10001E4E8   b        0x10001e518
+0x10001E4EC   mov      w8, #0x4
+0x10001E4F0   b        0x10001e518
+0x10001E4F4   mov      w8, #0x3
+0x10001E4F8   b        0x10001e518
+0x10001E4FC   mov      w8, #0x9
+0x10001E500   b        0x10001e524
+0x10001E504   mov      w8, #0x7
+0x10001E508   b        0x10001e518
+0x10001E50C   mov      w8, #0x4
+0x10001E510   b        0x10001e524
+0x10001E514   mov      w8, #0xa
+0x10001E518   str      w8, [x19, #0x2940]
+0x10001E51C   b        0x10001e528
+0x10001E520   mov      w8, #0xe
+0x10001E524   str      w8, [x19, #0x2944]
+0x10001E528   add      w23, w23, #0x1
+0x10001E52C   ldr      w8, [x19, #0x44]
+0x10001E530   cmp      w23, w8
+0x10001E534   b.lo     0x10001e2b0
+0x10001E538   b        0x10001e5e8
+0x10001E53C   add      x25, x9, #0x4
+0x10001E540   cmp      w25, w8
+0x10001E544   b.hs     0x10001e528
+0x10001E548   lsl      x26, x9, #2
+0x10001E54C   add      x8, x26, #0x4
+0x10001E550   ldr      w8, [x24, x8]
+0x10001E554   cmp      w8, #0x2
+0x10001E558   b.ne     0x10001e528
+0x10001E55C   ldr      x0, [x19, #0x18]
+0x10001E560   bl       _objc_msgSend$supportsDirectColor
+0x10001E564   cbz      w0, 0x10001e528
+0x10001E568   ldr      w8, [x24, w21, sxtw #2]
+0x10001E56C   add      x9, x26, #0xc
+0x10001E570   ldr      w9, [x24, x9]
+0x10001E574   ldr      w10, [x24, x25, lsl #2]
+0x10001E578   lsl      w8, w8, #16
+0x10001E57C   orr      w8, w8, w9, lsl #8
+0x10001E580   orr      w8, w8, w10
+0x10001E584   orr      w8, w8, #0x2000000
+0x10001E588   str      w8, [x19, #0x2944]
+0x10001E58C   b        0x10001e5e0
+0x10001E590   add      x25, x9, #0x4
+0x10001E594   cmp      w25, w8
+0x10001E598   b.hs     0x10001e528
+0x10001E59C   lsl      x26, x9, #2
+0x10001E5A0   add      x8, x26, #0x4
+0x10001E5A4   ldr      w8, [x24, x8]
+0x10001E5A8   cmp      w8, #0x2
+0x10001E5AC   b.ne     0x10001e528
+0x10001E5B0   ldr      x0, [x19, #0x18]
+0x10001E5B4   bl       _objc_msgSend$supportsDirectColor
+0x10001E5B8   cbz      w0, 0x10001e528
+0x10001E5BC   ldr      w8, [x24, w21, sxtw #2]
+0x10001E5C0   add      x9, x26, #0xc
+0x10001E5C4   ldr      w9, [x24, x9]
+0x10001E5C8   ldr      w10, [x24, x25, lsl #2]
+0x10001E5CC   lsl      w8, w8, #16
+0x10001E5D0   orr      w8, w8, w9, lsl #8
+0x10001E5D4   orr      w8, w8, w10
+0x10001E5D8   orr      w8, w8, #0x2000000
+0x10001E5DC   str      w8, [x19, #0x2940]
+0x10001E5E0   mov      x23, x25
+0x10001E5E4   b        0x10001e528
+0x10001E5E8   ldr      x8, [x19, #0x38]
+0x10001E5EC   str      x8, [x19, #0x30]
+0x10001E5F0   mov      x26, #-0x1
+0x10001E5F4   mov      x27, #-0x1
+0x10001E5F8   ldr      x23, [sp, #0x80]
+0x10001E5FC   b        0x10001eb54
+0x10001E600   ldr      x10, [sp, #0x78]
+0x10001E604   ldr      w8, [x10]
+0x10001E608   add      w9, w8, #0x2
+0x10001E60C   cmp      w9, #0x2
+0x10001E610   b.hi     0x10001e61c
+0x10001E614   mov      w8, #0x1
+0x10001E618   str      w8, [x10]
+0x10001E61C   ldr      x0, [x19, #0x10]
+0x10001E620   ldp      x9, x3, [x19, #0xd0]
+0x10001E624   sub      x2, x9, #0x1
+0x10001E628   sxtw     x5, w8
+0x10001E62C   ldr      w6, [x19, #0x2944]
+0x10001E630   mov      w4, #0x1
+0x10001E634   bl       "_objc_msgSend$shiftLineRange:inDirection:byAmount:withANSIBackgroundColor:"
+0x10001E638   b        0x10001ef74
+0x10001E63C   mov      w8, #0x2
+0x10001E640   b        0x10001ed1c
+0x10001E644   ldr      x0, [x19, #0x10]
+0x10001E648   bl       _objc_msgSend$columnCount
+0x10001E64C   mov      x1, #0x4924
+0x10001E650   movk     x1, #0x7777, lsl #16
+0x10001E654   movk     x1, #0x40, lsl #32
+0x10001E658   movk     x1, #0x100, lsl #48
+0x10001E65C   bl       _malloc_type_malloc
+0x10001E660   mov      x25, x0
+0x10001E664   ldr      x0, [x19, #0x10]
+0x10001E668   bl       _objc_msgSend$columnCount
+0x10001E66C   mov      x2, x0
+0x10001E670   mov      x0, x25
+0x10001E674   mov      w1, #0x45
+0x10001E678   bl       _memset
+0x10001E67C   ldr      x0, [x19, #0x10]
+0x10001E680   bl       _objc_msgSend$rowCount
+0x10001E684   cbz      x0, 0x10001f304
+0x10001E688   mov      x26, #0x0
+0x10001E68C   ldr      x20, [sp, #0x38]
+0x10001E690   ldr      x0, [x19, #0x10]
+0x10001E694   adrp     x8, 234              ; 0x100108000
+0x10001E698   add      x8, x8, #0x778
+0x10001E69C   ldr      x4, [x8]
+0x10001E6A0   ldr      w8, [x8, #0x8]
+0x10001E6A4   and      x9, x20, #0xffffffff00000000
+0x10001E6A8   orr      x20, x9, x8
+0x10001E6AC   mov      x2, x25
+0x10001E6B0   mov      x3, x23
+0x10001E6B4   mov      x5, x20
+0x10001E6B8   mov      x6, x26
+0x10001E6BC   mov      x7, #0x0
+0x10001E6C0   bl       "_objc_msgSend$overwriteUTF8Characters:length:withAttributes:atPosition:"
+0x10001E6C4   add      x26, x26, #0x1
+0x10001E6C8   ldr      x0, [x19, #0x10]
+0x10001E6CC   bl       _objc_msgSend$rowCount
+0x10001E6D0   cmp      x0, x26
+0x10001E6D4   b.hi     0x10001e690
+0x10001E6D8   b        0x10001f308
+0x10001E6DC   ldr      w8, [x19, #0x48]
+0x10001E6E0   add      w9, w8, #0x2
+0x10001E6E4   mov      w10, #0xa00000
+0x10001E6E8   cmp      w8, #0xa00, lsl #12
+0x10001E6EC   csel     w8, w8, w10, lt
+0x10001E6F0   cmp      w9, #0x3
+0x10001E6F4   csinc    w8, w8, wzr, hs
+0x10001E6F8   str      w8, [x19, #0x48]
+0x10001E6FC   sxtw     x0, w8
+0x10001E700   mov      x1, #0x4924
+0x10001E704   movk     x1, #0x7777, lsl #16
+0x10001E708   movk     x1, #0x40, lsl #32
+0x10001E70C   movk     x1, #0x100, lsl #48
+0x10001E710   bl       _malloc_type_malloc
+0x10001E714   mov      x25, x0
+0x10001E718   ldrsw    x2, [x19, #0x48]
+0x10001E71C   mov      w1, #0x20
+0x10001E720   bl       _memset
+0x10001E724   adrp     x8, 234              ; 0x100108000
+0x10001E728   add      x8, x8, #0x778
+0x10001E72C   ldr      x26, [x8]
+0x10001E730   ldr      w21, [x19, #0x2944]
+0x10001E734   ldr      x27, [x19, #0x10]
+0x10001E738   mov      x20, x23
+0x10001E73C   ldrsw    x23, [x19, #0x48]
+0x10001E740   mov      x0, x27
+0x10001E744   bl       _objc_msgSend$cursorPosition
+0x10001E748   mov      x6, x0
+0x10001E74C   ldr      x8, [sp, #0x30]
+0x10001E750   and      x8, x8, #0xffffffff00000000
+0x10001E754   orr      x5, x8, x21
+0x10001E758   mov      x0, x27
+0x10001E75C   mov      x2, x25
+0x10001E760   mov      x3, x23
+0x10001E764   mov      x23, x20
+0x10001E768   mov      x4, x26
+0x10001E76C   str      x5, [sp, #0x30]
+0x10001E770   mov      x7, x1
+0x10001E774   bl       "_objc_msgSend$insertUTF8Characters:length:withAttributes:atPosition:"
+0x10001E778   b        0x10001f30c
+0x10001E77C   mov      x0, x19
+0x10001E780   bl       _objc_msgSend$softReset
+0x10001E784   b        0x10001ef74
+0x10001E788   ldur     x8, [x29, #-0x90]
+0x10001E78C   ldrb     w8, [x8, #0x10]
+0x10001E790   cmp      w8, #0x1
+0x10001E794   b.ne     0x10001f1b8
+0x10001E798   adrp     x1, 232              ; 0x100106000
+0x10001E79C   add      x1, x1, #0x900
+0x10001E7A0   adrp     x16, 3               ; 0x100021000
+0x10001E7A4   add      x16, x16, #0x414
+0x10001E7A8   paciza   x16
+0x10001E7AC   mov      x4, x16
+0x10001E7B0   sub      x0, x29, #0x79
+0x10001E7B4   mov      w2, #0x2
+0x10001E7B8   b        0x10001f1d8
+0x10001E7BC   adrp     x8, 229              ; 0x100103000
+0x10001E7C0   add      x8, x8, #0xd28
+0x10001E7C4   b        0x10001ef78
+0x10001E7C8   ldr      x9, [sp, #0x78]
+0x10001E7CC   ldr      w2, [x9]
+0x10001E7D0   mov      x8, #-0xfffe
+0x10001E7D4   movk     x8, #0x0, lsl #16
+0x10001E7D8   add      x8, x2, x8
+0x10001E7DC   cmp      x8, #0x2
+0x10001E7E0   ccmp     x2, #0x0, #0x4, hs
+0x10001E7E4   b.ne     0x10001f460
+0x10001E7E8   mov      x2, #0x0
+0x10001E7EC   str      wzr, [x9]
+0x10001E7F0   ldr      x0, [x19, #0x10]
+0x10001E7F4   bl       "_objc_msgSend$setCursorStyle:"
+0x10001E7F8   b        0x10001ef74
+0x10001E7FC   ldr      x9, [sp, #0x78]
+0x10001E800   ldr      w8, [x9]
+0x10001E804   add      w8, w8, #0x2
+0x10001E808   cmp      w8, #0x2
+0x10001E80C   b.hi     0x10001e818
+0x10001E810   mov      w8, #0x1
+0x10001E814   str      w8, [x9]
+0x10001E818   mov      x0, x19
+0x10001E81C   bl       _objc_msgSend$cursorRow
+0x10001E820   ldr      w8, [x19, #0x48]
+0x10001E824   sub      w8, w0, w8
+0x10001E828   cmp      w8, #0x1
+0x10001E82C   csinc    w2, w8, wzr, gt
+0x10001E830   mov      x0, x19
+0x10001E834   bl       "_objc_msgSend$setCursorRow:"
+0x10001E838   mov      x0, x19
+0x10001E83C   mov      w2, #0x1
+0x10001E840   b        0x10001ee90
+0x10001E844   ldur     x8, [x29, #-0x90]
+0x10001E848   str      wzr, [x8, #0x8]
+0x10001E84C   strb     wzr, [x8, #0x10]
+0x10001E850   adrp     x8, 229              ; 0x100103000
+0x10001E854   add      x8, x8, #0x518
+0x10001E858   b        0x10001ef78
+0x10001E85C   str      x24, [sp, #0x60]
+0x10001E860   mov      x21, x23
+0x10001E864   ldr      w8, [x19, #0x44]
+0x10001E868   cbz      w8, 0x10001eb40
+0x10001E86C   mov      x23, #0x0
+0x10001E870   ldp      x20, x9, [x29, #-0x98]
+0x10001E874   ldr      x24, [sp, #0x78]
+0x10001E878   ldr      w8, [x24, x23, lsl #2]
+0x10001E87C   cmn      w8, #0x3
+0x10001E880   b.hi     0x10001eb40
+0x10001E884   cmp      w8, #0x3e7
+0x10001E888   b.gt     0x10001e8c8
+0x10001E88C   cmp      w8, #0x6
+0x10001E890   b.le     0x10001e900
+0x10001E894   cmp      w8, #0x18
+0x10001E898   b.le     0x10001e9bc
+0x10001E89C   cmp      w8, #0x19
+0x10001E8A0   b.eq     0x10001eaf0
+0x10001E8A4   cmp      w8, #0x28
+0x10001E8A8   b.eq     0x10001ea80
+0x10001E8AC   cmp      w8, #0x2f
+0x10001E8B0   b.ne     0x10001eb20
+0x10001E8B4   ldr      x0, [x19, #0x10]
+0x10001E8B8   mov      w2, #0x1
+0x10001E8BC   mov      w3, #0x0
+0x10001E8C0   bl       "_objc_msgSend$activateAlternateScreen:clearing:"
+0x10001E8C4   b        0x10001eadc
+0x10001E8C8   cmp      w8, #0x3ec
+0x10001E8CC   b.le     0x10001e934
+0x10001E8D0   cmp      w8, #0x3f6
+0x10001E8D4   b.le     0x10001e9d8
+0x10001E8D8   cmp      w8, #0x3f7
+0x10001E8DC   b.eq     0x10001eb00
+0x10001E8E0   cmp      w8, #0x419
+0x10001E8E4   b.eq     0x10001ea90
+0x10001E8E8   cmp      w8, #0x7d4
+0x10001E8EC   b.ne     0x10001eb30
+0x10001E8F0   ldr      x0, [x19, #0x10]
+0x10001E8F4   mov      w2, #0x1
+0x10001E8F8   bl       "_objc_msgSend$setBracketedPasteMode:"
+0x10001E8FC   b        0x10001eb20
+0x10001E900   cmp      w8, #0x4
+0x10001E904   b.gt     0x10001e968
+0x10001E908   cmp      w8, #0x1
+0x10001E90C   b.eq     0x10001e9f0
+0x10001E910   cmp      w8, #0x3
+0x10001E914   b.ne     0x10001eb30
+0x10001E918   ldrh     w8, [x20]
+0x10001E91C   tbz      w8, #0xa, 0x10001eb30
+0x10001E920   mov      w21, #0x84
+0x10001E924   mov      x0, x19
+0x10001E928   mov      w2, #0x84
+0x10001E92C   bl       "_objc_msgSend$setColumnCount:"
+0x10001E930   b        0x10001eb20
+0x10001E934   cmp      w8, #0x3ea
+0x10001E938   b.gt     0x10001e9a0
+0x10001E93C   cmp      w8, #0x3e8
+0x10001E940   b.eq     0x10001ea00
+0x10001E944   cmp      w8, #0x3ea
+0x10001E948   b.ne     0x10001eb30
+0x10001E94C   adrp     x25, 194             ; 0x1000e0000
+0x10001E950   add      x25, x25, #0xf0      ; @"encodingMouseEvents"
+0x10001E954   mov      x0, x19
+0x10001E958   mov      x2, x25
+0x10001E95C   bl       "_objc_msgSend$willChangeValueForKey:"
+0x10001E960   mov      w8, #0x101
+0x10001E964   b        0x10001ea18
+0x10001E968   cmp      w8, #0x5
+0x10001E96C   b.eq     0x10001ea2c
+0x10001E970   cmp      w8, #0x6
+0x10001E974   b.ne     0x10001eb30
+0x10001E978   ldrh     w8, [x20]
+0x10001E97C   orr      w8, w8, #0x2
+0x10001E980   strh     w8, [x20]
+0x10001E984   mov      x0, x19
+0x10001E988   mov      w2, #0x1
+0x10001E98C   bl       "_objc_msgSend$setCursorRow:"
+0x10001E990   mov      x0, x19
+0x10001E994   mov      w2, #0x1
+0x10001E998   bl       "_objc_msgSend$setCursorColumn:"
+0x10001E99C   b        0x10001eb20
+0x10001E9A0   cmp      w8, #0x3eb
+0x10001E9A4   b.eq     0x10001ea3c
+0x10001E9A8   cmp      w8, #0x3ec
+0x10001E9AC   b.ne     0x10001eb30
+0x10001E9B0   mov      w8, #0x1
+0x10001E9B4   strb     w8, [x9, #0x2b]
+0x10001E9B8   b        0x10001eb30
+0x10001E9BC   cmp      w8, #0x7
+0x10001E9C0   b.eq     0x10001eb08
+0x10001E9C4   cmp      w8, #0x8
+0x10001E9C8   b.ne     0x10001eb30
+0x10001E9CC   ldrh     w8, [x20]
+0x10001E9D0   orr      w8, w8, #0x20
+0x10001E9D4   b        0x10001e9f8
+0x10001E9D8   cmp      w8, #0x3ed
+0x10001E9DC   b.eq     0x10001eb28
+0x10001E9E0   cmp      w8, #0x3ee
+0x10001E9E4   b.ne     0x10001eb30
+0x10001E9E8   mov      w8, #0x2
+0x10001E9EC   b        0x10001eb2c
+0x10001E9F0   ldrh     w8, [x20]
+0x10001E9F4   orr      w8, w8, #0x80
+0x10001E9F8   strh     w8, [x20]
+0x10001E9FC   b        0x10001eb30
+0x10001EA00   adrp     x25, 194             ; 0x1000e0000
+0x10001EA04   add      x25, x25, #0xf0      ; @"encodingMouseEvents"
+0x10001EA08   mov      x0, x19
+0x10001EA0C   mov      x2, x25
+0x10001EA10   bl       "_objc_msgSend$willChangeValueForKey:"
+0x10001EA14   mov      w8, #0x1
+0x10001EA18   ldur     x9, [x29, #-0x90]
+0x10001EA1C   sturh    w8, [x9, #0x21]
+0x10001EA20   ldur     x8, [x29, #-0x90]
+0x10001EA24   strb     wzr, [x8, #0x23]
+0x10001EA28   b        0x10001ea70
+0x10001EA2C   ldr      x0, [x19, #0x10]
+0x10001EA30   mov      w2, #0x1
+0x10001EA34   bl       "_objc_msgSend$setInverted:"
+0x10001EA38   b        0x10001eb20
+0x10001EA3C   adrp     x25, 194             ; 0x1000e0000
+0x10001EA40   add      x25, x25, #0xf0      ; @"encodingMouseEvents"
+0x10001EA44   mov      x0, x19
+0x10001EA48   mov      x2, x25
+0x10001EA4C   bl       "_objc_msgSend$willChangeValueForKey:"
+0x10001EA50   mov      w8, #0x101
+0x10001EA54   ldur     x9, [x29, #-0x90]
+0x10001EA58   sturh    w8, [x9, #0x21]
+0x10001EA5C   mov      w8, #0x1
+0x10001EA60   ldur     x9, [x29, #-0x90]
+0x10001EA64   strb     w8, [x9, #0x23]
+0x10001EA68   ldur     x8, [x29, #-0x90]
+0x10001EA6C   sturh    wzr, [x8, #0x29]
+0x10001EA70   mov      x0, x19
+0x10001EA74   mov      x2, x25
+0x10001EA78   bl       "_objc_msgSend$didChangeValueForKey:"
+0x10001EA7C   b        0x10001eb20
+0x10001EA80   ldrh     w8, [x20]
+0x10001EA84   orr      w8, w8, #0x400
+0x10001EA88   strh     w8, [x20]
+0x10001EA8C   b        0x10001eb20
+0x10001EA90   mov      x0, x19
+0x10001EA94   bl       _objc_msgSend$saveCursorState
+0x10001EA98   ldr      x0, [x19, #0x10]
+0x10001EA9C   mov      w2, #0x1
+0x10001EAA0   mov      w3, #0x1
+0x10001EAA4   bl       "_objc_msgSend$activateAlternateScreen:clearing:"
+0x10001EAA8   ldr      x25, [x19, #0x10]
+0x10001EAAC   mov      x0, x25
+0x10001EAB0   bl       _objc_msgSend$rowCount
+0x10001EAB4   mov      x26, x0
+0x10001EAB8   ldr      x0, [x19, #0x10]
+0x10001EABC   bl       _objc_msgSend$rowCount
+0x10001EAC0   mov      x5, x0
+0x10001EAC4   ldr      w6, [x19, #0x2944]
+0x10001EAC8   mov      x0, x25
+0x10001EACC   mov      x2, #0x0
+0x10001EAD0   mov      x3, x26
+0x10001EAD4   mov      x4, #0x0
+0x10001EAD8   bl       "_objc_msgSend$shiftLineRange:inDirection:byAmount:withANSIBackgroundColor:"
+0x10001EADC   ldr      x0, [x19, #0x10]
+0x10001EAE0   mov      x2, #0x0
+0x10001EAE4   mov      x3, #0x0
+0x10001EAE8   bl       "_objc_msgSend$setCursorPosition:"
+0x10001EAEC   b        0x10001eb20
+0x10001EAF0   ldr      x0, [x19, #0x10]
+0x10001EAF4   mov      w2, #0x1
+0x10001EAF8   bl       "_objc_msgSend$setCursorVisible:"
+0x10001EAFC   b        0x10001eb20
+0x10001EB00   mov      w8, #0x3
+0x10001EB04   b        0x10001eb2c
+0x10001EB08   ldrh     w8, [x20]
+0x10001EB0C   orr      w8, w8, #0x4
+0x10001EB10   strh     w8, [x20]
+0x10001EB14   ldr      x0, [x19, #0x10]
+0x10001EB18   mov      w2, #0x1
+0x10001EB1C   bl       "_objc_msgSend$setAutoWrap:"
+0x10001EB20   ldur     x9, [x29, #-0x90]
+0x10001EB24   b        0x10001eb30
+0x10001EB28   mov      w8, #0x1
+0x10001EB2C   str      w8, [x9, #0x24]
+0x10001EB30   add      x23, x23, #0x1
+0x10001EB34   ldr      w8, [x19, #0x44]
+0x10001EB38   cmp      x23, x8
+0x10001EB3C   b.lo     0x10001e878
+0x10001EB40   ldr      x8, [x19, #0x38]
+0x10001EB44   str      x8, [x19, #0x30]
+0x10001EB48   mov      x26, #-0x1
+0x10001EB4C   mov      x27, #-0x1
+0x10001EB50   mov      x23, x21
+0x10001EB54   ldr      x24, [sp, #0x60]
+0x10001EB58   b        0x10001ef7c
+0x10001EB5C   mov      x0, x19
+0x10001EB60   bl       _objc_msgSend$restoreCursorState
+0x10001EB64   b        0x10001ef74
+0x10001EB68   ldr      x8, [sp, #0x78]
+0x10001EB6C   ldr      w8, [x8]
+0x10001EB70   cmp      w8, #0x6
+0x10001EB74   b.eq     0x10001f320
+0x10001EB78   cmp      w8, #0x5
+0x10001EB7C   b.ne     0x10001f5dc
+0x10001EB80   ldr      x25, [x19, #0x18]
+0x10001EB84   adrp     x0, 194              ; 0x1000e0000
+0x10001EB88   add      x0, x0, #0x150       ; @"[0n"
+0x10001EB8C   b        0x10001f354
+0x10001EB90   ldr      x9, [sp, #0x78]
+0x10001EB94   ldr      w8, [x9]
+0x10001EB98   add      w8, w8, #0x2
+0x10001EB9C   cmp      w8, #0x2
+0x10001EBA0   b.hi     0x10001ebac
+0x10001EBA4   mov      w8, #0x1
+0x10001EBA8   str      w8, [x9]
+0x10001EBAC   mov      x0, x19
+0x10001EBB0   bl       _objc_msgSend$rowCount
+0x10001EBB4   ldr      w8, [x19, #0x48]
+0x10001EBB8   cmp      w8, #0x1
+0x10001EBBC   csinc    w8, w8, wzr, gt
+0x10001EBC0   cmp      w0, w8
+0x10001EBC4   csel     w2, w0, w8, lo
+0x10001EBC8   mov      x0, x19
+0x10001EBCC   bl       "_objc_msgSend$setCursorRow:"
+0x10001EBD0   b        0x10001ef74
+0x10001EBD4   mov      w8, #0x2
+0x10001EBD8   b        0x10001ecf0
+0x10001EBDC   ldr      x11, [sp, #0x78]
+0x10001EBE0   ldr      w8, [x11]
+0x10001EBE4   add      w9, w8, #0x2
+0x10001EBE8   mov      w10, #0xa00000
+0x10001EBEC   cmp      w8, #0xa00, lsl #12
+0x10001EBF0   csel     w8, w8, w10, lt
+0x10001EBF4   cmp      w9, #0x3
+0x10001EBF8   csinc    w8, w8, wzr, hs
+0x10001EBFC   str      w8, [x11]
+0x10001EC00   ldur     x20, [x29, #-0x90]
+0x10001EC04   ldrsb    w9, [x20, #0x20]
+0x10001EC08   tbnz     w9, #0x1f, 0x10001f318
+0x10001EC0C   sxtw     x0, w8
+0x10001EC10   mov      x1, #0x4924
+0x10001EC14   movk     x1, #0x7777, lsl #16
+0x10001EC18   movk     x1, #0x40, lsl #32
+0x10001EC1C   movk     x1, #0x100, lsl #48
+0x10001EC20   bl       _malloc_type_malloc
+0x10001EC24   mov      x25, x0
+0x10001EC28   ldrsw    x2, [x19, #0x48]
+0x10001EC2C   ldrb     w1, [x20, #0x20]
+0x10001EC30   bl       _memset
+0x10001EC34   ldur     x20, [x29, #-0x98]
+0x10001EC38   ldrh     w21, [x20]
+0x10001EC3C   ldr      x27, [x19, #0x10]
+0x10001EC40   ldrsw    x26, [x19, #0x48]
+0x10001EC44   mov      x0, x27
+0x10001EC48   bl       _objc_msgSend$cursorPosition
+0x10001EC4C   mov      x6, x0
+0x10001EC50   ldur     x4, [x20, #0x4]
+0x10001EC54   ldr      w8, [x19, #0x2944]
+0x10001EC58   tbnz     w21, #0x9, 0x10001f36c
+0x10001EC5C   ldr      x9, [sp, #0x58]
+0x10001EC60   and      x9, x9, #0xffffffff00000000
+0x10001EC64   orr      x20, x9, x8
+0x10001EC68   mov      x0, x27
+0x10001EC6C   mov      x2, x25
+0x10001EC70   mov      x3, x26
+0x10001EC74   mov      x5, x20
+0x10001EC78   mov      x7, x1
+0x10001EC7C   bl       "_objc_msgSend$overwriteUTF8Characters:length:withAttributes:atPosition:"
+0x10001EC80   mov      x27, x0
+0x10001EC84   mov      x26, x1
+0x10001EC88   ldr      x21, [sp, #0x50]
+0x10001EC8C   b        0x10001f39c
+0x10001EC90   ldr      x8, [sp, #0x78]
+0x10001EC94   ldr      w21, [x8]
+0x10001EC98   cmn      w21, #0x2
+0x10001EC9C   b.lo     0x10001f1f8
+0x10001ECA0   mov      w21, #0x1
+0x10001ECA4   str      w21, [x8]
+0x10001ECA8   b        0x10001f200
+0x10001ECAC   ldr      x8, [x19, #0x38]
+0x10001ECB0   adrp     x9, 231              ; 0x100105000
+0x10001ECB4   add      x9, x9, #0x558
+0x10001ECB8   cmp      x8, x9
+0x10001ECBC   b.ne     0x10001ef7c
+0x10001ECC0   ldur     x9, [x29, #-0x90]
+0x10001ECC4   ldr      w8, [x9, #0x4]
+0x10001ECC8   str      w8, [x9]
+0x10001ECCC   b        0x10001ef7c
+0x10001ECD0   ldr      x9, [sp, #0x78]
+0x10001ECD4   ldr      w8, [x9]
+0x10001ECD8   cmn      w8, #0x2
+0x10001ECDC   b.lo     0x10001f280
+0x10001ECE0   mov      w8, #0x0
+0x10001ECE4   str      wzr, [x9]
+0x10001ECE8   b        0x10001f288
+0x10001ECEC   mov      w8, #0x3
+0x10001ECF0   ldur     x9, [x29, #-0x90]
+0x10001ECF4   str      w8, [x9]
+0x10001ECF8   b        0x10001ef74
+0x10001ECFC   mov      x0, x19
+0x10001ED00   bl       _objc_msgSend$hardReset
+0x10001ED04   b        0x10001ef74
+0x10001ED08   ldr      x0, [x19, #0x10]
+0x10001ED0C   mov      w2, #0x3
+0x10001ED10   bl       "_objc_msgSend$setCursorLineSize:"
+0x10001ED14   b        0x10001ef74
+0x10001ED18   mov      w8, #0x3
+0x10001ED1C   ldur     x9, [x29, #-0x90]
+0x10001ED20   str      w8, [x9, #0xc]
+0x10001ED24   b        0x10001ef74
+0x10001ED28   ldr      x8, [x19, #0x38]
+0x10001ED2C   adrp     x10, 231             ; 0x100105000
+0x10001ED30   add      x10, x10, #0x558
+0x10001ED34   cmp      x8, x10
+0x10001ED38   b.ne     0x10001ef7c
+0x10001ED3C   cmp      w9, #0x20
+0x10001ED40   mov      w10, #0x20
+0x10001ED44   csel     w8, w9, w10, hi
+0x10001ED48   sub      w8, w8, #0x1f
+0x10001ED4C   str      w8, [x19, #0x48]
+0x10001ED50   adrp     x8, 232              ; 0x100106000
+0x10001ED54   add      x8, x8, #0x158
+0x10001ED58   b        0x10001ef78
+0x10001ED5C   adrp     x8, 231              ; 0x100105000
+0x10001ED60   add      x8, x8, #0x150
+0x10001ED64   b        0x10001ef78
+0x10001ED68   ldr      x0, [x19, #0x28]
+0x10001ED6C   bl       _objc_msgSend$splitView
+0x10001ED70   bl       _objc_msgSend$window
+0x10001ED74   ldr      w8, [x19, #0x48]
+0x10001ED78   sub      w16, w8, #0x1
+0x10001ED7C   cmp      w16, #0x11
+0x10001ED80   b.hi     0x10001f9cc
+0x10001ED84   mov      x25, x0
+0x10001ED88   cmp      x16, #0x11
+0x10001ED8C   csel     x16, x16, xzr, ls
+0x10001ED90   adrp     x17, 1               ; 0x10001f000
+0x10001ED94   add      x17, x17, #0xc14
+0x10001ED98   ldrsw    x16, [x17, x16, lsl #2]
+0x10001ED9C   adr      x17, #0
+0x10001EDA0   add      x16, x17, x16
+0x10001EDA4   br       x16
+0x10001EDA8   mov      x0, x25
+0x10001EDAC   mov      x2, #0x0
+0x10001EDB0   bl       "_objc_msgSend$deminiaturize:"
+0x10001EDB4   b        0x10001f9cc
+0x10001EDB8   cmp      w23, #0x1
+0x10001EDBC   b.lt     0x10001f6b0
+0x10001EDC0   adrp     x8, 198              ; 0x1000e4000
+0x10001EDC4   ldr      x0, [x8, #0xb70]     ; _OBJC_CLASS_$_NSString@got
+0x10001EDC8   bl       _objc_alloc
+0x10001EDCC   mov      w3, w23
+0x10001EDD0   mov      x2, x25
+0x10001EDD4   mov      w4, #0x4
+0x10001EDD8   bl       "_objc_msgSend$initWithBytes:length:encoding:"
+0x10001EDDC   bl       _objc_autorelease
+0x10001EDE0   mov      x2, x0
+0x10001EDE4   ldr      x0, [x19, #0xc8]
+0x10001EDE8   bl       "_objc_msgSend$appendString:"
+0x10001EDEC   ldr      x8, [x19, #0x8]
+0x10001EDF0   cmp      x8, #0x5d
+0x10001EDF4   cset     w8, ne
+0x10001EDF8   add      w9, w23, w22
+0x10001EDFC   sub      w22, w9, w8
+0x10001EE00   b        0x10001f6b0
+0x10001EE04   cmp      w8, #0x3
+0x10001EE08   b.eq     0x10001f5f0
+0x10001EE0C   cbnz     w8, 0x10001ee30
+0x10001EE10   mov      x20, x23
+0x10001EE14   ldr      x23, [x19, #0x4968]
+0x10001EE18   mov      x0, x19
+0x10001EE1C   bl       _objc_msgSend$cursorColumn
+0x10001EE20   mov      x2, x0
+0x10001EE24   mov      x0, x23
+0x10001EE28   mov      x23, x20
+0x10001EE2C   bl       "_objc_msgSend$removeIndex:"
+0x10001EE30   ldur     x8, [x29, #-0x90]
+0x10001EE34   strb     wzr, [x8, #0x11]
+0x10001EE38   b        0x10001ef74
+0x10001EE3C   ldr      w8, [x19, #0x4c]
+0x10001EE40   add      w8, w8, #0x2
+0x10001EE44   cmp      w8, #0x2
+0x10001EE48   b.hi     0x10001ee54
+0x10001EE4C   mov      w8, #0x1
+0x10001EE50   str      w8, [x19, #0x4c]
+0x10001EE54   mov      x0, x19
+0x10001EE58   bl       _objc_msgSend$rowCount
+0x10001EE5C   ldr      w8, [x19, #0x48]
+0x10001EE60   cmp      w0, w8
+0x10001EE64   csel     w8, w0, w8, lo
+0x10001EE68   cmp      w8, #0x1
+0x10001EE6C   csinc    w2, w8, wzr, hi
+0x10001EE70   mov      x0, x19
+0x10001EE74   bl       "_objc_msgSend$setCursorRow:"
+0x10001EE78   ldrsw    x8, [x19, #0x4c]
+0x10001EE7C   cmp      x23, x8
+0x10001EE80   csel     x8, x23, x8, lo
+0x10001EE84   cmp      x8, #0x1
+0x10001EE88   csinc    x2, x8, xzr, hi
+0x10001EE8C   mov      x0, x19
+0x10001EE90   bl       "_objc_msgSend$setCursorColumn:"
+0x10001EE94   b        0x10001ef70
+0x10001EE98   cmp      w8, #0x1
+0x10001EE9C   ldur     x20, [x29, #-0x98]
+0x10001EEA0   b.gt     0x10001f3ac
+0x10001EEA4   cbz      w8, 0x10001d898
+0x10001EEA8   cmp      w8, #0x1
+0x10001EEAC   b.ne     0x10001f5dc
+0x10001EEB0   ldr      x25, [x19, #0x10]
+0x10001EEB4   mov      x0, x19
+0x10001EEB8   bl       _objc_msgSend$cursorColumn
+0x10001EEBC   mov      x26, x0
+0x10001EEC0   ldr      x0, [x19, #0x10]
+0x10001EEC4   bl       _objc_msgSend$cursorLine
+0x10001EEC8   mov      x5, x0
+0x10001EECC   ldr      x8, [sp, #0x18]
+0x10001EED0   and      x8, x8, #0xffffffff00000000
+0x10001EED4   ldur     x3, [x20, #0x4]
+0x10001EED8   ldr      w9, [x19, #0x2944]
+0x10001EEDC   orr      x20, x8, x9
+0x10001EEE0   mov      x0, x25
+0x10001EEE4   mov      x2, x26
+0x10001EEE8   mov      x4, x20
+0x10001EEEC   mov      x6, #0x0
+0x10001EEF0   bl       "_objc_msgSend$eraseUTF8Characters:withAttributes:atPosition:"
+0x10001EEF4   mov      x0, x19
+0x10001EEF8   bl       _objc_msgSend$unshiftedCursorRow
+0x10001EEFC   mov      x0, x19
+0x10001EF00   bl       _objc_msgSend$unshiftedCursorRow
+0x10001EF04   sub      x25, x0, #0x1
+0x10001EF08   ldr      x0, [x19, #0x10]
+0x10001EF0C   ldr      w4, [x19, #0x2944]
+0x10001EF10   mov      x2, #0x0
+0x10001EF14   mov      x3, x25
+0x10001EF18   bl       "_objc_msgSend$deleteUTF8CharactersInLineRange:withANSIBackgroundColor:"
+0x10001EF1C   ldr      x0, [x19, #0x10]
+0x10001EF20   bl       _objc_msgSend$lineCount
+0x10001EF24   mov      x26, x0
+0x10001EF28   ldr      x0, [x19, #0x10]
+0x10001EF2C   bl       _objc_msgSend$rowCount
+0x10001EF30   str      x20, [sp, #0x18]
+0x10001EF34   cbz      x25, 0x10001f5dc
+0x10001EF38   sub      x26, x26, x0
+0x10001EF3C   ldr      x0, [x19, #0x10]
+0x10001EF40   mov      x2, #0x0
+0x10001EF44   mov      x3, x26
+0x10001EF48   bl       "_objc_msgSend$setSize:forLine:"
+0x10001EF4C   add      x26, x26, #0x1
+0x10001EF50   subs     x25, x25, #0x1
+0x10001EF54   b.ne     0x10001ef3c
+0x10001EF58   b        0x10001f5dc
+0x10001EF5C   mov      x0, x19
+0x10001EF60   bl       _objc_msgSend$cursorRow
+0x10001EF64   sub      x2, x0, #0x1
+0x10001EF68   mov      x0, x19
+0x10001EF6C   bl       "_objc_msgSend$setCursorRow:"
+0x10001EF70   strb     wzr, [x19, #0xe1]
+0x10001EF74   ldr      x8, [x19, #0x38]
+0x10001EF78   str      x8, [x19, #0x30]
+0x10001EF7C   ldursb   w9, [x29, #-0x79]
+0x10001EF80   mov      x20, x22
+0x10001EF84   sxtw     x8, w20
+0x10001EF88   add      x22, x8, #0x1
+0x10001EF8C   tbz      w9, #0x1f, 0x10001f048
+0x10001EF90   ldrb     w9, [x24, x8]
+0x10001EF94   sub      w10, w9, #0xf5
+0x10001EF98   cmn      w10, #0x33
+0x10001EF9C   ldur     x10, [x29, #-0x88]
+0x10001EFA0   ccmp     w22, w10, #0x4, hs
+0x10001EFA4   b.eq     0x10001f048
+0x10001EFA8   ldrb     w10, [x24, x22]
+0x10001EFAC   and      w11, w9, #0xf0
+0x10001EFB0   cmp      w11, #0xe0
+0x10001EFB4   b.ne     0x10001eff8
+0x10001EFB8   and      x9, x9, #0xf
+0x10001EFBC   adrp     x11, 150             ; 0x1000b4000
+0x10001EFC0   add      x11, x11, #0xcd9
+0x10001EFC4   ldrb     w9, [x11, x9]
+0x10001EFC8   lsr      w10, w10, #5
+0x10001EFCC   lsr      w9, w9, w10
+0x10001EFD0   tbz      w9, #0x0, 0x10001f048
+0x10001EFD4   add      x9, x8, #0x2
+0x10001EFD8   ldur     x10, [x29, #-0x88]
+0x10001EFDC   cmp      w9, w10
+0x10001EFE0   b.eq     0x10001f040
+0x10001EFE4   ldrsb    w10, [x24, x9]
+0x10001EFE8   add      w8, w8, #0x3
+0x10001EFEC   cmn      w10, #0x40
+0x10001EFF0   csel     w22, w8, w9, lt
+0x10001EFF4   b        0x10001f048
+0x10001EFF8   cmp      w9, #0xdf
+0x10001EFFC   b.hi     0x10001f014
+0x10001F000   sxtb     w9, w10
+0x10001F004   add      w8, w8, #0x2
+0x10001F008   cmn      w9, #0x40
+0x10001F00C   csel     w22, w8, w22, lt
+0x10001F010   b        0x10001f048
+0x10001F014   lsr      x10, x10, #4
+0x10001F018   adrp     x11, 143             ; 0x1000ae000
+0x10001F01C   add      x11, x11, #0xf80
+0x10001F020   ldrb     w10, [x11, x10]
+0x10001F024   and      w9, w9, #0x7
+0x10001F028   lsr      w9, w10, w9
+0x10001F02C   tbz      w9, #0x0, 0x10001f048
+0x10001F030   add      x20, x8, #0x2
+0x10001F034   ldur     x9, [x29, #-0x88]
+0x10001F038   cmp      w20, w9
+0x10001F03C   b.ne     0x10001f0e0
+0x10001F040   ldur     x8, [x29, #-0x88]
+0x10001F044   mov      x22, x8
+0x10001F048   cmn      x26, #0x1
+0x10001F04C   b.eq     0x10001f0a8
+0x10001F050   add      x8, x23, #0x1
+0x10001F054   cmp      x26, x8
+0x10001F058   b.hs     0x10001f080
+0x10001F05C   add      x2, x26, #0x1
+0x10001F060   cmp      x26, x23
+0x10001F064   b.ne     0x10001f094
+0x10001F068   ldur     x8, [x29, #-0x98]
+0x10001F06C   ldrh     w8, [x8]
+0x10001F070   ands     w8, w8, #0x4
+0x10001F074   lsr      w21, w8, #2
+0x10001F078   csel     x2, x23, x2, ne
+0x10001F07C   b        0x10001f098
+0x10001F080   mov      x0, x19
+0x10001F084   mov      x2, x23
+0x10001F088   bl       "_objc_msgSend$setCursorColumn:"
+0x10001F08C   mov      w8, #0x0
+0x10001F090   b        0x10001f0a4
+0x10001F094   mov      w21, #0x0
+0x10001F098   mov      x0, x19
+0x10001F09C   bl       "_objc_msgSend$setCursorColumn:"
+0x10001F0A0   and      w8, w21, #0x1
+0x10001F0A4   strb     w8, [x19, #0xe1]
+0x10001F0A8   cmn      x27, #0x1
+0x10001F0AC   b.eq     0x10001f0d0
+0x10001F0B0   add      x21, x27, #0x1
+0x10001F0B4   mov      x0, x19
+0x10001F0B8   bl       _objc_msgSend$unshiftedCursorRow
+0x10001F0BC   cmp      x21, x0
+0x10001F0C0   b.eq     0x10001f0d0
+0x10001F0C4   ldr      x0, [x19, #0x10]
+0x10001F0C8   mov      x2, x27
+0x10001F0CC   bl       "_objc_msgSend$setCursorLine:"
+0x10001F0D0   ldur     x8, [x29, #-0x88]
+0x10001F0D4   cmp      w22, w8
+0x10001F0D8   b.lo     0x10001ca64
+0x10001F0DC   b        0x10001fa38
+0x10001F0E0   ldrsb    w9, [x24, x20]
+0x10001F0E4   cmn      w9, #0x41
+0x10001F0E8   b.gt     0x10001f108
+0x10001F0EC   add      x9, x8, #0x3
+0x10001F0F0   ldur     x10, [x29, #-0x88]
+0x10001F0F4   cmp      w9, w10
+0x10001F0F8   b.eq     0x10001f040
+0x10001F0FC   ldrsb    w10, [x24, x9]
+0x10001F100   add      w8, w8, #0x4
+0x10001F104   b        0x10001efec
+0x10001F108   mov      x22, x20
+0x10001F10C   b        0x10001f048
+0x10001F110   cmp      w21, #0x1
+0x10001F114   b.lt     0x10001f2fc
+0x10001F118   mov      x0, x19
+0x10001F11C   bl       _objc_msgSend$cursorColumn
+0x10001F120   mov      x8, #0x7fffffffffffffff
+0x10001F124   cmp      x0, x8
+0x10001F128   b.ne     0x10001f2c0
+0x10001F12C   mov      w2, #0x1
+0x10001F130   b        0x10001f2f4
+0x10001F134   tbnz     w0, #0x0, 0x10001f144
+0x10001F138   ldrb     w8, [x19, #0xe1]
+0x10001F13C   cmp      w8, #0x1
+0x10001F140   b.ne     0x10001db04
+0x10001F144   mov      x0, x19
+0x10001F148   bl       _objc_msgSend$cursorColumn
+0x10001F14C   mov      x25, x0
+0x10001F150   cmp      x20, w23, sxtw
+0x10001F154   ldrb     w21, [x19, #0xe1]
+0x10001F158   b.ls     0x10001f46c
+0x10001F15C   sxtw     x26, w23
+0x10001F160   b        0x10001f4bc
+0x10001F164   cmp      w8, #0x2
+0x10001F168   ldur     x20, [x29, #-0x98]
+0x10001F16C   b.eq     0x10001f644
+0x10001F170   cmp      w8, #0x1
+0x10001F174   b.eq     0x10001f5fc
+0x10001F178   ldr      x20, [sp, #0x28]
+0x10001F17C   cbz      w8, 0x10001db34
+0x10001F180   b        0x10001db7c
+0x10001F184   tbnz     w0, #0x0, 0x10001f194
+0x10001F188   ldrb     w8, [x19, #0xe1]
+0x10001F18C   cmp      w8, #0x1
+0x10001F190   b.ne     0x10001dba4
+0x10001F194   mov      x0, x19
+0x10001F198   bl       _objc_msgSend$cursorColumn
+0x10001F19C   mov      x25, x0
+0x10001F1A0   cmp      x23, #0x1
+0x10001F1A4   b.ls     0x10001f50c
+0x10001F1A8   mov      x20, x23
+0x10001F1AC   mov      w23, #0x1
+0x10001F1B0   mov      w21, #0x1
+0x10001F1B4   b        0x10001f55c
+0x10001F1B8   adrp     x1, 231              ; 0x100106000
+0x10001F1BC   add      x1, x1, #0xca8
+0x10001F1C0   adrp     x16, 2               ; 0x100021000
+0x10001F1C4   add      x16, x16, #0x414
+0x10001F1C8   paciza   x16
+0x10001F1CC   mov      x4, x16
+0x10001F1D0   sub      x0, x29, #0x79
+0x10001F1D4   mov      w2, #0x13
+0x10001F1D8   mov      w3, #0x18
+0x10001F1DC   bl       _bsearch
+0x10001F1E0   mov      x2, x0
+0x10001F1E4   ldur     x8, [x29, #-0x90]
+0x10001F1E8   ldr      w3, [x8, #0x8]
+0x10001F1EC   mov      x0, x19
+0x10001F1F0   bl       "_objc_msgSend$loadTranslationVector:intoSet:"
+0x10001F1F4   b        0x10001ef74
+0x10001F1F8   cmp      w21, #0x1
+0x10001F1FC   b.lt     0x10001f2fc
+0x10001F200   mov      x0, x19
+0x10001F204   bl       _objc_msgSend$cursorColumn
+0x10001F208   mov      x8, #0x7fffffffffffffff
+0x10001F20C   mov      x20, x23
+0x10001F210   cmp      x0, x8
+0x10001F214   b.eq     0x10001f254
+0x10001F218   mov      x2, x0
+0x10001F21C   ldr      x0, [x19, #0x4968]
+0x10001F220   bl       "_objc_msgSend$indexGreaterThanIndex:"
+0x10001F224   mov      x2, x0
+0x10001F228   cmp      w21, #0x2
+0x10001F22C   b.lo     0x10001f240
+0x10001F230   sub      w21, w21, #0x1
+0x10001F234   mov      x8, #0x7fffffffffffffff
+0x10001F238   cmp      x2, x8
+0x10001F23C   b.ne     0x10001f21c
+0x10001F240   cmp      x20, x2
+0x10001F244   csel     x8, x20, x2, lo
+0x10001F248   mov      x9, #0x7fffffffffffffff
+0x10001F24C   cmp      x2, x9
+0x10001F250   csel     x23, x8, x20, ne
+0x10001F254   ldr      x0, [x19, #0x10]
+0x10001F258   bl       _objc_msgSend$cursorLineSize
+0x10001F25C   lsr      x8, x20, #1
+0x10001F260   cmp      x8, x23
+0x10001F264   csel     x8, x8, x23, lo
+0x10001F268   cmp      x0, #0x0
+0x10001F26C   csel     x2, x23, x8, eq
+0x10001F270   mov      x0, x19
+0x10001F274   bl       "_objc_msgSend$setCursorColumn:"
+0x10001F278   mov      x23, x20
+0x10001F27C   b        0x10001f2fc
+0x10001F280   cmp      w8, #0x1
+0x10001F284   b.hi     0x10001ef74
+0x10001F288   ldr      x25, [x19, #0x18]
+0x10001F28C   adrp     x9, 197              ; 0x1000e4000
+0x10001F290   ldr      x0, [x9, #0xb70]     ; _OBJC_CLASS_$_NSString@got
+0x10001F294   orr      w8, w8, #0x2
+0x10001F298   str      x8, [sp]
+0x10001F29C   adrp     x2, 193              ; 0x1000e0000
+0x10001F2A0   add      x2, x2, #0x1d0       ; @"[%d;1;1;112;112;1;0x"
+0x10001F2A4   bl       "_objc_msgSend$stringWithFormat:"
+0x10001F2A8   mov      w2, #0x4
+0x10001F2AC   bl       "_objc_msgSend$dataUsingEncoding:"
+0x10001F2B0   mov      x2, x0
+0x10001F2B4   mov      x0, x25
+0x10001F2B8   bl       "_objc_msgSend$writeData:"
+0x10001F2BC   b        0x10001ef74
+0x10001F2C0   mov      x2, x0
+0x10001F2C4   ldr      x0, [x19, #0x4968]
+0x10001F2C8   bl       "_objc_msgSend$indexLessThanIndex:"
+0x10001F2CC   mov      x2, x0
+0x10001F2D0   cmp      w21, #0x2
+0x10001F2D4   b.lo     0x10001f2e8
+0x10001F2D8   sub      w21, w21, #0x1
+0x10001F2DC   mov      x8, #0x7fffffffffffffff
+0x10001F2E0   cmp      x2, x8
+0x10001F2E4   b.ne     0x10001f2c4
+0x10001F2E8   mov      x8, #0x7fffffffffffffff
+0x10001F2EC   cmp      x2, x8
+0x10001F2F0   csinc    x2, x2, xzr, ne
+0x10001F2F4   mov      x0, x19
+0x10001F2F8   bl       "_objc_msgSend$setCursorColumn:"
+0x10001F2FC   strb     wzr, [x19, #0xe1]
+0x10001F300   b        0x10001f5dc
+0x10001F304   ldr      x20, [sp, #0x38]
+0x10001F308   str      x20, [sp, #0x38]
+0x10001F30C   mov      x0, x25
+0x10001F310   bl       _free
+0x10001F314   b        0x10001f5dc
+0x10001F318   ldp      x21, x20, [sp, #0x50]
+0x10001F31C   b        0x10001f3a4
+0x10001F320   ldr      x25, [x19, #0x18]
+0x10001F324   adrp     x8, 197              ; 0x1000e4000
+0x10001F328   ldr      x26, [x8, #0xb70]    ; _OBJC_CLASS_$_NSString@got
+0x10001F32C   mov      x0, x19
+0x10001F330   bl       _objc_msgSend$cursorRow
+0x10001F334   mov      x27, x0
+0x10001F338   mov      x0, x19
+0x10001F33C   bl       _objc_msgSend$cursorColumn
+0x10001F340   stp      x27, x0, [sp]
+0x10001F344   adrp     x2, 193              ; 0x1000e0000
+0x10001F348   add      x2, x2, #0x170       ; @"[%lu;%luR"
+0x10001F34C   mov      x0, x26
+0x10001F350   bl       "_objc_msgSend$stringWithFormat:"
+0x10001F354   mov      w2, #0x4
+0x10001F358   bl       "_objc_msgSend$dataUsingEncoding:"
+0x10001F35C   mov      x2, x0
+0x10001F360   mov      x0, x25
+0x10001F364   bl       "_objc_msgSend$writeData:"
+0x10001F368   b        0x10001f5dc
+0x10001F36C   ldr      x9, [sp, #0x50]
+0x10001F370   and      x9, x9, #0xffffffff00000000
+0x10001F374   orr      x21, x9, x8
+0x10001F378   mov      x0, x27
+0x10001F37C   mov      x2, x25
+0x10001F380   mov      x3, x26
+0x10001F384   mov      x5, x21
+0x10001F388   mov      x7, x1
+0x10001F38C   bl       "_objc_msgSend$insertUTF8Characters:length:withAttributes:atPosition:"
+0x10001F390   mov      x27, x0
+0x10001F394   mov      x26, x1
+0x10001F398   ldr      x20, [sp, #0x58]
+0x10001F39C   mov      x0, x25
+0x10001F3A0   bl       _free
+0x10001F3A4   stp      x21, x20, [sp, #0x50]
+0x10001F3A8   b        0x10001ef74
+0x10001F3AC   cmp      w8, #0x2
+0x10001F3B0   b.eq     0x10001f5a8
+0x10001F3B4   cmp      w8, #0x3
+0x10001F3B8   b.ne     0x10001f5dc
+0x10001F3BC   ldr      x0, [x19, #0x10]
+0x10001F3C0   bl       _objc_msgSend$clearScrollbackStorage
+0x10001F3C4   b        0x10001f5dc
+0x10001F3C8   mov      x0, x19
+0x10001F3CC   bl       _objc_msgSend$cursorColumn
+0x10001F3D0   cmp      x25, x0
+0x10001F3D4   b.ls     0x10001e0b4
+0x10001F3D8   mov      x0, x19
+0x10001F3DC   bl       _objc_msgSend$cursorColumn
+0x10001F3E0   sub      x26, x25, x0
+0x10001F3E4   mov      x1, #0x4924
+0x10001F3E8   movk     x1, #0x7777, lsl #16
+0x10001F3EC   movk     x1, #0x40, lsl #32
+0x10001F3F0   movk     x1, #0x100, lsl #48
+0x10001F3F4   mov      x0, x26
+0x10001F3F8   bl       _malloc_type_malloc
+0x10001F3FC   mov      x25, x0
+0x10001F400   mov      w1, #0x20
+0x10001F404   mov      x2, x26
+0x10001F408   bl       _memset
+0x10001F40C   ldrh     w21, [x20]
+0x10001F410   ldr      x27, [x19, #0x10]
+0x10001F414   mov      x0, x27
+0x10001F418   bl       _objc_msgSend$cursorPosition
+0x10001F41C   mov      x6, x0
+0x10001F420   ldur     x4, [x20, #0x4]
+0x10001F424   ldr      w8, [x19, #0x2944]
+0x10001F428   tbnz     w21, #0x9, 0x10001f9dc
+0x10001F42C   ldr      x9, [sp, #0x48]
+0x10001F430   and      x9, x9, #0xffffffff00000000
+0x10001F434   orr      x21, x9, x8
+0x10001F438   mov      x0, x27
+0x10001F43C   mov      x2, x25
+0x10001F440   mov      x3, x26
+0x10001F444   mov      x5, x21
+0x10001F448   mov      x7, x1
+0x10001F44C   bl       "_objc_msgSend$overwriteUTF8Characters:length:withAttributes:atPosition:"
+0x10001F450   mov      x27, x0
+0x10001F454   mov      x26, x1
+0x10001F458   ldr      x20, [sp, #0x20]
+0x10001F45C   b        0x10001fa0c
+0x10001F460   cmp      x2, #0x6
+0x10001F464   b.ls     0x10001e7f0
+0x10001F468   b        0x10001ef74
+0x10001F46C   mov      x8, x20
+0x10001F470   neg      w26, w8
+0x10001F474   ldr      x0, [x19, #0x10]
+0x10001F478   bl       _objc_msgSend$isCursorRowWrapped
+0x10001F47C   cbz      w0, 0x10001f49c
+0x10001F480   mov      x0, x19
+0x10001F484   bl       _objc_msgSend$cursorRow
+0x10001F488   sub      x8, x0, #0x1
+0x10001F48C   cmp      x8, #0x1
+0x10001F490   csinc    x2, x8, xzr, hi
+0x10001F494   mov      x0, x19
+0x10001F498   bl       "_objc_msgSend$setCursorRow:"
+0x10001F49C   mov      x10, x20
+0x10001F4A0   sub      w8, w23, w10
+0x10001F4A4   add      w9, w26, w23
+0x10001F4A8   cmp      x20, w9, sxtw
+0x10001F4AC   mov      x23, x8
+0x10001F4B0   b.ls     0x10001f474
+0x10001F4B4   sxtw     x26, w9
+0x10001F4B8   mov      x23, x8
+0x10001F4BC   add      x21, x25, x21
+0x10001F4C0   mov      x0, x19
+0x10001F4C4   bl       _objc_msgSend$cursorColumn
+0x10001F4C8   cmp      x0, x26
+0x10001F4CC   b.hi     0x10001f694
+0x10001F4D0   ldr      x0, [x19, #0x10]
+0x10001F4D4   bl       _objc_msgSend$isCursorRowWrapped
+0x10001F4D8   cbz      w0, 0x10001f688
+0x10001F4DC   mov      x0, x19
+0x10001F4E0   bl       _objc_msgSend$cursorRow
+0x10001F4E4   sub      x8, x0, #0x1
+0x10001F4E8   cmp      x8, #0x1
+0x10001F4EC   csinc    x2, x8, xzr, hi
+0x10001F4F0   mov      x0, x19
+0x10001F4F4   bl       "_objc_msgSend$setCursorRow:"
+0x10001F4F8   mov      x0, x19
+0x10001F4FC   bl       _objc_msgSend$cursorColumn
+0x10001F500   sub      w23, w23, w0
+0x10001F504   mov      x21, x20
+0x10001F508   b        0x10001f694
+0x10001F50C   mov      x20, x23
+0x10001F510   neg      w21, w23
+0x10001F514   mov      w26, #0x1
+0x10001F518   ldr      x0, [x19, #0x10]
+0x10001F51C   bl       _objc_msgSend$isCursorRowWrapped
+0x10001F520   cbz      w0, 0x10001f540
+0x10001F524   mov      x0, x19
+0x10001F528   bl       _objc_msgSend$cursorRow
+0x10001F52C   sub      x8, x0, #0x1
+0x10001F530   cmp      x8, #0x1
+0x10001F534   csinc    x2, x8, xzr, hi
+0x10001F538   mov      x0, x19
+0x10001F53C   bl       "_objc_msgSend$setCursorRow:"
+0x10001F540   mov      x9, x20
+0x10001F544   sub      w23, w26, w9
+0x10001F548   add      w8, w21, w26
+0x10001F54C   cmp      x20, w8, sxtw
+0x10001F550   mov      x26, x23
+0x10001F554   b.ls     0x10001f518
+0x10001F558   sxtw     x21, w8
+0x10001F55C   mov      x0, x19
+0x10001F560   bl       _objc_msgSend$cursorColumn
+0x10001F564   cmp      x0, x21
+0x10001F568   b.hi     0x10001f6c8
+0x10001F56C   ldr      x0, [x19, #0x10]
+0x10001F570   bl       _objc_msgSend$isCursorRowWrapped
+0x10001F574   cbz      w0, 0x10001f6bc
+0x10001F578   mov      x0, x19
+0x10001F57C   bl       _objc_msgSend$cursorRow
+0x10001F580   sub      x8, x0, #0x1
+0x10001F584   cmp      x8, #0x1
+0x10001F588   csinc    x2, x8, xzr, hi
+0x10001F58C   mov      x0, x19
+0x10001F590   bl       "_objc_msgSend$setCursorRow:"
+0x10001F594   mov      x0, x19
+0x10001F598   bl       _objc_msgSend$cursorColumn
+0x10001F59C   sub      w23, w23, w0
+0x10001F5A0   mov      x25, x20
+0x10001F5A4   b        0x10001f6c8
+0x10001F5A8   ldr      x25, [x19, #0x10]
+0x10001F5AC   mov      x0, x25
+0x10001F5B0   bl       _objc_msgSend$rowCount
+0x10001F5B4   mov      x26, x0
+0x10001F5B8   ldr      x0, [x19, #0x10]
+0x10001F5BC   bl       _objc_msgSend$rowCount
+0x10001F5C0   mov      x5, x0
+0x10001F5C4   ldr      w6, [x19, #0x2944]
+0x10001F5C8   mov      x0, x25
+0x10001F5CC   mov      x2, #0x0
+0x10001F5D0   mov      x3, x26
+0x10001F5D4   mov      x4, #0x0
+0x10001F5D8   bl       "_objc_msgSend$shiftLineRange:inDirection:byAmount:withANSIBackgroundColor:"
+0x10001F5DC   ldr      x8, [x19, #0x38]
+0x10001F5E0   str      x8, [x19, #0x30]
+0x10001F5E4   mov      x26, #-0x1
+0x10001F5E8   mov      x27, #-0x1
+0x10001F5EC   b        0x10001ef7c
+0x10001F5F0   ldr      x0, [x19, #0x4968]
+0x10001F5F4   bl       _objc_msgSend$removeAllIndexes
+0x10001F5F8   b        0x10001ee30
+0x10001F5FC   ldr      x25, [x19, #0x10]
+0x10001F600   mov      x0, x19
+0x10001F604   bl       _objc_msgSend$cursorColumn
+0x10001F608   mov      x26, x0
+0x10001F60C   ldr      x0, [x19, #0x10]
+0x10001F610   bl       _objc_msgSend$cursorLine
+0x10001F614   mov      x5, x0
+0x10001F618   ldr      x8, [sp, #0x28]
+0x10001F61C   and      x8, x8, #0xffffffff00000000
+0x10001F620   ldur     x3, [x20, #0x4]
+0x10001F624   ldr      w9, [x19, #0x2944]
+0x10001F628   orr      x20, x8, x9
+0x10001F62C   mov      x0, x25
+0x10001F630   mov      x2, x26
+0x10001F634   mov      x4, x20
+0x10001F638   mov      x6, #0x0
+0x10001F63C   bl       "_objc_msgSend$eraseUTF8Characters:withAttributes:atPosition:"
+0x10001F640   b        0x10001db7c
+0x10001F644   ldr      x25, [x19, #0x10]
+0x10001F648   mov      x0, x25
+0x10001F64C   bl       _objc_msgSend$columnCount
+0x10001F650   mov      x26, x0
+0x10001F654   ldr      x0, [x19, #0x10]
+0x10001F658   bl       _objc_msgSend$cursorLine
+0x10001F65C   mov      x3, x0
+0x10001F660   ldr      w5, [x19, #0x2944]
+0x10001F664   mov      x0, x25
+0x10001F668   mov      x2, x26
+0x10001F66C   mov      x4, #0x0
+0x10001F670   bl       "_objc_msgSend$deleteUTF8Characters:atPosition:withANSIBackgroundColor:"
+0x10001F674   ldr      x0, [x19, #0x10]
+0x10001F678   mov      w2, #0x0
+0x10001F67C   bl       "_objc_msgSend$setCursorRowWrappedToNextRow:"
+0x10001F680   ldr      x20, [sp, #0x28]
+0x10001F684   b        0x10001db7c
+0x10001F688   mov      x0, x19
+0x10001F68C   bl       _objc_msgSend$cursorColumn
+0x10001F690   sub      w23, w0, #0x1
+0x10001F694   sub      w8, w21, w23
+0x10001F698   sxtw     x2, w8
+0x10001F69C   mov      x0, x19
+0x10001F6A0   bl       "_objc_msgSend$setCursorColumn:"
+0x10001F6A4   strb     wzr, [x19, #0xe1]
+0x10001F6A8   ldr      x8, [x19, #0x38]
+0x10001F6AC   str      x8, [x19, #0x30]
+0x10001F6B0   mov      x26, #-0x1
+0x10001F6B4   mov      x27, #-0x1
+0x10001F6B8   b        0x10001cbcc
+0x10001F6BC   mov      x0, x19
+0x10001F6C0   bl       _objc_msgSend$cursorColumn
+0x10001F6C4   sub      w23, w0, #0x1
+0x10001F6C8   sub      w8, w25, w23
+0x10001F6CC   sxtw     x2, w8
+0x10001F6D0   mov      x23, x20
+0x10001F6D4   mov      x0, x19
+0x10001F6D8   bl       "_objc_msgSend$setCursorColumn:"
+0x10001F6DC   strb     wzr, [x19, #0xe1]
+0x10001F6E0   b        0x10001f5e4
+0x10001F6E4   ldr      x0, [x19, #0x28]
+0x10001F6E8   bl       _objc_msgSend$activePane
+0x10001F6EC   bl       _objc_msgSend$view
+0x10001F6F0   bl       _objc_msgSend$logicalContentSize
+0x10001F6F4   adrp     x8, 197              ; 0x1000e4000
+0x10001F6F8   ldr      x0, [x8, #0xb70]     ; _OBJC_CLASS_$_NSString@got
+0x10001F6FC   mov      x20, x23
+0x10001F700   ldr      x23, [x19, #0x18]
+0x10001F704   fcvtzs   w8, d1
+0x10001F708   fcvtzs   w9, d0
+0x10001F70C   stp      x8, x9, [sp]
+0x10001F710   adrp     x2, 193              ; 0x1000e0000
+0x10001F714   add      x2, x2, #0x230       ; @"[4;%d;%dt"
+0x10001F718   b        0x10001f9b0
+0x10001F71C   ldr      w8, [x19, #0x44]
+0x10001F720   cmp      w8, #0x3
+0x10001F724   b.lo     0x10001f9cc
+0x10001F728   mov      x0, x25
+0x10001F72C   bl       _objc_msgSend$defaultScreen
+0x10001F730   bl       _objc_msgSend$visibleFrame
+0x10001F734   fadd     d1, d1, d3
+0x10001F738   ldp      w8, w9, [x19, #0x4c]
+0x10001F73C   scvtf    d2, w8
+0x10001F740   fadd     d0, d0, d2
+0x10001F744   scvtf    d2, w9
+0x10001F748   fsub     d1, d1, d2
+0x10001F74C   mov      x0, x25
+0x10001F750   bl       "_objc_msgSend$setFrameTopLeftPoint:"
+0x10001F754   b        0x10001f9cc
+0x10001F758   mov      x0, x25
+0x10001F75C   mov      x2, #0x0
+0x10001F760   bl       "_objc_msgSend$orderBack:"
+0x10001F764   b        0x10001f9cc
+0x10001F768   adrp     x8, 197              ; 0x1000e4000
+0x10001F76C   mov      x20, x23
+0x10001F770   ldr      x23, [x8, #0xb70]
+0x10001F774   ldp      x0, x25, [x19, #0x10]
+0x10001F778   bl       _objc_msgSend$rowCount
+0x10001F77C   mov      x26, x0
+0x10001F780   ldr      x0, [x19, #0x10]
+0x10001F784   bl       _objc_msgSend$columnCount
+0x10001F788   stp      x26, x0, [sp]
+0x10001F78C   adrp     x2, 193              ; 0x1000e0000
+0x10001F790   add      x2, x2, #0x250       ; @"[8;%lu;%lut"
+0x10001F794   mov      x0, x23
+0x10001F798   mov      x23, x20
+0x10001F79C   bl       "_objc_msgSend$stringWithFormat:"
+0x10001F7A0   mov      w2, #0x4
+0x10001F7A4   bl       "_objc_msgSend$dataUsingEncoding:"
+0x10001F7A8   mov      x2, x0
+0x10001F7AC   mov      x0, x25
+0x10001F7B0   b        0x10001f9c8
+0x10001F7B4   mov      x0, x25
+0x10001F7B8   mov      x2, #0x0
+0x10001F7BC   bl       "_objc_msgSend$miniaturize:"
+0x10001F7C0   b        0x10001f9cc
+0x10001F7C4   ldr      w8, [x19, #0x44]
+0x10001F7C8   cmp      w8, #0x3
+0x10001F7CC   b.lo     0x10001f9cc
+0x10001F7D0   mov      x0, x25
+0x10001F7D4   bl       _objc_msgSend$defaultScreen
+0x10001F7D8   bl       _objc_msgSend$visibleFrame
+0x10001F7DC   mov.16b  v8, v0
+0x10001F7E0   mov.16b  v9, v1
+0x10001F7E4   mov.16b  v10, v2
+0x10001F7E8   mov.16b  v11, v3
+0x10001F7EC   adrp     x8, 197              ; 0x1000e4000
+0x10001F7F0   ldr      x0, [x8, #0x928]     ; (null)@got
+0x10001F7F4   bl       _objc_opt_class
+0x10001F7F8   ldp      x2, x3, [x19, #0x20]
+0x10001F7FC   mov.16b  v0, v8
+0x10001F800   mov.16b  v1, v9
+0x10001F804   mov.16b  v2, v10
+0x10001F808   mov.16b  v3, v11
+0x10001F80C   bl       "_objc_msgSend$logicalContentSizeForRect:profile:controller:"
+0x10001F810   ldr      w8, [x19, #0x4c]
+0x10001F814   add      w9, w8, #0x2
+0x10001F818   cmp      w9, #0x2
+0x10001F81C   b.hi     0x10001f828
+0x10001F820   fcvtzs   w8, d1
+0x10001F824   str      w8, [x19, #0x4c]
+0x10001F828   ldr      w9, [x19, #0x50]
+0x10001F82C   add      w10, w9, #0x2
+0x10001F830   cmp      w10, #0x2
+0x10001F834   b.hi     0x10001f840
+0x10001F838   fcvtzs   w9, d0
+0x10001F83C   str      w9, [x19, #0x50]
+0x10001F840   ldr      x0, [x19, #0x10]
+0x10001F844   sxtw     x2, w8
+0x10001F848   sxtw     x3, w9
+0x10001F84C   b        0x10001f90c
+0x10001F850   ldr      w8, [x19, #0x44]
+0x10001F854   cmp      w8, #0x2
+0x10001F858   b.lo     0x10001f9cc
+0x10001F85C   ldr      w8, [x19, #0x4c]
+0x10001F860   cmp      w8, #0x1
+0x10001F864   b.eq     0x10001fa1c
+0x10001F868   cbnz     w8, 0x10001f9cc
+0x10001F86C   mov      x0, x25
+0x10001F870   bl       _objc_msgSend$isZoomed
+0x10001F874   cbz      w0, 0x10001f9cc
+0x10001F878   b        0x10001fa28
+0x10001F87C   ldr      w8, [x19, #0x44]
+0x10001F880   cmp      w8, #0x3
+0x10001F884   b.lo     0x10001f9cc
+0x10001F888   mov      x0, x25
+0x10001F88C   bl       _objc_msgSend$defaultScreen
+0x10001F890   bl       _objc_msgSend$visibleFrame
+0x10001F894   ldr      w8, [x19, #0x4c]
+0x10001F898   add      w9, w8, #0x2
+0x10001F89C   cmp      w9, #0x2
+0x10001F8A0   b.hi     0x10001f8ac
+0x10001F8A4   fcvtzs   w8, d3
+0x10001F8A8   str      w8, [x19, #0x4c]
+0x10001F8AC   ldr      w9, [x19, #0x50]
+0x10001F8B0   add      w10, w9, #0x2
+0x10001F8B4   cmp      w10, #0x2
+0x10001F8B8   b.hi     0x10001f8c4
+0x10001F8BC   fcvtzs   w9, d2
+0x10001F8C0   str      w9, [x19, #0x50]
+0x10001F8C4   scvtf    d8, w9
+0x10001F8C8   scvtf    d9, w8
+0x10001F8CC   adrp     x8, 197              ; 0x1000e4000
+0x10001F8D0   ldr      x0, [x8, #0x928]     ; (null)@got
+0x10001F8D4   bl       _objc_opt_class
+0x10001F8D8   ldp      x2, x3, [x19, #0x20]
+0x10001F8DC   movi.2d  v0, #0000000000000000
+0x10001F8E0   movi.2d  v1, #0000000000000000
+0x10001F8E4   mov.16b  v2, v8
+0x10001F8E8   mov.16b  v3, v9
+0x10001F8EC   bl       "_objc_msgSend$logicalContentSizeForRect:profile:controller:"
+0x10001F8F0   fcvt     s1, d1
+0x10001F8F4   frintx   s1, s1
+0x10001F8F8   fcvtzs   x2, s1
+0x10001F8FC   ldr      x0, [x19, #0x10]
+0x10001F900   fcvt     s0, d0
+0x10001F904   frintx   s0, s0
+0x10001F908   fcvtzs   x3, s0
+0x10001F90C   bl       "_objc_msgSend$setRowCount:columnCount:"
+0x10001F910   b        0x10001f9cc
+0x10001F914   mov      x0, x25
+0x10001F918   mov      x2, #0x0
+0x10001F91C   bl       "_objc_msgSend$orderFront:"
+0x10001F920   b        0x10001f9cc
+0x10001F924   mov      x0, x25
+0x10001F928   bl       _objc_msgSend$defaultScreen
+0x10001F92C   bl       _objc_msgSend$visibleFrame
+0x10001F930   mov.16b  v8, v0
+0x10001F934   mov.16b  v9, v1
+0x10001F938   mov.16b  v10, v3
+0x10001F93C   mov      x0, x25
+0x10001F940   bl       _objc_msgSend$frame
+0x10001F944   fsub     d0, d0, d8
+0x10001F948   fadd     d2, d9, d10
+0x10001F94C   fadd     d1, d1, d3
+0x10001F950   fsub     d1, d2, d1
+0x10001F954   mov      x20, x23
+0x10001F958   ldr      x23, [x19, #0x18]
+0x10001F95C   adrp     x8, 197              ; 0x1000e4000
+0x10001F960   ldr      x0, [x8, #0xb70]     ; _OBJC_CLASS_$_NSString@got
+0x10001F964   fcvtzs   w8, d0
+0x10001F968   fcvtzs   w9, d1
+0x10001F96C   stp      x8, x9, [sp]
+0x10001F970   adrp     x2, 193              ; 0x1000e0000
+0x10001F974   add      x2, x2, #0x210       ; @"[3;%d;%dt"
+0x10001F978   b        0x10001f9b0
+0x10001F97C   mov      x20, x23
+0x10001F980   ldr      x23, [x19, #0x18]
+0x10001F984   adrp     x8, 197              ; 0x1000e4000
+0x10001F988   ldr      x26, [x8, #0xb70]    ; _OBJC_CLASS_$_NSString@got
+0x10001F98C   mov      x0, x25
+0x10001F990   bl       _objc_msgSend$isVisible
+0x10001F994   cmp      w0, #0x0
+0x10001F998   mov      w8, #0x1
+0x10001F99C   cinc     x8, x8, eq
+0x10001F9A0   str      x8, [sp]
+0x10001F9A4   adrp     x2, 193              ; 0x1000e0000
+0x10001F9A8   add      x2, x2, #0x1f0       ; @"[%dt"
+0x10001F9AC   mov      x0, x26
+0x10001F9B0   bl       "_objc_msgSend$stringWithFormat:"
+0x10001F9B4   mov      w2, #0x4
+0x10001F9B8   bl       "_objc_msgSend$dataUsingEncoding:"
+0x10001F9BC   mov      x2, x0
+0x10001F9C0   mov      x0, x23
+0x10001F9C4   mov      x23, x20
+0x10001F9C8   bl       "_objc_msgSend$writeData:"
+0x10001F9CC   ldr      x8, [x19, #0x38]
+0x10001F9D0   str      x8, [x19, #0x30]
+0x10001F9D4   mov      x26, #-0x1
+0x10001F9D8   b        0x10001ef7c
+0x10001F9DC   ldr      x9, [sp, #0x20]
+0x10001F9E0   and      x9, x9, #0xffffffff00000000
+0x10001F9E4   orr      x20, x9, x8
+0x10001F9E8   mov      x0, x27
+0x10001F9EC   mov      x2, x25
+0x10001F9F0   mov      x3, x26
+0x10001F9F4   mov      x5, x20
+0x10001F9F8   mov      x7, x1
+0x10001F9FC   bl       "_objc_msgSend$insertUTF8Characters:length:withAttributes:atPosition:"
+0x10001FA00   mov      x27, x0
+0x10001FA04   mov      x26, x1
+0x10001FA08   ldr      x21, [sp, #0x48]
+0x10001FA0C   str      x20, [sp, #0x20]
+0x10001FA10   mov      x0, x25
+0x10001FA14   bl       _free
+0x10001FA18   b        0x10001e0bc
+0x10001FA1C   mov      x0, x25
+0x10001FA20   bl       _objc_msgSend$isZoomed
+0x10001FA24   tbnz     w0, #0x0, 0x10001f9cc
+0x10001FA28   mov      x0, x25
+0x10001FA2C   mov      x2, #0x0
+0x10001FA30   bl       "_objc_msgSend$zoom:"
+0x10001FA34   b        0x10001f9cc
+0x10001FA38   adrp     x8, 197              ; 0x1000e4000
+0x10001FA3C   ldr      x0, [x8, #0xb18]     ; _OBJC_CLASS_$_NSNotificationCenter@got
+0x10001FA40   bl       _objc_msgSend$defaultCenter
+0x10001FA44   adrp     x2, 191              ; 0x1000de000
+0x10001FA48   add      x2, x2, #0x550       ; @"TTEmulatorDidDecodeData"
+0x10001FA4C   mov      x3, x19
+0x10001FA50   bl       "_objc_msgSend$postNotificationName:object:"
+0x10001FA54   mov      x0, #0x0
+0x10001FA58   ldp      x29, x30, [sp, #0x140]
+0x10001FA5C   ldp      x20, x19, [sp, #0x130]
+0x10001FA60   ldp      x22, x21, [sp, #0x120]
+0x10001FA64   ldp      x24, x23, [sp, #0x110]
+0x10001FA68   ldp      x26, x25, [sp, #0x100]
+0x10001FA6C   ldp      x28, x27, [sp, #0xf0]
+0x10001FA70   ldp      d9, d8, [sp, #0xe0]
+0x10001FA74   ldp      d11, d10, [sp, #0xd0]
+0x10001FA78   add      sp, sp, #0x150
+0x10001FA7C   retab

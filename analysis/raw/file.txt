@@ -1,0 +1,3 @@
+/Users/aa/Downloads/term.bin.exe.mac: Mach-O universal binary with 2 architectures: [arm64e:Mach-O 64-bit executable arm64e] [arm64e.x1]
+/Users/aa/Downloads/term.bin.exe.mac (for architecture arm64e):	Mach-O 64-bit executable arm64e
+/Users/aa/Downloads/term.bin.exe.mac (for architecture arm64e.x1):	Mach-O 64-bit executable arm64e.x1

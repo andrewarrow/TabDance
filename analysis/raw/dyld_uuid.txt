@@ -1,0 +1,3 @@
+/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho [arm64e]:
+    -uuid:
+        D117A28B-8EE7-3FAF-97DE-76BD0C67DAED

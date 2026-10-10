@@ -1,0 +1,848 @@
+-[TTShell initWithAction:target:profile:controller:customShell:commandAsShell:workingDirectory:sessionClass:restoreSession:provenance:]
+0x100036CA4   pacibsp
+0x100036CA8   stp      d9, d8, [sp, #-0x70]!
+0x100036CAC   stp      x28, x27, [sp, #0x10]
+0x100036CB0   stp      x26, x25, [sp, #0x20]
+0x100036CB4   stp      x24, x23, [sp, #0x30]
+0x100036CB8   stp      x22, x21, [sp, #0x40]
+0x100036CBC   stp      x20, x19, [sp, #0x50]
+0x100036CC0   stp      x29, x30, [sp, #0x60]
+0x100036CC4   add      x29, sp, #0x60
+0x100036CC8   sub      sp, sp, #0x230
+0x100036CCC   mov      x25, x7
+0x100036CD0   stp      x5, x6, [sp, #0x38]
+0x100036CD4   mov      x23, x4
+0x100036CD8   mov      x24, x3
+0x100036CDC   mov      x20, x2
+0x100036CE0   add      x22, sp, #0xd0
+0x100036CE4   adrp     x8, 174              ; 0x1000e4000
+0x100036CE8   ldr      x8, [x8, #0x9b8]     ; ___stack_chk_guard@got
+0x100036CEC   ldr      x8, [x8]
+0x100036CF0   stur     x8, [x29, #-0x78]
+0x100036CF4   adrp     x8, 173              ; 0x1000e3000
+0x100036CF8   ldr      x8, [x8, #0x620]     ; super TTShell
+0x100036CFC   stp      x0, x8, [x22, #0x60]
+0x100036D00   adrp     x8, 195              ; 0x1000f9000
+0x100036D04   ldr      x1, [x8, #0xa30]     ; selector "init"
+0x100036D08   add      x0, sp, #0x130
+0x100036D0C   bl       _objc_msgSendSuper2
+0x100036D10   mov      x19, x0
+0x100036D14   cbz      x0, 0x1000376b8
+0x100036D18   movi.2d  v0, #0xffffffffffffffff
+0x100036D1C   mov      x9, x19
+0x100036D20   str      d0, [x9, #0x28]!
+0x100036D24   strb     w25, [x9, #0x878]
+0x100036D28   mov      w8, #-0x1
+0x100036D2C   str      w8, [x9, #0x10]
+0x100036D30   str      wzr, [x9, #0x20]
+0x100036D34   mov      w8, #0x101
+0x100036D38   strh     w8, [x9, #0x24]
+0x100036D3C   movi.2s  v0, #0x1, lsl #8
+0x100036D40   str      s0, [x9, #0x894]
+0x100036D44   stur     x24, [x9, #-0x10]
+0x100036D48   str      x9, [sp, #0x30]
+0x100036D4C   cbz      x20, 0x100036d64
+0x100036D50   sub      x16, x9, #0x8
+0x100036D54   movk     x16, #0x57c2, lsl #48
+0x100036D58   mov      x17, x20
+0x100036D5C   pacdb    x17, x16
+0x100036D60   b        0x100036d68
+0x100036D64   mov      x17, #0x0
+0x100036D68   str      x17, [x19, #0x20]
+0x100036D6C   ldr      x8, [sp, #0x38]
+0x100036D70   str      x8, [x19, #0x8]
+0x100036D74   mov      x0, x19
+0x100036D78   mov      x2, x23
+0x100036D7C   bl       "_objc_msgSend$setProfile:"
+0x100036D80   adrp     x8, 174              ; 0x1000e4000
+0x100036D84   ldr      x8, [x8, #0xc80]     ; _NSApp@got
+0x100036D88   ldr      x0, [x8]
+0x100036D8C   bl       _objc_msgSend$initialEnvironment
+0x100036D90   bl       _objc_msgSend$mutableCopy
+0x100036D94   bl       _objc_autorelease
+0x100036D98   mov      x24, x0
+0x100036D9C   adrp     x2, 164              ; 0x1000da000
+0x100036DA0   add      x2, x2, #0x350       ; @"Apple_Terminal"
+0x100036DA4   adrp     x3, 164              ; 0x1000da000
+0x100036DA8   add      x3, x3, #0x370       ; @"TERM_PROGRAM"
+0x100036DAC   bl       "_objc_msgSend$setObject:forKey:"
+0x100036DB0   adrp     x8, 174              ; 0x1000e4000
+0x100036DB4   ldr      x0, [x8, #0xa80]     ; _OBJC_CLASS_$_NSBundle@got
+0x100036DB8   bl       _objc_msgSend$mainBundle
+0x100036DBC   adrp     x2, 164              ; 0x1000da000
+0x100036DC0   add      x2, x2, #0x390       ; @"CFBundleVersion"
+0x100036DC4   bl       "_objc_msgSend$objectForInfoDictionaryKey:"
+0x100036DC8   adrp     x8, 164              ; 0x1000da000
+0x100036DCC   add      x8, x8, #0x3b0       ; @"1"
+0x100036DD0   cmp      x0, #0x0
+0x100036DD4   csel     x2, x8, x0, eq
+0x100036DD8   adrp     x3, 164              ; 0x1000da000
+0x100036DDC   add      x3, x3, #0x3d0       ; @"TERM_PROGRAM_VERSION"
+0x100036DE0   mov      x0, x24
+0x100036DE4   bl       "_objc_msgSend$setObject:forKey:"
+0x100036DE8   adrp     x8, 203              ; 0x100101000
+0x100036DEC   add      x8, x8, #0x6e0
+0x100036DF0   ldr      x2, [x8]
+0x100036DF4   mov      x0, x23
+0x100036DF8   bl       "_objc_msgSend$valueForKey:"
+0x100036DFC   mov      x20, x0
+0x100036E00   bl       _objc_msgSend$length
+0x100036E04   cbz      x0, 0x100036e60
+0x100036E08   mov      x0, x20
+0x100036E0C   bl       _objc_msgSend$UTF8String
+0x100036E10   mov      x20, x0
+0x100036E14   mov      x0, #0x0
+0x100036E18   mov      x1, x20
+0x100036E1C   bl       _tgetent
+0x100036E20   cmp      w0, #0x0
+0x100036E24   b.gt     0x100036f04
+0x100036E28   mov      x0, x23
+0x100036E2C   bl       _objc_msgSend$name
+0x100036E30   stp      x0, x20, [sp]
+0x100036E34   adrp     x0, 164              ; 0x1000da000
+0x100036E38   add      x0, x0, #0x410       ; @"Profile "%@": No terminfo entry for terminal type "%s"..."
+0x100036E3C   bl       _NSLog
+0x100036E40   cbz      x20, 0x100036e78
+0x100036E44   adrp     x1, 122              ; 0x1000b0000
+0x100036E48   add      x1, x1, #0x983
+0x100036E4C   mov      x0, x20
+0x100036E50   bl       _strcmp
+0x100036E54   cmp      w0, #0x0
+0x100036E58   cset     w26, eq
+0x100036E5C   b        0x100036e7c
+0x100036E60   mov      x0, x23
+0x100036E64   bl       _objc_msgSend$name
+0x100036E68   str      x0, [sp]
+0x100036E6C   adrp     x0, 164              ; 0x1000da000
+0x100036E70   add      x0, x0, #0x3f0       ; @"Profile "%@": No terminal type provided..."
+0x100036E74   bl       _NSLog
+0x100036E78   mov      x26, #0x0
+0x100036E7C   mov      x8, #-0x6
+0x100036E80   orr      x27, x26, x8
+0x100036E84   adrp     x28, 162             ; 0x1000d8000
+0x100036E88   add      x28, x28, #0x70
+0x100036E8C   adrp     x25, 164             ; 0x1000da000
+0x100036E90   add      x25, x25, #0x450     ; @"Profile "%@": ...no terminfo entry for default terminal type "%s"."
+0x100036E94   ldr      x20, [x28, x26, lsl #3]
+0x100036E98   mov      x0, #0x0
+0x100036E9C   mov      x1, x20
+0x100036EA0   bl       _tgetent
+0x100036EA4   cmp      w0, #0x0
+0x100036EA8   cset     w21, gt
+0x100036EAC   mov      x0, x23
+0x100036EB0   bl       _objc_msgSend$name
+0x100036EB4   tbnz     w21, #0x0, 0x100036ef4
+0x100036EB8   stp      x0, x20, [sp]
+0x100036EBC   mov      x0, x25
+0x100036EC0   bl       _NSLog
+0x100036EC4   add      x26, x26, #0x1
+0x100036EC8   adds     x27, x27, #0x1
+0x100036ECC   b.lo     0x100036e94
+0x100036ED0   mov      x0, x23
+0x100036ED4   bl       _objc_msgSend$name
+0x100036ED8   str      x0, [sp]
+0x100036EDC   adrp     x0, 164              ; 0x1000da000
+0x100036EE0   add      x0, x0, #0x470       ; @"Profile "%@": ...no default terminfo entries found. Using "unknown"."
+0x100036EE4   bl       _NSLog
+0x100036EE8   adrp     x20, 122             ; 0x1000b0000
+0x100036EEC   add      x20, x20, #0xa2c
+0x100036EF0   b        0x100036f08
+0x100036EF4   stp      x0, x20, [sp]
+0x100036EF8   adrp     x0, 164              ; 0x1000da000
+0x100036EFC   add      x0, x0, #0x430       ; @"Profile "%@": ...using default terminal type "%s"."
+0x100036F00   bl       _NSLog
+0x100036F04   cbz      x20, 0x100036f84
+0x100036F08   adrp     x8, 174              ; 0x1000e4000
+0x100036F0C   ldr      x0, [x8, #0xb70]     ; _OBJC_CLASS_$_NSString@got
+0x100036F10   mov      x2, x20
+0x100036F14   bl       "_objc_msgSend$stringWithUTF8String:"
+0x100036F18   mov      x2, x0
+0x100036F1C   adrp     x3, 164              ; 0x1000da000
+0x100036F20   add      x3, x3, #0x490       ; @"TERM"
+0x100036F24   mov      x0, x24
+0x100036F28   bl       "_objc_msgSend$setObject:forKey:"
+0x100036F2C   adrp     x0, 122              ; 0x1000b0000
+0x100036F30   add      x0, x0, #0xa7e
+0x100036F34   adrp     x1, 122              ; 0x1000b0000
+0x100036F38   add      x1, x1, #0xa87
+0x100036F3C   bl       __os_feature_enabled_impl
+0x100036F40   tbz      w0, #0x0, 0x100036f80
+0x100036F44   adrp     x0, 122              ; 0x1000b0000
+0x100036F48   add      x0, x0, #0x983
+0x100036F4C   mov      x1, x20
+0x100036F50   bl       _strcmp
+0x100036F54   cmp      w0, #0x0
+0x100036F58   cset     w8, eq
+0x100036F5C   strb     w8, [x19, #0x8bf]
+0x100036F60   cbnz     w0, 0x100036f84
+0x100036F64   adrp     x2, 164              ; 0x1000da000
+0x100036F68   add      x2, x2, #0x4b0       ; @"truecolor"
+0x100036F6C   adrp     x3, 164              ; 0x1000da000
+0x100036F70   add      x3, x3, #0x4d0       ; @"COLORTERM"
+0x100036F74   mov      x0, x24
+0x100036F78   bl       "_objc_msgSend$setObject:forKey:"
+0x100036F7C   b        0x100036f84
+0x100036F80   strb     wzr, [x19, #0x8bf]
+0x100036F84   ldr      x0, [x19, #0x10]
+0x100036F88   adrp     x8, 203              ; 0x100101000
+0x100036F8C   add      x8, x8, #0x710
+0x100036F90   ldr      x2, [x8]
+0x100036F94   bl       "_objc_msgSend$valueForKey:"
+0x100036F98   bl       _objc_msgSend$boolValue
+0x100036F9C   cbz      w0, 0x10003729c
+0x100036FA0   ldr      x0, [x19, #0x10]
+0x100036FA4   adrp     x8, 203              ; 0x100101000
+0x100036FA8   add      x8, x8, #0x700
+0x100036FAC   ldr      x2, [x8]
+0x100036FB0   bl       "_objc_msgSend$valueForKey:"
+0x100036FB4   bl       _objc_msgSend$unsignedIntValue
+0x100036FB8   mov      w0, w0
+0x100036FBC   bl       _CFStringConvertNSStringEncodingToEncoding
+0x100036FC0   mov      x2, x0
+0x100036FC4   adrp     x8, 200              ; 0x1000fe000
+0x100036FC8   add      x0, x8, #0xea8       ; TTEncodingConverter
+0x100036FCC   bl       "_objc_msgSend$localeCompliantStringFromEncoding:"
+0x100036FD0   mov      x26, x0
+0x100036FD4   adrp     x8, 175              ; 0x1000e5000
+0x100036FD8   ldr      x0, [x8, #0x1b8]     ; _OBJC_CLASS_$_NSLocale@got
+0x100036FDC   bl       _objc_msgSend$currentLocale
+0x100036FE0   mov      x25, x0
+0x100036FE4   adrp     x8, 175              ; 0x1000e5000
+0x100036FE8   ldr      x8, [x8, #0x140]     ; _NSLocaleLanguageCode@got
+0x100036FEC   ldr      x2, [x8]
+0x100036FF0   bl       "_objc_msgSend$objectForKey:"
+0x100036FF4   mov      x27, x0
+0x100036FF8   adrp     x8, 175              ; 0x1000e5000
+0x100036FFC   ldr      x8, [x8, #0x130]     ; _NSLocaleCountryCode@got
+0x100037000   ldr      x2, [x8]
+0x100037004   mov      x0, x25
+0x100037008   bl       "_objc_msgSend$objectForKey:"
+0x10003700C   mov      x20, x0
+0x100037010   adrp     x8, 174              ; 0x1000e5000
+0x100037014   ldr      x8, [x8, #0x138]     ; _NSLocaleIdentifier@got
+0x100037018   ldr      x2, [x8]
+0x10003701C   mov      x0, x25
+0x100037020   bl       "_objc_msgSend$objectForKey:"
+0x100037024   mov      x28, x0
+0x100037028   adrp     x8, 174              ; 0x1000e5000
+0x10003702C   ldr      x0, [x8, #0x1c0]     ; _OBJC_CLASS_$_NSMutableArray@got
+0x100037030   bl       _objc_msgSend$array
+0x100037034   mov      x25, x0
+0x100037038   adrp     x8, 173              ; 0x1000e4000
+0x10003703C   ldr      x0, [x8, #0xb70]     ; _OBJC_CLASS_$_NSString@got
+0x100037040   stp      x28, x26, [sp]
+0x100037044   adrp     x2, 163              ; 0x1000da000
+0x100037048   add      x2, x2, #0x4f0       ; @"%@.%@"
+0x10003704C   bl       "_objc_msgSend$stringWithFormat:"
+0x100037050   mov      x2, x0
+0x100037054   mov      x0, x25
+0x100037058   bl       "_objc_msgSend$addObject:"
+0x10003705C   adrp     x8, 173              ; 0x1000e4000
+0x100037060   ldr      x0, [x8, #0xb70]     ; _OBJC_CLASS_$_NSString@got
+0x100037064   stp      x20, x26, [sp, #0x8]
+0x100037068   str      x27, [sp]
+0x10003706C   adrp     x2, 163              ; 0x1000da000
+0x100037070   add      x2, x2, #0x510       ; @"%@_%@.%@"
+0x100037074   bl       "_objc_msgSend$stringWithFormat:"
+0x100037078   mov      x2, x0
+0x10003707C   mov      x0, x25
+0x100037080   bl       "_objc_msgSend$addObject:"
+0x100037084   mov      x0, x25
+0x100037088   mov      x2, x28
+0x10003708C   bl       "_objc_msgSend$addObject:"
+0x100037090   adrp     x8, 173              ; 0x1000e4000
+0x100037094   ldr      x0, [x8, #0xb70]     ; _OBJC_CLASS_$_NSString@got
+0x100037098   stp      x27, x20, [sp]
+0x10003709C   adrp     x2, 163              ; 0x1000da000
+0x1000370A0   add      x2, x2, #0x530       ; @"%@_%@"
+0x1000370A4   bl       "_objc_msgSend$stringWithFormat:"
+0x1000370A8   mov      x2, x0
+0x1000370AC   mov      x0, x25
+0x1000370B0   bl       "_objc_msgSend$addObject:"
+0x1000370B4   mov      x0, x25
+0x1000370B8   mov      x2, x27
+0x1000370BC   bl       "_objc_msgSend$addObject:"
+0x1000370C0   adrp     x20, 173             ; 0x1000e4000
+0x1000370C4   ldr      x0, [x20, #0x918]    ; (null)@got
+0x1000370C8   mov      x2, x27
+0x1000370CC   mov      x3, x26
+0x1000370D0   bl       "_objc_msgSend$posixLocaleFallbacksForLanguageCode:encodingSuffix:"
+0x1000370D4   mov      x2, x0
+0x1000370D8   mov      x0, x25
+0x1000370DC   bl       "_objc_msgSend$addObjectsFromArray:"
+0x1000370E0   ldr      x0, [x20, #0x918]
+0x1000370E4   mov      x2, x27
+0x1000370E8   mov      x3, #0x0
+0x1000370EC   bl       "_objc_msgSend$posixLocaleFallbacksForLanguageCode:encodingSuffix:"
+0x1000370F0   mov      x2, x0
+0x1000370F4   mov      x0, x25
+0x1000370F8   bl       "_objc_msgSend$addObjectsFromArray:"
+0x1000370FC   mov      w0, #0x0
+0x100037100   mov      x1, #0x0
+0x100037104   bl       _setlocale
+0x100037108   bl       _strdup
+0x10003710C   mov      x26, x0
+0x100037110   cbnz     x0, 0x1000371b0
+0x100037114   adrp     x8, 173              ; 0x1000e4000
+0x100037118   ldr      x20, [x8, #0xb70]    ; _OBJC_CLASS_$_NSString@got
+0x10003711C   adrp     x8, 121              ; 0x1000b0000
+0x100037120   add      x8, x8, #0xaf7
+0x100037124   str      x8, [sp]
+0x100037128   adrp     x2, 163              ; 0x1000da000
+0x10003712C   add      x2, x2, #0x570       ; @"Allocation Failure : could not allocate %s"
+0x100037130   mov      x0, x20
+0x100037134   bl       "_objc_msgSend$stringWithFormat:"
+0x100037138   mov      x27, x0
+0x10003713C   adrp     x8, 173              ; 0x1000e4000
+0x100037140   ldr      x0, [x8, #0xb70]     ; _OBJC_CLASS_$_NSString@got
+0x100037144   adrp     x2, 121              ; 0x1000b0000
+0x100037148   add      x2, x2, #0xb8b
+0x10003714C   mov      w3, #0x4
+0x100037150   bl       "_objc_msgSend$stringWithCString:encoding:"
+0x100037154   bl       _objc_msgSend$lastPathComponent
+0x100037158   bl       _objc_msgSend$UTF8String
+0x10003715C   mov      w8, #0x2d8
+0x100037160   stp      x0, x8, [sp, #0x10]
+0x100037164   adrp     x8, 121              ; 0x1000b0000
+0x100037168   add      x8, x8, #0xb03
+0x10003716C   stp      x27, x8, [sp]
+0x100037170   adrp     x2, 163              ; 0x1000da000
+0x100037174   add      x2, x2, #0x550       ; @"%@
+0x100037178   mov      x0, x20
+0x10003717C   bl       "_objc_msgSend$stringWithFormat:"
+0x100037180   mov      x20, x0
+0x100037184   str      x0, [sp]
+0x100037188   adrp     x0, 163              ; 0x1000da000
+0x10003718C   add      x0, x0, #0x590       ; @"%@"
+0x100037190   bl       _NSLog
+0x100037194   adrp     x8, 174              ; 0x1000e5000
+0x100037198   ldr      x0, [x8, #0x1a8]     ; _OBJC_CLASS_$_NSException@got
+0x10003719C   str      xzr, [sp]
+0x1000371A0   adrp     x2, 163              ; 0x1000da000
+0x1000371A4   add      x2, x2, #0x5b0       ; @"Terminal.app Failed Critical Assertion Exception"
+0x1000371A8   mov      x3, x20
+0x1000371AC   bl       "_objc_msgSend$raise:format:"
+0x1000371B0   movi.2d  v0, #0000000000000000
+0x1000371B4   stp      q0, q0, [x22, #0x40]
+0x1000371B8   stp      q0, q0, [x22, #0x20]
+0x1000371BC   add      x2, sp, #0xf0
+0x1000371C0   sub      x3, x29, #0xf8
+0x1000371C4   mov      x0, x25
+0x1000371C8   mov      w4, #0x10
+0x1000371CC   bl       "_objc_msgSend$countByEnumeratingWithState:objects:count:"
+0x1000371D0   mov      x20, x0
+0x1000371D4   cbz      x0, 0x100037244
+0x1000371D8   ldr      x8, [x22, #0x30]
+0x1000371DC   ldr      x28, [x8]
+0x1000371E0   mov      x21, #0x0
+0x1000371E4   ldr      x8, [x22, #0x30]
+0x1000371E8   ldr      x8, [x8]
+0x1000371EC   cmp      x8, x28
+0x1000371F0   b.eq     0x1000371fc
+0x1000371F4   mov      x0, x25
+0x1000371F8   bl       _objc_enumerationMutation
+0x1000371FC   ldr      x8, [x22, #0x28]
+0x100037200   ldr      x27, [x8, x21, lsl #3]
+0x100037204   mov      x0, x27
+0x100037208   bl       _objc_msgSend$UTF8String
+0x10003720C   mov      x1, x0
+0x100037210   mov      w0, #0x0
+0x100037214   bl       _setlocale
+0x100037218   cbnz     x0, 0x100037274
+0x10003721C   add      x21, x21, #0x1
+0x100037220   subs     x20, x20, #0x1
+0x100037224   b.ne     0x1000371e4
+0x100037228   add      x2, sp, #0xf0
+0x10003722C   sub      x3, x29, #0xf8
+0x100037230   mov      x0, x25
+0x100037234   mov      w4, #0x10
+0x100037238   bl       "_objc_msgSend$countByEnumeratingWithState:objects:count:"
+0x10003723C   mov      x20, x0
+0x100037240   cbnz     x0, 0x1000371e0
+0x100037244   adrp     x1, 121              ; 0x1000b0000
+0x100037248   add      x1, x1, #0xc62
+0x10003724C   mov      w0, #0x2
+0x100037250   bl       _setlocale
+0x100037254   cbz      x0, 0x100037288
+0x100037258   adrp     x2, 163              ; 0x1000da000
+0x10003725C   add      x2, x2, #0x5f0       ; @"UTF-8"
+0x100037260   adrp     x3, 163              ; 0x1000da000
+0x100037264   add      x3, x3, #0x610       ; @"LC_CTYPE"
+0x100037268   mov      x0, x24
+0x10003726C   bl       "_objc_msgSend$setObject:forKey:"
+0x100037270   b        0x100037288
+0x100037274   adrp     x3, 163              ; 0x1000da000
+0x100037278   add      x3, x3, #0x5d0       ; @"LANG"
+0x10003727C   mov      x0, x24
+0x100037280   mov      x2, x27
+0x100037284   bl       "_objc_msgSend$setObject:forKey:"
+0x100037288   mov      w0, #0x0
+0x10003728C   mov      x1, x26
+0x100037290   bl       _setlocale
+0x100037294   mov      x0, x26
+0x100037298   bl       _free
+0x10003729C   ldr      x0, [x29, #0x18]
+0x1000372A0   cbz      x0, 0x1000372c4
+0x1000372A4   bl       _objc_retain
+0x1000372A8   str      x0, [x19, #0x8a8]
+0x1000372AC   bl       _objc_msgSend$string
+0x1000372B0   mov      x2, x0
+0x1000372B4   adrp     x3, 163              ; 0x1000da000
+0x1000372B8   add      x3, x3, #0x630       ; @"TERM_SESSION_CLASS_ID"
+0x1000372BC   mov      x0, x24
+0x1000372C0   bl       "_objc_msgSend$setObject:forKey:"
+0x1000372C4   ldr      x0, [x29, #0x20]
+0x1000372C8   cbz      x0, 0x1000372d4
+0x1000372CC   bl       _objc_retain
+0x1000372D0   b        0x1000372e0
+0x1000372D4   adrp     x8, 200              ; 0x1000ff000
+0x1000372D8   add      x0, x8, #0x178       ; TTUUID
+0x1000372DC   bl       _objc_opt_new
+0x1000372E0   str      x0, [x19, #0x8b0]
+0x1000372E4   bl       _objc_msgSend$string
+0x1000372E8   mov      x2, x0
+0x1000372EC   adrp     x3, 163              ; 0x1000da000
+0x1000372F0   add      x3, x3, #0x650       ; @"TERM_SESSION_ID"
+0x1000372F4   mov      x0, x24
+0x1000372F8   bl       "_objc_msgSend$setObject:forKey:"
+0x1000372FC   ldr      x20, [x29, #0x10]
+0x100037300   mov      x0, x20
+0x100037304   bl       _objc_msgSend$isFileURL
+0x100037308   cbz      w0, 0x10003737c
+0x10003730C   mov      x0, x20
+0x100037310   bl       _objc_msgSend$path
+0x100037314   bl       _objc_msgSend$length
+0x100037318   cbz      x0, 0x10003737c
+0x10003731C   adrp     x8, 173              ; 0x1000e4000
+0x100037320   ldr      x0, [x8, #0x910]     ; (null)@got
+0x100037324   adrp     x2, 163              ; 0x1000da000
+0x100037328   add      x2, x2, #0x670       ; @"/bin/bash"
+0x10003732C   bl       "_objc_msgSend$pathForExecutable:"
+0x100037330   cbz      x0, 0x10003737c
+0x100037334   mov      x0, x20
+0x100037338   bl       _objc_msgSend$path
+0x10003733C   bl       _objc_msgSend$fileSystemRepresentation
+0x100037340   mov      x21, x0
+0x100037344   cbz      x0, 0x100037380
+0x100037348   ldrb     w8, [x21]
+0x10003734C   cbz      w8, 0x100037380
+0x100037350   adrp     x8, 173              ; 0x1000e4000
+0x100037354   ldr      x0, [x8, #0xb70]     ; _OBJC_CLASS_$_NSString@got
+0x100037358   mov      x2, x21
+0x10003735C   bl       "_objc_msgSend$stringWithUTF8String:"
+0x100037360   mov      x2, x0
+0x100037364   adrp     x3, 163              ; 0x1000da000
+0x100037368   add      x3, x3, #0x690       ; @"PWD"
+0x10003736C   mov      x0, x24
+0x100037370   bl       "_objc_msgSend$setObject:forKey:"
+0x100037374   mov      w27, #0x1
+0x100037378   b        0x100037384
+0x10003737C   mov      x21, #0x0
+0x100037380   mov      w27, #0x0
+0x100037384   mov      x0, x24
+0x100037388   bl       _objc_msgSend$count
+0x10003738C   lsl      x8, x0, #3
+0x100037390   mov      x1, #0x13f5
+0x100037394   movk     x1, #0x4369, lsl #16
+0x100037398   movk     x1, #0x40, lsl #32
+0x10003739C   movk     x1, #0x1, lsl #48
+0x1000373A0   add      x0, x8, #0x8
+0x1000373A4   bl       _malloc_type_malloc
+0x1000373A8   mov      x25, x0
+0x1000373AC   add      x8, sp, #0xd0
+0x1000373B0   stp      xzr, x8, [x22]
+0x1000373B4   adrp     x9, 118              ; 0x1000ad000
+0x1000373B8   ldr      d0, [x9, #0x740]
+0x1000373BC   str      d0, [x22, #0x10]
+0x1000373C0   str      x0, [x22, #0x18]
+0x1000373C4   add      x9, sp, #0xa8
+0x1000373C8   adrp     x16, 173             ; 0x1000e4000
+0x1000373CC   ldr      x16, [x16, #0x9b0]   ; __NSConcreteStackBlock@got
+0x1000373D0   mov      x17, x9
+0x1000373D4   movk     x17, #0x6ae1, lsl #48
+0x1000373D8   pacda    x16, x17
+0x1000373DC   str      x16, [sp, #0xa8]
+0x1000373E0   adrp     x10, 118             ; 0x1000ad000
+0x1000373E4   ldr      d0, [x10, #0x738]
+0x1000373E8   str      d0, [sp, #0xb0]
+0x1000373EC   add      x9, x9, #0x10
+0x1000373F0   adrp     x16, 0               ; 0x100037000
+0x1000373F4   add      x16, x16, #0x9e0
+0x1000373F8   pacia    x16, x9
+0x1000373FC   adrp     x9, 161              ; 0x1000d8000
+0x100037400   add      x9, x9, #0xa0
+0x100037404   stp      x16, x9, [sp, #0xb8]
+0x100037408   str      x8, [sp, #0xc8]
+0x10003740C   add      x2, sp, #0xa8
+0x100037410   mov      x0, x24
+0x100037414   bl       "_objc_msgSend$enumerateKeysAndObjectsUsingBlock:"
+0x100037418   ldr      x8, [x22, #0x8]
+0x10003741C   ldr      x9, [x8, #0x18]
+0x100037420   str      xzr, [x9], #0x8
+0x100037424   str      x9, [x8, #0x18]
+0x100037428   add      x8, sp, #0x80
+0x10003742C   adrp     x16, 173             ; 0x1000e4000
+0x100037430   ldr      x16, [x16, #0x9b0]   ; __NSConcreteStackBlock@got
+0x100037434   mov      x17, x8
+0x100037438   movk     x17, #0x6ae1, lsl #48
+0x10003743C   pacda    x16, x17
+0x100037440   str      x16, [sp, #0x80]
+0x100037444   adrp     x9, 118              ; 0x1000ad000
+0x100037448   ldr      d0, [x9, #0x748]
+0x10003744C   str      d0, [sp, #0x88]
+0x100037450   add      x24, x8, #0x10
+0x100037454   adrp     x16, 0               ; 0x100037000
+0x100037458   add      x16, x16, #0xabc
+0x10003745C   pacia    x16, x24
+0x100037460   adrp     x8, 161              ; 0x1000d8000
+0x100037464   add      x8, x8, #0xd0
+0x100037468   stp      x16, x8, [sp, #0x90]
+0x10003746C   str      x25, [sp, #0xa0]
+0x100037470   bl       _NSUserName
+0x100037474   bl       _objc_msgSend$UTF8String
+0x100037478   bl       _getpwnam
+0x10003747C   mov      x28, x0
+0x100037480   mov      x0, x19
+0x100037484   ldr      x2, [sp, #0x40]
+0x100037488   mov      x3, x28
+0x10003748C   mov      x4, x27
+0x100037490   bl       "_objc_msgSend$initShellArgs:userInfo:forCustomWorkingDirectory:"
+0x100037494   bl       _objc_msgSend$fileSystemRepresentation
+0x100037498   str      x0, [sp, #0x28]
+0x10003749C   mov      x0, x19
+0x1000374A0   bl       _objc_msgSend$loginCommand
+0x1000374A4   ldr      x0, [x19, #0x10]
+0x1000374A8   adrp     x8, 202              ; 0x100101000
+0x1000374AC   add      x8, x8, #0x700
+0x1000374B0   ldr      x2, [x8]
+0x1000374B4   bl       "_objc_msgSend$valueForKey:"
+0x1000374B8   bl       _objc_msgSend$unsignedIntValue
+0x1000374BC   str      w0, [sp, #0x24]
+0x1000374C0   adrp     x8, 173              ; 0x1000e4000
+0x1000374C4   ldr      x0, [x8, #0x928]     ; (null)@got
+0x1000374C8   mov      x2, x23
+0x1000374CC   bl       "_objc_msgSend$unpaddedContentRectForProfile:"
+0x1000374D0   mov.16b  v8, v2
+0x1000374D4   mov.16b  v9, v3
+0x1000374D8   mov      x0, x19
+0x1000374DC   bl       _objc_msgSend$controller
+0x1000374E0   bl       _objc_msgSend$logicalScreen
+0x1000374E4   bl       _objc_msgSend$rowCount
+0x1000374E8   mov      x20, x0
+0x1000374EC   mov      x0, x19
+0x1000374F0   bl       _objc_msgSend$controller
+0x1000374F4   bl       _objc_msgSend$logicalScreen
+0x1000374F8   bl       _objc_msgSend$columnCount
+0x1000374FC   fcvtzs   w8, d8
+0x100037500   fcvtzs   w9, d9
+0x100037504   lsl      x8, x8, #32
+0x100037508   orr      x8, x8, x9, lsl #48
+0x10003750C   bfi      x8, x0, #16, #16
+0x100037510   bfxil    x8, x20, #0, #16
+0x100037514   str      x8, [sp, #0x78]
+0x100037518   sub      x0, x29, #0x100
+0x10003751C   bl       _pipe
+0x100037520   ldur     w0, [x29, #-0x100]
+0x100037524   mov      w8, #0x1
+0x100037528   str      x8, [sp]
+0x10003752C   mov      w1, #0x2
+0x100037530   bl       _fcntl
+0x100037534   ldur     w0, [x29, #-0xfc]
+0x100037538   mov      w8, #0x1
+0x10003753C   str      x8, [sp]
+0x100037540   mov      w1, #0x2
+0x100037544   bl       _fcntl
+0x100037548   adrp     x8, 173              ; 0x1000e4000
+0x10003754C   ldr      x0, [x8, #0xa60]     ; _OBJC_CLASS_$_NSAppleEventManager@got
+0x100037550   bl       _objc_msgSend$sharedAppleEventManager
+0x100037554   bl       _objc_msgSend$currentAppleEvent
+0x100037558   mov      x26, x0
+0x10003755C   bl       0x100039fe0
+0x100037560   mov      x23, x0
+0x100037564   bl       0x10003a130
+0x100037568   adrp     x8, 163              ; 0x1000da000
+0x10003756C   add      x8, x8, #0x710       ; @"(unknown)"
+0x100037570   cmp      x0, #0x0
+0x100037574   csel     x20, x8, x0, eq
+0x100037578   ldr      x0, [sp, #0x40]
+0x10003757C   cbz      x0, 0x100037590
+0x100037580   bl       _objc_msgSend$length
+0x100037584   cmp      x0, #0x0
+0x100037588   cset     w2, ne
+0x10003758C   b        0x100037594
+0x100037590   mov      w2, #0x0
+0x100037594   mov      x0, x26
+0x100037598   mov      x1, x23
+0x10003759C   bl       0x10003a1e0
+0x1000375A0   mov      x26, x0
+0x1000375A4   movi.2d  v0, #0000000000000000
+0x1000375A8   stp      q0, q0, [sp, #0x50]
+0x1000375AC   cbz      x23, 0x1000375dc
+0x1000375B0   mov      x0, x23
+0x1000375B4   bl       _objc_msgSend$length
+0x1000375B8   cmp      x0, #0x20
+0x1000375BC   b.ne     0x1000375d8
+0x1000375C0   add      x2, sp, #0x50
+0x1000375C4   mov      x0, x23
+0x1000375C8   mov      w3, #0x20
+0x1000375CC   bl       "_objc_msgSend$getBytes:length:"
+0x1000375D0   mov      w23, #0x1
+0x1000375D4   b        0x1000375dc
+0x1000375D8   mov      w23, #0x0
+0x1000375DC   mov      x0, x26
+0x1000375E0   mov      x1, x20
+0x1000375E4   mov      x2, x23
+0x1000375E8   bl       0x100039f0c
+0x1000375EC   add      x1, x19, #0x3c
+0x1000375F0   add      x3, sp, #0x78
+0x1000375F4   ldr      x0, [sp, #0x30]
+0x1000375F8   mov      x2, #0x0
+0x1000375FC   bl       _forkpty
+0x100037600   str      w0, [x19, #0x2c]
+0x100037604   cmn      w0, #0x1
+0x100037608   b.eq     0x100037650
+0x10003760C   cbz      w0, 0x10003778c
+0x100037610   ldur     w0, [x29, #-0xfc]
+0x100037614   bl       _close
+0x100037618   ldur     w0, [x29, #-0x100]
+0x10003761C   add      x1, sp, #0x140
+0x100037620   mov      w2, #0x1
+0x100037624   bl       _read
+0x100037628   mov      x8, x0
+0x10003762C   ldur     w0, [x29, #-0x100]
+0x100037630   cbz      x8, 0x1000376f8
+0x100037634   bl       _close
+0x100037638   ldr      x8, [sp, #0x90]
+0x10003763C   add      x0, sp, #0x80
+0x100037640   blraa    x8, x24
+0x100037644   mov      x0, x19
+0x100037648   bl       _objc_release
+0x10003764C   b        0x1000376a8
+0x100037650   bl       ___error
+0x100037654   ldr      w0, [x0]
+0x100037658   adrp     x8, 173              ; 0x1000e4000
+0x10003765C   ldr      x20, [x8, #0xb70]    ; _OBJC_CLASS_$_NSString@got
+0x100037660   bl       _strerror
+0x100037664   str      x0, [sp]
+0x100037668   adrp     x2, 163              ; 0x1000da000
+0x10003766C   add      x2, x2, #0x730       ; @"[forkpty: %s]"
+0x100037670   mov      x0, x20
+0x100037674   bl       "_objc_msgSend$stringWithFormat:"
+0x100037678   mov      x2, x0
+0x10003767C   ldr      x0, [sp, #0x38]
+0x100037680   bl       "_objc_msgSend$writeDirectToScreen:"
+0x100037684   ldur     w0, [x29, #-0x100]
+0x100037688   bl       _close
+0x10003768C   ldur     w0, [x29, #-0xfc]
+0x100037690   bl       _close
+0x100037694   ldr      x8, [sp, #0x90]
+0x100037698   add      x0, sp, #0x80
+0x10003769C   blraa    x8, x24
+0x1000376A0   mov      x0, x19
+0x1000376A4   bl       _objc_release
+0x1000376A8   mov      x19, #0x0
+0x1000376AC   add      x0, sp, #0xd0
+0x1000376B0   mov      w1, #0x8
+0x1000376B4   bl       __Block_object_dispose
+0x1000376B8   ldur     x8, [x29, #-0x78]
+0x1000376BC   adrp     x9, 173              ; 0x1000e4000
+0x1000376C0   ldr      x9, [x9, #0x9b8]     ; ___stack_chk_guard@got
+0x1000376C4   ldr      x9, [x9]
+0x1000376C8   cmp      x9, x8
+0x1000376CC   b.ne     0x100037788
+0x1000376D0   mov      x0, x19
+0x1000376D4   add      sp, sp, #0x230
+0x1000376D8   ldp      x29, x30, [sp, #0x60]
+0x1000376DC   ldp      x20, x19, [sp, #0x50]
+0x1000376E0   ldp      x22, x21, [sp, #0x40]
+0x1000376E4   ldp      x24, x23, [sp, #0x30]
+0x1000376E8   ldp      x26, x25, [sp, #0x20]
+0x1000376EC   ldp      x28, x27, [sp, #0x10]
+0x1000376F0   ldp      d9, d8, [sp], #0x70
+0x1000376F4   retab
+0x1000376F8   bl       _close
+0x1000376FC   mov      x0, x26
+0x100037700   mov      x1, x20
+0x100037704   bl       0x100039ed4
+0x100037708   ldr      x8, [sp, #0x90]
+0x10003770C   add      x0, sp, #0x80
+0x100037710   blraa    x8, x24
+0x100037714   strh     wzr, [x19, #0x4c]
+0x100037718   adrp     x8, 201              ; 0x100100000
+0x10003771C   add      x0, x8, #0x208       ; TTIOManager
+0x100037720   bl       _objc_msgSend$sharedIOManager
+0x100037724   mov      x2, x19
+0x100037728   bl       "_objc_msgSend$addShell:"
+0x10003772C   adrp     x8, 173              ; 0x1000e4000
+0x100037730   ldr      x0, [x8, #0x910]     ; (null)@got
+0x100037734   bl       _objc_msgSend$runningShells
+0x100037738   mov      x20, x0
+0x10003773C   bl       _objc_sync_enter
+0x100037740   adrp     x8, 173              ; 0x1000e4000
+0x100037744   ldr      x0, [x8, #0xb20]     ; _OBJC_CLASS_$_NSNumber@got
+0x100037748   ldr      w2, [x19, #0x2c]
+0x10003774C   bl       "_objc_msgSend$numberWithInt:"
+0x100037750   mov      x3, x0
+0x100037754   mov      x0, x20
+0x100037758   mov      x2, x19
+0x10003775C   bl       "_objc_msgSend$setObject:forKey:"
+0x100037760   mov      x0, x20
+0x100037764   bl       _objc_sync_exit
+0x100037768   ldr      w8, [x19, #0x2c]
+0x10003776C   str      w8, [x19, #0x34]
+0x100037770   str      wzr, [x19, #0x888]
+0x100037774   movi.2d  v0, #0000000000000000
+0x100037778   str      q0, [x19, #0x890]
+0x10003777C   mov      x0, x19
+0x100037780   bl       _objc_msgSend$isDirty
+0x100037784   b        0x1000376ac
+0x100037788   bl       ___stack_chk_fail
+0x10003778C   str      xzr, [x22, #0xb0]
+0x100037790   movi.2d  v0, #0000000000000000
+0x100037794   stp      q0, q0, [x22, #0x90]
+0x100037798   stp      q0, q0, [x22, #0x70]
+0x10003779C   str      wzr, [sp, #0x4c]
+0x1000377A0   add      x8, sp, #0x4c
+0x1000377A4   str      x8, [sp]
+0x1000377A8   mov      w1, #0x741a
+0x1000377AC   movk     w1, #0x4004, lsl #16
+0x1000377B0   bl       _ioctl
+0x1000377B4   tbz      w0, #0x1f, 0x1000377bc
+0x1000377B8   str      wzr, [sp, #0x4c]
+0x1000377BC   add      x1, sp, #0x140
+0x1000377C0   mov      w0, #0x0
+0x1000377C4   bl       _tcgetattr
+0x1000377C8   tbz      w0, #0x1f, 0x1000377e0
+0x1000377CC   str      xzr, [x22, #0xb0]
+0x1000377D0   movi.2d  v0, #0000000000000000
+0x1000377D4   stp      q0, q0, [x22, #0x90]
+0x1000377D8   mov      w8, #0x5cb
+0x1000377DC   b        0x1000377f8
+0x1000377E0   ldr      x8, [x22, #0x88]
+0x1000377E4   mov      w9, #0x224
+0x1000377E8   movk     w9, #0x8040, lsl #16
+0x1000377EC   and      x8, x8, x9
+0x1000377F0   mov      w9, #0x5cb
+0x1000377F4   orr      x8, x8, x9
+0x1000377F8   ldr      w9, [sp, #0x24]
+0x1000377FC   cmp      w9, #0x4
+0x100037800   mov      w9, #0x2b02
+0x100037804   mov      w10, #0x6b02
+0x100037808   csel     x9, x10, x9, eq
+0x10003780C   str      x9, [x22, #0x70]
+0x100037810   str      x8, [x22, #0x88]
+0x100037814   adrp     x8, 118              ; 0x1000ad000
+0x100037818   ldr      q0, [x8, #0x770]
+0x10003781C   stur     q0, [x22, #0x78]
+0x100037820   add      x8, sp, #0x4c
+0x100037824   str      x8, [sp]
+0x100037828   mov      w0, #0x0
+0x10003782C   mov      w1, #0x741b
+0x100037830   movk     w1, #0x8004, lsl #16
+0x100037834   bl       _ioctl
+0x100037838   add      x2, sp, #0x140
+0x10003783C   mov      w0, #0x0
+0x100037840   mov      w1, #0x0
+0x100037844   bl       _tcsetattr
+0x100037848   cbz      w27, 0x10003789c
+0x10003784C   mov      x0, x21
+0x100037850   bl       _chdir
+0x100037854   cbz      w0, 0x1000378ac
+0x100037858   mov      x0, x21
+0x10003785C   bl       _strlen
+0x100037860   mov      x20, x0
+0x100037864   adrp     x1, 121              ; 0x1000b0000
+0x100037868   add      x1, x1, #0xd71
+0x10003786C   mov      w0, #0x2
+0x100037870   mov      w2, #0x6
+0x100037874   bl       _write
+0x100037878   mov      w0, #0x2
+0x10003787C   mov      x1, x21
+0x100037880   mov      x2, x20
+0x100037884   bl       _write
+0x100037888   adrp     x1, 121              ; 0x1000b0000
+0x10003788C   add      x1, x1, #0xd78
+0x100037890   mov      w0, #0x2
+0x100037894   mov      w2, #0x4
+0x100037898   bl       _write
+0x10003789C   cbz      x28, 0x1000378ac
+0x1000378A0   ldr      x0, [x28, #0x30]
+0x1000378A4   ldrb     w8, [x0]
+0x1000378A8   cbnz     w8, 0x100037908
+0x1000378AC   ldr      x2, [x29, #0x28]
+0x1000378B0   cbz      x2, 0x1000378c0
+0x1000378B4   adrp     x8, 201              ; 0x100100000
+0x1000378B8   add      x0, x8, #0x460       ; Quarantine
+0x1000378BC   bl       "_objc_msgSend$setProvenanceTrackingDataOnSelf:"
+0x1000378C0   cmp      w23, #0x0
+0x1000378C4   add      x8, sp, #0x50
+0x1000378C8   csel     x1, x8, xzr, ne
+0x1000378CC   mov      x0, x26
+0x1000378D0   mov      x2, #0x0
+0x1000378D4   bl       0x10003a2dc
+0x1000378D8   add      x1, x19, #0x50
+0x1000378DC   ldr      x0, [sp, #0x28]
+0x1000378E0   mov      x2, x25
+0x1000378E4   bl       _execve
+0x1000378E8   ldur     w0, [x29, #-0xfc]
+0x1000378EC   adrp     x1, 121              ; 0x1000b0000
+0x1000378F0   add      x1, x1, #0xd7d
+0x1000378F4   mov      w2, #0x2
+0x1000378F8   bl       _write
+0x1000378FC   mov      w0, #0x1
+0x100037900   bl       __exit
+0x100037904   brk      #0x1
+0x100037908   bl       _chdir
+0x10003790C   cbz      w0, 0x1000378ac
+0x100037910   ldr      x0, [x28, #0x30]
+0x100037914   bl       _strlen
+0x100037918   mov      x20, x0
+0x10003791C   adrp     x1, 121              ; 0x1000b0000
+0x100037920   add      x1, x1, #0xd71
+0x100037924   mov      w0, #0x2
+0x100037928   mov      w2, #0x6
+0x10003792C   bl       _write
+0x100037930   ldr      x1, [x28, #0x30]
+0x100037934   mov      w0, #0x2
+0x100037938   mov      x2, x20
+0x10003793C   bl       _write
+0x100037940   adrp     x1, 121              ; 0x1000b0000
+0x100037944   add      x1, x1, #0xd78
+0x100037948   mov      w0, #0x2
+0x10003794C   mov      w2, #0x4
+0x100037950   bl       _write
+0x100037954   b        0x1000378ac
+0x100037958   b        0x1000379c0
+0x10003795C   b        0x1000379c0
+0x100037960   b        0x1000379c0
+0x100037964   b        0x1000379c0
+0x100037968   b        0x1000379c0
+0x10003796C   mov      x19, x0
+0x100037970   mov      x0, x20
+0x100037974   bl       _objc_sync_exit
+0x100037978   b        0x1000379c4
+0x10003797C   b        0x1000379c0
+0x100037980   b        0x1000379c0
+0x100037984   b        0x1000379c0
+0x100037988   b        0x1000379c0
+0x10003798C   b        0x1000379c0
+0x100037990   b        0x1000379c0
+0x100037994   b        0x1000379c0
+0x100037998   b        0x1000379c0
+0x10003799C   b        0x1000379c0
+0x1000379A0   b        0x1000379c0
+0x1000379A4   b        0x1000379c0
+0x1000379A8   b        0x1000379c0
+0x1000379AC   b        0x1000379c0
+0x1000379B0   b        0x1000379c0
+0x1000379B4   b        0x1000379c0
+0x1000379B8   b        0x1000379c0
+0x1000379BC   b        0x1000379c0
+0x1000379C0   mov      x19, x0
+0x1000379C4   add      x0, sp, #0xd0
+0x1000379C8   mov      w1, #0x8
+0x1000379CC   bl       __Block_object_dispose
+0x1000379D0   b        0x1000379d8
+0x1000379D4   mov      x19, x0
+0x1000379D8   mov      x0, x19
+0x1000379DC   bl       __Unwind_Resume

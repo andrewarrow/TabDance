@@ -1,0 +1,328 @@
+{
+  "calls": {
+    "count": 21526,
+    "file": "calls.json"
+  },
+  "generated_utc": "2026-10-10T12:40:30.498500+00:00",
+  "generator": "analysis/extract.py (Python standard library; macOS command line tools)",
+  "input": {
+    "path": "/Users/aa/Downloads/term.bin.exe.mac",
+    "sha256_after": "398a2bb7fe36123af80498c4ddd76c6c69cd337f603fbfc3fb5a8d0730e2046b",
+    "sha256_before": "398a2bb7fe36123af80498c4ddd76c6c69cd337f603fbfc3fb5a8d0730e2046b",
+    "size_bytes": 2401664,
+    "unchanged_during_extraction": true
+  },
+  "installed_bundle": {
+    "bundle_identifier": "com.apple.Terminal",
+    "bundle_version": "488",
+    "executable": {
+      "exists": true,
+      "path": "/System/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal",
+      "same_bytes_as_input": true,
+      "sha256": "398a2bb7fe36123af80498c4ddd76c6c69cd337f603fbfc3fb5a8d0730e2046b",
+      "size_bytes": 2401664
+    },
+    "path": "/System/Applications/Utilities/Terminal.app",
+    "same_binary_claim": "Exact hash comparison of installed executable and supplied input; see same_bytes_as_input."
+  },
+  "notes": [
+    "Static inspection only; the supplied executable was not run.",
+    "Raw command output is stored under analysis/raw.",
+    "Repeated Objective-C names and addresses remain separate records and are counted in objc.json."
+  ],
+  "objective_c": {
+    "category_count": 13,
+    "class_count": 107,
+    "class_file": "objc.json",
+    "interface_count": 120,
+    "method_count": 2488,
+    "method_index": "objc_methods.tsv"
+  },
+  "thin_slice": {
+    "architecture": "arm64e",
+    "path": "raw/Terminal.arm64e.macho",
+    "sha256": "70be1378ec1f13ac95ff3781a35f3e727a6c7a7c270443efbf6398a153424c10",
+    "size_bytes": 1189312
+  },
+  "tool_outputs": {
+    "codesign": {
+      "argv": [
+        "codesign",
+        "-dvvv",
+        "/Users/aa/Downloads/term.bin.exe.mac"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/codesign.stderr.txt",
+      "stdout_file": "raw/codesign.txt"
+    },
+    "dyld_cstrings": {
+      "argv": [
+        "dyld_info",
+        "-arch",
+        "arm64e",
+        "-section",
+        "__TEXT",
+        "__cstring",
+        "/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/dyld_cstrings.stderr.txt",
+      "stdout_file": "raw/dyld_cstrings.txt"
+    },
+    "dyld_disassembly": {
+      "argv": [
+        "dyld_info",
+        "-arch",
+        "arm64e",
+        "-disassemble",
+        "/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/dyld_disassembly.stderr.txt",
+      "stdout_file": "raw/dyld_disassembly.txt"
+    },
+    "dyld_exports": {
+      "argv": [
+        "dyld_info",
+        "-arch",
+        "arm64e",
+        "-exports",
+        "/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/dyld_exports.stderr.txt",
+      "stdout_file": "raw/dyld_exports.txt"
+    },
+    "dyld_fixup_chains": {
+      "argv": [
+        "dyld_info",
+        "-arch",
+        "arm64e",
+        "-fixup_chains",
+        "/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/dyld_fixup_chains.stderr.txt",
+      "stdout_file": "raw/dyld_fixup_chains.txt"
+    },
+    "dyld_fixups": {
+      "argv": [
+        "dyld_info",
+        "-arch",
+        "arm64e",
+        "-fixups",
+        "/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/dyld_fixups.stderr.txt",
+      "stdout_file": "raw/dyld_fixups.txt"
+    },
+    "dyld_function_starts": {
+      "argv": [
+        "dyld_info",
+        "-arch",
+        "arm64e",
+        "-function_starts",
+        "/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/dyld_function_starts.stderr.txt",
+      "stdout_file": "raw/dyld_function_starts.txt"
+    },
+    "dyld_imports": {
+      "argv": [
+        "dyld_info",
+        "-arch",
+        "arm64e",
+        "-imports",
+        "/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/dyld_imports.stderr.txt",
+      "stdout_file": "raw/dyld_imports.txt"
+    },
+    "dyld_inits": {
+      "argv": [
+        "dyld_info",
+        "-arch",
+        "arm64e",
+        "-inits",
+        "/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/dyld_inits.stderr.txt",
+      "stdout_file": "raw/dyld_inits.txt"
+    },
+    "dyld_linked_dylibs": {
+      "argv": [
+        "dyld_info",
+        "-arch",
+        "arm64e",
+        "-linked_dylibs",
+        "/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/dyld_linked_dylibs.stderr.txt",
+      "stdout_file": "raw/dyld_linked_dylibs.txt"
+    },
+    "dyld_objc": {
+      "argv": [
+        "dyld_info",
+        "-arch",
+        "arm64e",
+        "-objc",
+        "/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/dyld_objc.stderr.txt",
+      "stdout_file": "raw/dyld_objc.txt"
+    },
+    "dyld_objc_classnames": {
+      "argv": [
+        "dyld_info",
+        "-arch",
+        "arm64e",
+        "-section",
+        "__TEXT",
+        "__objc_classname",
+        "/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/dyld_objc_classnames.stderr.txt",
+      "stdout_file": "raw/dyld_objc_classnames.txt"
+    },
+    "dyld_objc_method_types": {
+      "argv": [
+        "dyld_info",
+        "-arch",
+        "arm64e",
+        "-section",
+        "__TEXT",
+        "__objc_methtype",
+        "/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/dyld_objc_method_types.stderr.txt",
+      "stdout_file": "raw/dyld_objc_method_types.txt"
+    },
+    "dyld_objc_selectors": {
+      "argv": [
+        "dyld_info",
+        "-arch",
+        "arm64e",
+        "-section",
+        "__TEXT",
+        "__objc_methname",
+        "/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/dyld_objc_selectors.stderr.txt",
+      "stdout_file": "raw/dyld_objc_selectors.txt"
+    },
+    "dyld_platform": {
+      "argv": [
+        "dyld_info",
+        "-arch",
+        "arm64e",
+        "-platform",
+        "/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/dyld_platform.stderr.txt",
+      "stdout_file": "raw/dyld_platform.txt"
+    },
+    "dyld_segments": {
+      "argv": [
+        "dyld_info",
+        "-arch",
+        "arm64e",
+        "-segments",
+        "/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/dyld_segments.stderr.txt",
+      "stdout_file": "raw/dyld_segments.txt"
+    },
+    "dyld_uuid": {
+      "argv": [
+        "dyld_info",
+        "-arch",
+        "arm64e",
+        "-uuid",
+        "/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/dyld_uuid.stderr.txt",
+      "stdout_file": "raw/dyld_uuid.txt"
+    },
+    "file": {
+      "argv": [
+        "file",
+        "/Users/aa/Downloads/term.bin.exe.mac"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/file.stderr.txt",
+      "stdout_file": "raw/file.txt"
+    },
+    "lipo_archs": {
+      "argv": [
+        "lipo",
+        "-archs",
+        "/Users/aa/Downloads/term.bin.exe.mac"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/lipo_archs.stderr.txt",
+      "stdout_file": "raw/lipo_archs.txt"
+    },
+    "lipo_details": {
+      "argv": [
+        "lipo",
+        "-detailed_info",
+        "/Users/aa/Downloads/term.bin.exe.mac"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/lipo_details.stderr.txt",
+      "stdout_file": "raw/lipo_details.txt"
+    },
+    "nm_symbols": {
+      "argv": [
+        "nm",
+        "-m",
+        "/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/nm_symbols.stderr.txt",
+      "stdout_file": "raw/nm_symbols.txt"
+    },
+    "otool_header": {
+      "argv": [
+        "otool",
+        "-hv",
+        "/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/otool_header.stderr.txt",
+      "stdout_file": "raw/otool_header.txt"
+    },
+    "otool_linked_libraries": {
+      "argv": [
+        "otool",
+        "-L",
+        "/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/otool_linked_libraries.stderr.txt",
+      "stdout_file": "raw/otool_linked_libraries.txt"
+    },
+    "otool_load_commands": {
+      "argv": [
+        "otool",
+        "-l",
+        "/Users/aa/Downloads/TerminalLab/analysis/raw/Terminal.arm64e.macho"
+      ],
+      "exit_code": 0,
+      "stderr_file": "raw/otool_load_commands.stderr.txt",
+      "stdout_file": "raw/otool_load_commands.txt"
+    }
+  }
+}

@@ -1,0 +1,1473 @@
+-[TTView drawAttributedString:forLine:inContext:atPoint:isTextMarked:size:containsCursor:atColumn:containsInsertionPoint:atColumn:selectedTextRanges:selectionColor:withANSIBackgroundColor:]
+0x100050BF4   pacibsp
+0x100050BF8   stp      d15, d14, [sp, #-0xa0]!
+0x100050BFC   stp      d13, d12, [sp, #0x10]
+0x100050C00   stp      d11, d10, [sp, #0x20]
+0x100050C04   stp      d9, d8, [sp, #0x30]
+0x100050C08   stp      x28, x27, [sp, #0x40]
+0x100050C0C   stp      x26, x25, [sp, #0x50]
+0x100050C10   stp      x24, x23, [sp, #0x60]
+0x100050C14   stp      x22, x21, [sp, #0x70]
+0x100050C18   stp      x20, x19, [sp, #0x80]
+0x100050C1C   stp      x29, x30, [sp, #0x90]
+0x100050C20   add      x29, sp, #0x90
+0x100050C24   sub      sp, sp, #0x8a0
+0x100050C28   mov      x21, x7
+0x100050C2C   mov      x24, x6
+0x100050C30   str      w5, [sp, #0xa4]
+0x100050C34   mov.16b  v8, v1
+0x100050C38   mov.16b  v12, v0
+0x100050C3C   str      x4, [sp, #0x138]
+0x100050C40   str      x3, [sp, #0xd8]
+0x100050C44   mov      x23, x2
+0x100050C48   mov      x19, x0
+0x100050C4C   adrp     x8, 148              ; 0x1000e4000
+0x100050C50   ldr      x8, [x8, #0x9b8]     ; ___stack_chk_guard@got
+0x100050C54   ldr      x8, [x8]
+0x100050C58   ldrb     w20, [x29, #0x18]
+0x100050C5C   stur     x8, [x29, #-0xa0]
+0x100050C60   bl       _objc_msgSend$isDrawingFindIndicator
+0x100050C64   mov      w25, #0x0
+0x100050C68   str      w0, [sp, #0x12c]
+0x100050C6C   eor      w22, w0, #0x1
+0x100050C70   cbz      w21, 0x100050cd0
+0x100050C74   cbz      w22, 0x100050cd0
+0x100050C78   adrp     x8, 174              ; 0x1000fe000
+0x100050C7C   ldrsw    x8, [x8, #0x690]
+0x100050C80   add      x8, x19, x8
+0x100050C84   ldrb     w8, [x8]
+0x100050C88   tbz      w8, #0x0, 0x100050c94
+0x100050C8C   mov      w25, #0x0
+0x100050C90   b        0x100050cd0
+0x100050C94   adrp     x8, 174              ; 0x1000fe000
+0x100050C98   ldrsw    x8, [x8, #0x5d4]
+0x100050C9C   add      x8, x19, x8
+0x100050CA0   ldr      x0, [x8]
+0x100050CA4   bl       _objc_msgSend$isActive
+0x100050CA8   mov      x25, x0
+0x100050CAC   ldr      w8, [sp, #0xa4]
+0x100050CB0   cbz      w8, 0x100050cd0
+0x100050CB4   cbz      w25, 0x100050cd0
+0x100050CB8   adrp     x8, 174              ; 0x1000fe000
+0x100050CBC   ldrsw    x8, [x8, #0x6ac]
+0x100050CC0   add      x8, x19, x8
+0x100050CC4   ldr      x8, [x8, #0x8]
+0x100050CC8   cmp      x8, #0x0
+0x100050CCC   cset     w25, eq
+0x100050CD0   ldr      x8, [x29, #0x20]
+0x100050CD4   str      x8, [sp, #0xd0]
+0x100050CD8   ldr      x8, [x29, #0x10]
+0x100050CDC   str      x8, [sp, #0xf0]
+0x100050CE0   and      w8, w20, w22
+0x100050CE4   cmp      w8, #0x1
+0x100050CE8   b.ne     0x100050d00
+0x100050CEC   adrp     x8, 174              ; 0x1000fe000
+0x100050CF0   ldrsw    x8, [x8, #0x690]
+0x100050CF4   add      x8, x19, x8
+0x100050CF8   ldrb     w8, [x8]
+0x100050CFC   tbz      w8, #0x0, 0x1000511c8
+0x100050D00   mov      w0, #0x0
+0x100050D04   str      w0, [sp, #0x104]
+0x100050D08   str      w25, [sp, #0x140]
+0x100050D0C   and      w8, w25, w0
+0x100050D10   eor      w8, w8, #0x1
+0x100050D14   ldr      x9, [sp, #0xd0]
+0x100050D18   ldr      x10, [sp, #0xf0]
+0x100050D1C   cmp      x10, x9
+0x100050D20   csinc    w8, w8, wzr, eq
+0x100050D24   str      w8, [sp, #0x11c]
+0x100050D28   adrp     x8, 174              ; 0x1000fe000
+0x100050D2C   ldrsw    x26, [x8, #0x670]
+0x100050D30   add      x8, x19, x26
+0x100050D34   ldr      x0, [x8]
+0x100050D38   adrp     x8, 177              ; 0x100101000
+0x100050D3C   add      x8, x8, #0x820
+0x100050D40   ldr      x2, [x8]
+0x100050D44   bl       "_objc_msgSend$valueForKey:"
+0x100050D48   bl       _objc_msgSend$boolValue
+0x100050D4C   str      w0, [sp, #0xa0]
+0x100050D50   mov      x0, x23
+0x100050D54   bl       _CTLineCreateWithAttributedString
+0x100050D58   mov      x20, x0
+0x100050D5C   bl       _CTLineGetGlyphRuns
+0x100050D60   str      x0, [sp, #0x130]
+0x100050D64   bl       _CFArrayGetCount
+0x100050D68   mov      x25, x0
+0x100050D6C   str      x20, [sp, #0x88]
+0x100050D70   mov      x0, x20
+0x100050D74   bl       _CTLineGetGlyphCount
+0x100050D78   mov      x27, x0
+0x100050D7C   adrp     x8, 174              ; 0x1000fe000
+0x100050D80   ldrsw    x8, [x8, #0x5e8]
+0x100050D84   add      x20, x19, x8
+0x100050D88   ldr      x0, [x20]
+0x100050D8C   mov      x1, #0x0
+0x100050D90   bl       0x100012214
+0x100050D94   adrp     x8, 174              ; 0x1000fe000
+0x100050D98   ldrsw    x8, [x8, #0x5ec]
+0x100050D9C   add      x21, x19, x8
+0x100050DA0   ldr      x0, [x21]
+0x100050DA4   mov      x1, #0x0
+0x100050DA8   bl       0x100012214
+0x100050DAC   adrp     x8, 174              ; 0x1000fe000
+0x100050DB0   ldrsw    x8, [x8, #0x5f0]
+0x100050DB4   add      x22, x19, x8
+0x100050DB8   ldr      x0, [x22]
+0x100050DBC   mov      x1, #0x0
+0x100050DC0   bl       0x100012214
+0x100050DC4   ldr      x0, [x20]
+0x100050DC8   mov      x1, x27
+0x100050DCC   bl       0x100009b6c
+0x100050DD0   str      x0, [sp, #0xf8]
+0x100050DD4   ldr      x0, [x21]
+0x100050DD8   mov      x21, x25
+0x100050DDC   mov      x1, x27
+0x100050DE0   bl       0x100009b6c
+0x100050DE4   str      x0, [sp, #0x148]
+0x100050DE8   ldr      x0, [x22]
+0x100050DEC   str      x27, [sp, #0x110]
+0x100050DF0   mov      x1, x27
+0x100050DF4   bl       0x100009b6c
+0x100050DF8   mov      x28, x0
+0x100050DFC   cmp      x25, #0x11
+0x100050E00   str      x24, [sp, #0xc8]
+0x100050E04   str      x26, [sp, #0x120]
+0x100050E08   str      x23, [sp, #0xb8]
+0x100050E0C   str      x19, [sp, #0xe0]
+0x100050E10   str      x0, [sp, #0x108]
+0x100050E14   b.lt     0x100050e3c
+0x100050E18   add      x8, x21, x21, lsl #3
+0x100050E1C   lsl      x0, x8, #3
+0x100050E20   mov      x1, #0x405d
+0x100050E24   movk     x1, #0x39d0, lsl #16
+0x100050E28   movk     x1, #0x40, lsl #32
+0x100050E2C   movk     x1, #0x108, lsl #48
+0x100050E30   bl       _malloc_type_malloc
+0x100050E34   mov      x27, x0
+0x100050E38   b        0x100050e48
+0x100050E3C   add      x27, sp, #0x410
+0x100050E40   cmp      x21, #0x1
+0x100050E44   b.lt     0x100051214
+0x100050E48   mov      x22, #0x0
+0x100050E4C   mov      x20, #0x0
+0x100050E50   ldr      x25, [sp, #0xf8]
+0x100050E54   mov      x23, x27
+0x100050E58   ldr      x27, [sp, #0x148]
+0x100050E5C   mov      x24, x28
+0x100050E60   str      x23, [sp, #0x150]
+0x100050E64   mov      x19, x21
+0x100050E68   ldr      x21, [sp, #0x130]
+0x100050E6C   mov      x0, x21
+0x100050E70   mov      x1, x22
+0x100050E74   bl       _CFArrayGetValueAtIndex
+0x100050E78   mov      x26, x0
+0x100050E7C   bl       _CTRunGetGlyphCount
+0x100050E80   mov      x28, x0
+0x100050E84   mov      x0, x26
+0x100050E88   mov      x1, #0x0
+0x100050E8C   mov      x2, x28
+0x100050E90   mov      x3, x25
+0x100050E94   bl       _CTRunGetGlyphs
+0x100050E98   mov      x0, x26
+0x100050E9C   mov      x1, #0x0
+0x100050EA0   mov      x2, x28
+0x100050EA4   mov      x3, x27
+0x100050EA8   bl       _CTRunGetAdvances
+0x100050EAC   mov      x0, x26
+0x100050EB0   mov      x1, #0x0
+0x100050EB4   mov      x2, x28
+0x100050EB8   mov      x3, x24
+0x100050EBC   bl       _CTRunGetStringIndices
+0x100050EC0   stp      x20, x28, [x23, #0x8]
+0x100050EC4   str      wzr, [x23], #0x48
+0x100050EC8   add      x8, x25, x28, lsl #1
+0x100050ECC   add      x9, x27, x28, lsl #4
+0x100050ED0   add      x10, x24, x28, lsl #3
+0x100050ED4   add      x20, x28, x20
+0x100050ED8   add      x22, x22, #0x1
+0x100050EDC   mov      x25, x8
+0x100050EE0   mov      x27, x9
+0x100050EE4   mov      x24, x10
+0x100050EE8   cmp      x19, x22
+0x100050EEC   b.ne     0x100050e6c
+0x100050EF0   mov      w28, #0x1
+0x100050EF4   ldr      x24, [sp, #0xc8]
+0x100050EF8   ldr      x23, [sp, #0xb8]
+0x100050EFC   ldr      x26, [sp, #0x120]
+0x100050F00   mov      x21, x19
+0x100050F04   ldr      x19, [sp, #0xe0]
+0x100050F08   ldr      x27, [sp, #0x150]
+0x100050F0C   mov      x0, x23
+0x100050F10   bl       _objc_msgSend$string
+0x100050F14   mov      w2, #0xa
+0x100050F18   bl       "_objc_msgSend$cStringUsingEncoding:"
+0x100050F1C   cbz      x0, 0x100050f50
+0x100050F20   mov      x22, x0
+0x100050F24   cmp      x21, #0x11
+0x100050F28   b.lt     0x100050fe0
+0x100050F2C   add      x8, x21, x21, lsl #2
+0x100050F30   lsl      x0, x8, #3
+0x100050F34   mov      x1, #0x7e1e
+0x100050F38   movk     x1, #0xa74, lsl #16
+0x100050F3C   movk     x1, #0x40, lsl #32
+0x100050F40   movk     x1, #0x100, lsl #48
+0x100050F44   bl       _malloc_type_malloc
+0x100050F48   mov      x25, x0
+0x100050F4C   b        0x100050fe4
+0x100050F50   adrp     x21, 148             ; 0x1000e4000
+0x100050F54   ldr      x19, [x21, #0xb70]   ; _OBJC_CLASS_$_NSString@got
+0x100050F58   adrp     x2, 139              ; 0x1000db000
+0x100050F5C   add      x2, x2, #0xe90       ; @"TTLOG_ASSERT_CRITICAL"
+0x100050F60   mov      x0, x19
+0x100050F64   bl       "_objc_msgSend$stringWithFormat:"
+0x100050F68   mov      x20, x0
+0x100050F6C   ldr      x0, [x21, #0xb70]
+0x100050F70   adrp     x2, 100              ; 0x1000b4000
+0x100050F74   add      x2, x2, #0x232
+0x100050F78   mov      w3, #0x4
+0x100050F7C   bl       "_objc_msgSend$stringWithCString:encoding:"
+0x100050F80   bl       _objc_msgSend$lastPathComponent
+0x100050F84   bl       _objc_msgSend$UTF8String
+0x100050F88   mov      w8, #0xa97
+0x100050F8C   stp      x0, x8, [sp, #0x10]
+0x100050F90   adrp     x8, 100              ; 0x1000b4000
+0x100050F94   add      x8, x8, #0x174
+0x100050F98   stp      x20, x8, [sp]
+0x100050F9C   adrp     x2, 138              ; 0x1000da000
+0x100050FA0   add      x2, x2, #0x550       ; @"%@
+0x100050FA4   mov      x0, x19
+0x100050FA8   bl       "_objc_msgSend$stringWithFormat:"
+0x100050FAC   mov      x19, x0
+0x100050FB0   str      x0, [sp]
+0x100050FB4   adrp     x0, 138              ; 0x1000da000
+0x100050FB8   add      x0, x0, #0x590       ; @"%@"
+0x100050FBC   bl       _NSLog
+0x100050FC0   adrp     x8, 149              ; 0x1000e5000
+0x100050FC4   ldr      x0, [x8, #0x1a8]     ; _OBJC_CLASS_$_NSException@got
+0x100050FC8   str      xzr, [sp]
+0x100050FCC   adrp     x2, 138              ; 0x1000da000
+0x100050FD0   add      x2, x2, #0x5b0       ; @"Terminal.app Failed Critical Assertion Exception"
+0x100050FD4   mov      x3, x19
+0x100050FD8   bl       "_objc_msgSend$raise:format:"
+0x100050FDC   b        0x1000522a0
+0x100050FE0   add      x25, sp, #0x190
+0x100050FE4   ldr      w9, [sp, #0x11c]
+0x100050FE8   ldr      w8, [sp, #0x140]
+0x100050FEC   and      w8, w9, w8
+0x100050FF0   str      w8, [sp, #0x11c]
+0x100050FF4   cbz      w28, 0x10005102c
+0x100050FF8   mov      x8, #0x0
+0x100050FFC   mov      x9, x21
+0x100051000   add      x10, x8, x8, lsl #2
+0x100051004   add      x11, x25, x10, lsl #3
+0x100051008   add      x10, x8, x8, lsl #3
+0x10005100C   add      x12, x27, x10, lsl #3
+0x100051010   ldur     q0, [x12, #0x8]
+0x100051014   str      q0, [x11]
+0x100051018   add      x8, x8, #0x1
+0x10005101C   stp      xzr, xzr, [x11, #0x18]
+0x100051020   str      xzr, [x11, #0x10]
+0x100051024   subs     x9, x9, #0x1
+0x100051028   b.ne     0x100051000
+0x10005102C   adrp     x8, 173              ; 0x1000fe000
+0x100051030   ldrsw    x8, [x8, #0x5d0]
+0x100051034   str      x8, [sp, #0xc0]
+0x100051038   add      x8, x19, x8
+0x10005103C   ldr      x20, [x8]
+0x100051040   mov      x0, x23
+0x100051044   bl       _objc_msgSend$string
+0x100051048   bl       _objc_msgSend$length
+0x10005104C   mov      x1, x0
+0x100051050   adrp     x8, 173              ; 0x1000fe000
+0x100051054   ldrsw    x8, [x8, #0x63c]
+0x100051058   add      x8, x19, x8
+0x10005105C   str      x8, [sp, #0x140]
+0x100051060   ldr      d0, [x8]
+0x100051064   add      x8, sp, #0x168
+0x100051068   adrp     x16, 147             ; 0x1000e4000
+0x10005106C   ldr      x16, [x16, #0x9b0]   ; __NSConcreteStackBlock@got
+0x100051070   mov      x17, x8
+0x100051074   movk     x17, #0x6ae1, lsl #48
+0x100051078   pacda    x16, x17
+0x10005107C   str      x16, [sp, #0x168]
+0x100051080   adrp     x9, 92               ; 0x1000ad000
+0x100051084   ldr      d1, [x9, #0x738]
+0x100051088   str      d1, [sp, #0x170]
+0x10005108C   add      x9, x8, #0x10
+0x100051090   adrp     x16, 1               ; 0x100052000
+0x100051094   add      x16, x16, #0x2f4
+0x100051098   pacia    x16, x9
+0x10005109C   adrp     x9, 135              ; 0x1000d8000
+0x1000510A0   add      x9, x9, #0xab0
+0x1000510A4   stp      x16, x9, [sp, #0x178]
+0x1000510A8   str      x20, [sp, #0x188]
+0x1000510AC   str      x8, [sp, #0x8]
+0x1000510B0   ldr      x8, [sp, #0xf0]
+0x1000510B4   str      x8, [sp]
+0x1000510B8   mov      x0, x22
+0x1000510BC   ldp      x3, x2, [sp, #0x108]
+0x1000510C0   ldr      x4, [sp, #0x148]
+0x1000510C4   mov      x5, x25
+0x1000510C8   mov      x6, x21
+0x1000510CC   ldr      w7, [sp, #0x11c]
+0x1000510D0   bl       0x100086768
+0x1000510D4   str      x1, [sp, #0x78]
+0x1000510D8   cbz      w28, 0x100051114
+0x1000510DC   mov      x8, #0x0
+0x1000510E0   mov      x9, x21
+0x1000510E4   add      x10, x8, x8, lsl #3
+0x1000510E8   add      x11, x27, x10, lsl #3
+0x1000510EC   add      x10, x8, x8, lsl #2
+0x1000510F0   add      x12, x25, x10, lsl #3
+0x1000510F4   ldr      q0, [x12, #0x10]
+0x1000510F8   stur     q0, [x11, #0x18]
+0x1000510FC   ldr      d0, [x12, #0x20]
+0x100051100   fcvt     s0, d0
+0x100051104   str      s0, [x11]
+0x100051108   add      x8, x8, #0x1
+0x10005110C   subs     x9, x9, #0x1
+0x100051110   b.ne     0x1000510e4
+0x100051114   add      x8, sp, #0x190
+0x100051118   cmp      x25, x8
+0x10005111C   b.eq     0x100051128
+0x100051120   mov      x0, x25
+0x100051124   bl       _free
+0x100051128   ldr      w22, [x29, #0x38]
+0x10005112C   adrp     x8, 176              ; 0x100101000
+0x100051130   ldr      d11, [x8, #0xdd8]
+0x100051134   ldr      x8, [sp, #0xf0]
+0x100051138   ucvtf    d13, x8
+0x10005113C   ldr      x25, [sp, #0x140]
+0x100051140   ldr      d14, [x25]
+0x100051144   adrp     x9, 147              ; 0x1000e4000
+0x100051148   ldr      x8, [sp, #0xd0]
+0x10005114C   ucvtf    d15, x8
+0x100051150   cbz      x24, 0x100051204
+0x100051154   str      w22, [sp, #0x110]
+0x100051158   ldr      x0, [x9, #0xf68]
+0x10005115C   bl       _objc_msgSend$currentContext
+0x100051160   bl       _objc_msgSend$saveGraphicsState
+0x100051164   adrp     x20, 147             ; 0x1000e4000
+0x100051168   ldr      x0, [x20, #0xa50]    ; _OBJC_CLASS_$_NSAffineTransform@got
+0x10005116C   bl       _objc_msgSend$transform
+0x100051170   str      x0, [sp, #0x70]
+0x100051174   ldr      x0, [x20, #0xa50]
+0x100051178   bl       _objc_msgSend$transform
+0x10005117C   str      x0, [sp, #0xb0]
+0x100051180   mov      x22, x28
+0x100051184   cmp      x24, #0x3
+0x100051188   b.eq     0x100051228
+0x10005118C   cmp      x24, #0x2
+0x100051190   b.eq     0x10005121c
+0x100051194   str      d8, [sp, #0x80]
+0x100051198   cmp      x24, #0x1
+0x10005119C   ldr      x20, [sp, #0x70]
+0x1000511A0   ldr      x28, [sp, #0xb0]
+0x1000511A4   b.ne     0x100051258
+0x1000511A8   ldr      d0, [x25, #0x8]
+0x1000511AC   fmov     d1, #0.50000000
+0x1000511B0   fmul     d1, d0, d1
+0x1000511B4   fadd     d1, d8, d1
+0x1000511B8   str      d1, [sp, #0x80]
+0x1000511BC   fadd     d1, d8, d0
+0x1000511C0   fmov     d10, #2.00000000
+0x1000511C4   b        0x100051238
+0x1000511C8   adrp     x8, 173              ; 0x1000fe000
+0x1000511CC   ldrsw    x8, [x8, #0x5d4]
+0x1000511D0   add      x8, x19, x8
+0x1000511D4   ldr      x0, [x8]
+0x1000511D8   bl       _objc_msgSend$isActive
+0x1000511DC   ldr      w8, [sp, #0xa4]
+0x1000511E0   cbz      w8, 0x100050d04
+0x1000511E4   cbz      w0, 0x100050d04
+0x1000511E8   adrp     x8, 173              ; 0x1000fe000
+0x1000511EC   ldrsw    x8, [x8, #0x6ac]
+0x1000511F0   add      x8, x19, x8
+0x1000511F4   ldr      x8, [x8, #0x8]
+0x1000511F8   cmp      x8, #0x0
+0x1000511FC   cset     w0, eq
+0x100051200   b        0x100050d04
+0x100051204   str      xzr, [sp, #0xb0]
+0x100051208   str      xzr, [sp, #0x70]
+0x10005120C   str      d8, [sp, #0x80]
+0x100051210   b        0x1000512b0
+0x100051214   mov      w28, #0x0
+0x100051218   b        0x100050f0c
+0x10005121C   fmov     d10, #2.00000000
+0x100051220   mov.16b  v1, v8
+0x100051224   b        0x100051230
+0x100051228   fmov     d10, #1.00000000
+0x10005122C   movi.2d  v1, #0000000000000000
+0x100051230   str      d8, [sp, #0x80]
+0x100051234   ldr      x20, [sp, #0x70]
+0x100051238   mov      x0, x20
+0x10005123C   mov.16b  v0, v12
+0x100051240   bl       "_objc_msgSend$translateXBy:yBy:"
+0x100051244   fmov     d0, #2.00000000
+0x100051248   ldr      x28, [sp, #0xb0]
+0x10005124C   mov      x0, x28
+0x100051250   mov.16b  v1, v10
+0x100051254   bl       "_objc_msgSend$scaleXBy:yBy:"
+0x100051258   ldp      d9, d10, [x25]
+0x10005125C   ldr      x8, [sp, #0xc0]
+0x100051260   ldr      x0, [x19, x8]
+0x100051264   bl       _objc_msgSend$columnCount
+0x100051268   ucvtf    d0, x0
+0x10005126C   fmul     d2, d9, d0
+0x100051270   adrp     x8, 147              ; 0x1000e4000
+0x100051274   ldr      x0, [x8, #0xed0]     ; _OBJC_CLASS_$_NSBezierPath@got
+0x100051278   mov.16b  v0, v12
+0x10005127C   mov.16b  v1, v8
+0x100051280   mov.16b  v3, v10
+0x100051284   bl       "_objc_msgSend$clipRect:"
+0x100051288   mov      x0, x20
+0x10005128C   bl       _objc_msgSend$concat
+0x100051290   mov      x0, x28
+0x100051294   bl       _objc_msgSend$concat
+0x100051298   mov      x0, x20
+0x10005129C   bl       _objc_msgSend$invert
+0x1000512A0   mov      x0, x20
+0x1000512A4   bl       _objc_msgSend$concat
+0x1000512A8   mov      x28, x22
+0x1000512AC   ldr      w22, [sp, #0x110]
+0x1000512B0   ldr      x8, [x29, #0x30]
+0x1000512B4   str      x8, [sp, #0x98]
+0x1000512B8   ldr      x8, [x29, #0x28]
+0x1000512BC   str      x8, [sp, #0x90]
+0x1000512C0   fmadd    d9, d13, d14, d11
+0x1000512C4   fmadd    d11, d15, d14, d11
+0x1000512C8   adrp     x8, 173              ; 0x1000fe000
+0x1000512CC   ldrsw    x8, [x8, #0x6b0]
+0x1000512D0   str      x8, [sp, #0xa8]
+0x1000512D4   add      x8, x19, x8
+0x1000512D8   ldr      d0, [x8]
+0x1000512DC   fadd     d1, d8, d0
+0x1000512E0   ldr      x0, [sp, #0x138]
+0x1000512E4   mov.16b  v0, v12
+0x1000512E8   bl       _CGContextSetTextPosition
+0x1000512EC   ldr      x0, [x19, x26]
+0x1000512F0   adrp     x8, 176              ; 0x100101000
+0x1000512F4   add      x8, x8, #0x740
+0x1000512F8   ldr      x2, [x8]
+0x1000512FC   bl       "_objc_msgSend$valueForKey:"
+0x100051300   bl       _objc_msgSend$boolValue
+0x100051304   mov      x20, x0
+0x100051308   cmp      w0, #0x0
+0x10005130C   csel     w8, wzr, w22, ne
+0x100051310   str      w8, [sp, #0x100]
+0x100051314   ldr      x0, [x19, x26]
+0x100051318   adrp     x8, 176              ; 0x100101000
+0x10005131C   add      x8, x8, #0x7e8
+0x100051320   ldr      x2, [x8]
+0x100051324   bl       "_objc_msgSend$valueForKey:"
+0x100051328   adrp     x8, 173              ; 0x1000fe000
+0x10005132C   ldrsw    x8, [x8, #0x6b4]
+0x100051330   str      x8, [sp, #0xe8]
+0x100051334   add      x8, x19, x8
+0x100051338   str      x0, [sp, #0x68]
+0x10005133C   str      x0, [x8]
+0x100051340   str      x27, [sp, #0x150]
+0x100051344   cbz      w28, 0x1000515fc
+0x100051348   str      w28, [sp, #0x60]
+0x10005134C   mov      x23, #0x0
+0x100051350   adrp     x26, 142             ; 0x1000df000
+0x100051354   add      x26, x26, #0xe50     ; @"TT_VT100Attributes"
+0x100051358   adrp     x8, 148              ; 0x1000e5000
+0x10005135C   ldr      x8, [x8, #0x288]     ; _kCTForegroundColorAttributeName@got
+0x100051360   ldr      x8, [x8]
+0x100051364   str      x8, [sp, #0x108]
+0x100051368   adrp     x28, 147             ; 0x1000e4000
+0x10005136C   ldr      x28, [x28, #0xcd0]   ; _NSBackgroundColorAttributeName@got
+0x100051370   adrp     x8, 93               ; 0x1000ae000
+0x100051374   ldr      d13, [x8, #0xc50]
+0x100051378   ldr      x22, [sp, #0x130]
+0x10005137C   str      w20, [sp, #0x110]
+0x100051380   adrp     x27, 176             ; 0x100101000
+0x100051384   add      x27, x27, #0x748
+0x100051388   add      x8, x23, x23, lsl #3
+0x10005138C   ldr      x9, [sp, #0x150]
+0x100051390   add      x25, x9, x8, lsl #3
+0x100051394   mov      x0, x22
+0x100051398   mov      x1, x23
+0x10005139C   bl       _CFArrayGetValueAtIndex
+0x1000513A0   bl       _CTRunGetAttributes
+0x1000513A4   mov      x24, x0
+0x1000513A8   mov      x2, x26
+0x1000513AC   bl       "_objc_msgSend$objectForKey:"
+0x1000513B0   add      x2, x25, #0x38
+0x1000513B4   mov      w3, #0xc
+0x1000513B8   bl       "_objc_msgSend$getBytes:length:"
+0x1000513BC   ldrh     w8, [x25, #0x38]
+0x1000513C0   tbnz     w8, #0x7, 0x1000515e0
+0x1000513C4   ldr      w2, [x25, #0x40]
+0x1000513C8   mov      x0, x19
+0x1000513CC   bl       "_objc_msgSend$colorForANSIColor:"
+0x1000513D0   str      x0, [x25, #0x30]
+0x1000513D4   ldr      w2, [x25, #0x3c]
+0x1000513D8   mov      x0, x19
+0x1000513DC   bl       "_objc_msgSend$colorForANSIColor:"
+0x1000513E0   str      x0, [x25, #0x28]
+0x1000513E4   cbz      w20, 0x1000513ec
+0x1000513E8   stp      wzr, wzr, [x25, #0x3c]
+0x1000513EC   mov      x0, x19
+0x1000513F0   bl       _objc_msgSend$isInverted
+0x1000513F4   ldr      w8, [sp, #0x100]
+0x1000513F8   cbnz     w8, 0x10005140c
+0x1000513FC   cbz      w0, 0x10005140c
+0x100051400   ldur     d0, [x25, #0x3c]
+0x100051404   rev64.2s v0, v0
+0x100051408   stur     d0, [x25, #0x3c]
+0x10005140C   ldurh    w8, [x25, #0x38]
+0x100051410   tbz      w8, #0x0, 0x10005144c
+0x100051414   ldr      x8, [sp, #0x120]
+0x100051418   ldr      x0, [x19, x8]
+0x10005141C   adrp     x8, 176              ; 0x100101000
+0x100051420   add      x8, x8, #0x818
+0x100051424   ldr      x2, [x8]
+0x100051428   bl       "_objc_msgSend$valueForKey:"
+0x10005142C   bl       _objc_msgSend$boolValue
+0x100051430   cbz      w0, 0x10005144c
+0x100051434   ldr      w8, [x25, #0x3c]
+0x100051438   sub      w9, w8, #0x1
+0x10005143C   cmp      w9, #0x7
+0x100051440   b.hi     0x10005144c
+0x100051444   add      w8, w8, #0x8
+0x100051448   str      w8, [x25, #0x3c]
+0x10005144C   mov      x3, #0x0
+0x100051450   ldr      w2, [x25, #0x40]
+0x100051454   ldrh     w8, [x25, #0x38]
+0x100051458   tbz      w8, #0x3, 0x100051468
+0x10005145C   cbnz     w2, 0x100051468
+0x100051460   ldr      x8, [sp, #0xe8]
+0x100051464   ldr      x3, [x19, x8]
+0x100051468   mov      x0, x19
+0x10005146C   bl       "_objc_msgSend$colorForANSIColor:adjustedRelativeToColor:"
+0x100051470   str      x0, [x25, #0x30]
+0x100051474   ldr      w2, [x25, #0x3c]
+0x100051478   ldrb     w8, [x25, #0x38]
+0x10005147C   tbnz     w8, #0x3, 0x100051488
+0x100051480   ldr      w8, [x25, #0x40]
+0x100051484   cbz      w8, 0x1000515f0
+0x100051488   mov      x3, #0x0
+0x10005148C   mov      x0, x19
+0x100051490   bl       "_objc_msgSend$colorForANSIColor:adjustedRelativeToColor:"
+0x100051494   str      x0, [x25, #0x28]
+0x100051498   cbnz     x0, 0x1000514ac
+0x10005149C   mov      x0, x24
+0x1000514A0   ldr      x2, [sp, #0x108]
+0x1000514A4   bl       "_objc_msgSend$objectForKey:"
+0x1000514A8   str      x0, [x25, #0x28]
+0x1000514AC   ldurh    w8, [x25, #0x38]
+0x1000514B0   tbz      w8, #0x3, 0x10005159c
+0x1000514B4   mov      x20, x21
+0x1000514B8   mov      x21, x26
+0x1000514BC   mov      x26, x28
+0x1000514C0   ldr      x22, [sp, #0x120]
+0x1000514C4   ldr      x0, [x19, x22]
+0x1000514C8   ldr      x2, [x27]
+0x1000514CC   bl       "_objc_msgSend$valueForKey:"
+0x1000514D0   bl       _objc_msgSend$alphaComponent
+0x1000514D4   mov.16b  v14, v0
+0x1000514D8   ldr      x0, [x19, x22]
+0x1000514DC   adrp     x28, 176             ; 0x100101000
+0x1000514E0   add      x28, x28, #0x7e8
+0x1000514E4   ldr      x2, [x28]
+0x1000514E8   bl       "_objc_msgSend$valueForKey:"
+0x1000514EC   bl       _objc_msgSend$alphaComponent
+0x1000514F0   mov.16b  v15, v0
+0x1000514F4   ldp      x8, x0, [x25, #0x28]
+0x1000514F8   stp      x0, x8, [x25, #0x28]
+0x1000514FC   cbnz     x0, 0x100051528
+0x100051500   ldr      x22, [x19, x22]
+0x100051504   mov      x0, x19
+0x100051508   bl       _objc_msgSend$isInverted
+0x10005150C   cmp      w0, #0x0
+0x100051510   csel     x8, x27, x28, ne
+0x100051514   ldr      x2, [x8]
+0x100051518   mov      x0, x22
+0x10005151C   bl       "_objc_msgSend$valueForKey:"
+0x100051520   str      x0, [x25, #0x28]
+0x100051524   ldr      x8, [x25, #0x30]
+0x100051528   ldr      x22, [sp, #0x130]
+0x10005152C   mov      x28, x26
+0x100051530   cbnz     x8, 0x10005156c
+0x100051534   ldr      x8, [sp, #0x120]
+0x100051538   ldr      x0, [sp, #0xe0]
+0x10005153C   ldr      x22, [x0, x8]
+0x100051540   bl       _objc_msgSend$isInverted
+0x100051544   cmp      w0, #0x0
+0x100051548   adrp     x8, 176              ; 0x100101000
+0x10005154C   add      x8, x8, #0x7e8
+0x100051550   csel     x8, x8, x27, ne
+0x100051554   ldr      x2, [x8]
+0x100051558   mov      x0, x22
+0x10005155C   ldr      x22, [sp, #0x130]
+0x100051560   bl       "_objc_msgSend$valueForKey:"
+0x100051564   str      x0, [x25, #0x30]
+0x100051568   ldr      x0, [x25, #0x28]
+0x10005156C   mov.16b  v0, v14
+0x100051570   bl       "_objc_msgSend$colorWithAlphaComponent:"
+0x100051574   str      x0, [x25, #0x28]
+0x100051578   ldr      x0, [x25, #0x30]
+0x10005157C   mov.16b  v0, v15
+0x100051580   bl       "_objc_msgSend$colorWithAlphaComponent:"
+0x100051584   str      x0, [x25, #0x30]
+0x100051588   ldrh     w8, [x25, #0x38]
+0x10005158C   mov      x26, x21
+0x100051590   mov      x21, x20
+0x100051594   ldr      w20, [sp, #0x110]
+0x100051598   ldr      x19, [sp, #0xe0]
+0x10005159C   tbz      w8, #0x1, 0x1000515c0
+0x1000515A0   ldr      x2, [x25, #0x30]
+0x1000515A4   cbnz     x2, 0x1000515b0
+0x1000515A8   ldr      x8, [sp, #0xe8]
+0x1000515AC   ldr      x2, [x19, x8]
+0x1000515B0   ldr      x0, [x25, #0x28]
+0x1000515B4   mov.16b  v0, v13
+0x1000515B8   bl       "_objc_msgSend$blendedColorWithFraction:ofColor:"
+0x1000515BC   str      x0, [x25, #0x28]
+0x1000515C0   ldr      x2, [x28]
+0x1000515C4   mov      x0, x24
+0x1000515C8   bl       "_objc_msgSend$objectForKey:"
+0x1000515CC   cbz      x0, 0x1000515e0
+0x1000515D0   ldr      x2, [x28]
+0x1000515D4   mov      x0, x24
+0x1000515D8   bl       "_objc_msgSend$objectForKey:"
+0x1000515DC   str      x0, [x25, #0x30]
+0x1000515E0   add      x23, x23, #0x1
+0x1000515E4   cmp      x21, x23
+0x1000515E8   b.ne     0x100051388
+0x1000515EC   b        0x100051614
+0x1000515F0   ldr      x8, [sp, #0xe8]
+0x1000515F4   ldr      x3, [x19, x8]
+0x1000515F8   b        0x10005148c
+0x1000515FC   mov.16b  v13, v12
+0x100051600   ldr      x25, [sp, #0xf8]
+0x100051604   ldr      x26, [sp, #0x138]
+0x100051608   ldr      w8, [sp, #0x12c]
+0x10005160C   cbz      w8, 0x100051698
+0x100051610   b        0x100052228
+0x100051614   ldr      x24, [sp, #0xc8]
+0x100051618   ldr      x27, [sp, #0x150]
+0x10005161C   ldr      x25, [sp, #0xf8]
+0x100051620   ldr      x26, [sp, #0x138]
+0x100051624   ldr      w8, [sp, #0x12c]
+0x100051628   ldr      w28, [sp, #0x60]
+0x10005162C   tbnz     w8, #0x0, 0x100051864
+0x100051630   mov      x20, #0x0
+0x100051634   mov      x22, x21
+0x100051638   mov.16b  v13, v12
+0x10005163C   add      x8, x20, x20, lsl #3
+0x100051640   add      x23, x27, x8, lsl #3
+0x100051644   ldrh     w8, [x23, #0x38]
+0x100051648   tbnz     w8, #0x7, 0x100051680
+0x10005164C   ldr      x0, [x23, #0x30]
+0x100051650   cbz      x0, 0x100051680
+0x100051654   bl       _objc_msgSend$setFill
+0x100051658   ldr      s0, [x23]
+0x10005165C   fcvt     d2, s0
+0x100051660   ldr      x8, [sp, #0x140]
+0x100051664   ldr      d3, [x8, #0x8]
+0x100051668   mov      x0, x19
+0x10005166C   mov.16b  v0, v13
+0x100051670   mov.16b  v1, v8
+0x100051674   bl       "_objc_msgSend$centerScanRect:"
+0x100051678   mov      x0, x26
+0x10005167C   bl       _CGContextFillRect
+0x100051680   ldr      s0, [x23]
+0x100051684   fcvt     d0, s0
+0x100051688   fadd     d13, d13, d0
+0x10005168C   add      x20, x20, #0x1
+0x100051690   subs     x22, x22, #0x1
+0x100051694   b.ne     0x10005163c
+0x100051698   ldr      w2, [sp, #0x100]
+0x10005169C   cbz      w2, 0x100051708
+0x1000516A0   mov      x0, x19
+0x1000516A4   mov      x3, #0x0
+0x1000516A8   bl       "_objc_msgSend$colorForANSIColor:adjustedRelativeToColor:"
+0x1000516AC   mov      x20, x0
+0x1000516B0   ldr      x0, [sp, #0x68]
+0x1000516B4   bl       _objc_msgSend$alphaComponent
+0x1000516B8   mov      x0, x20
+0x1000516BC   bl       "_objc_msgSend$colorWithAlphaComponent:"
+0x1000516C0   bl       _objc_msgSend$setFill
+0x1000516C4   mov.16b  v10, v9
+0x1000516C8   ldr      x20, [sp, #0x140]
+0x1000516CC   ldr      d9, [x20]
+0x1000516D0   ldr      x8, [sp, #0xc0]
+0x1000516D4   ldr      x0, [x19, x8]
+0x1000516D8   bl       _objc_msgSend$columnCount
+0x1000516DC   ucvtf    d0, x0
+0x1000516E0   fmadd    d0, d9, d0, d12
+0x1000516E4   mov.16b  v9, v10
+0x1000516E8   fsub     d2, d0, d13
+0x1000516EC   ldr      d3, [x20, #0x8]
+0x1000516F0   mov      x0, x19
+0x1000516F4   mov.16b  v0, v13
+0x1000516F8   mov.16b  v1, v8
+0x1000516FC   bl       "_objc_msgSend$centerScanRect:"
+0x100051700   mov      x0, x26
+0x100051704   bl       _CGContextFillRect
+0x100051708   adrp     x8, 183              ; 0x100108000
+0x10005170C   ldr      x8, [x8, #0xa40]
+0x100051710   cmn      x8, #0x1
+0x100051714   ldr      x22, [sp, #0x130]
+0x100051718   mov      x23, x21
+0x10005171C   b.ne     0x1000522e8
+0x100051720   adrp     x21, 183             ; 0x100108000
+0x100051724   ldrb     w8, [x21, #0xa38]
+0x100051728   tbnz     w8, #0x0, 0x100051738
+0x10005172C   adrp     x8, 183              ; 0x100108000
+0x100051730   ldrb     w8, [x8, #0xa39]
+0x100051734   tbz      w8, #0x0, 0x1000517f4
+0x100051738   ldr      x8, [sp, #0xc0]
+0x10005173C   ldr      x0, [x19, x8]
+0x100051740   ldr      x2, [sp, #0xd8]
+0x100051744   bl       "_objc_msgSend$isLineWrappedToNextLine:"
+0x100051748   mov      x20, x0
+0x10005174C   cbnz     x0, 0x100051758
+0x100051750   ldrb     w8, [x21, #0xa38]
+0x100051754   tbz      w8, #0x0, 0x1000517f4
+0x100051758   adrp     x8, 147              ; 0x1000e4000
+0x10005175C   ldr      x0, [x8, #0xef8]     ; _OBJC_CLASS_$_NSColor@got
+0x100051760   cbz      x20, 0x10005176c
+0x100051764   bl       _objc_msgSend$redColor
+0x100051768   b        0x100051770
+0x10005176C   bl       _objc_msgSend$orangeColor
+0x100051770   mov      x22, x0
+0x100051774   ldr      x0, [sp, #0x68]
+0x100051778   bl       _objc_msgSend$alphaComponent
+0x10005177C   mov      x0, x22
+0x100051780   bl       "_objc_msgSend$colorWithAlphaComponent:"
+0x100051784   bl       _objc_msgSend$setStroke
+0x100051788   ldr      x21, [sp, #0x138]
+0x10005178C   cbz      x20, 0x1000517c0
+0x100051790   mov.16b  v10, v9
+0x100051794   ldr      x20, [sp, #0x140]
+0x100051798   ldr      d9, [x20]
+0x10005179C   ldr      x8, [sp, #0xc0]
+0x1000517A0   ldr      x0, [x19, x8]
+0x1000517A4   bl       _objc_msgSend$columnCount
+0x1000517A8   ucvtf    d0, x0
+0x1000517AC   fmadd    d0, d9, d0, d12
+0x1000517B0   mov.16b  v9, v10
+0x1000517B4   fsub     d2, d0, d13
+0x1000517B8   ldr      x22, [sp, #0x130]
+0x1000517BC   b        0x1000517cc
+0x1000517C0   fmov     d2, #1.00000000
+0x1000517C4   ldr      x22, [sp, #0x130]
+0x1000517C8   ldr      x20, [sp, #0x140]
+0x1000517CC   ldr      d3, [x20, #0x8]
+0x1000517D0   mov      x0, x19
+0x1000517D4   mov.16b  v0, v13
+0x1000517D8   mov.16b  v1, v8
+0x1000517DC   bl       "_objc_msgSend$centerScanRect:"
+0x1000517E0   fmov     d4, #0.50000000
+0x1000517E4   fmov     d5, #0.50000000
+0x1000517E8   bl       _NSInsetRect
+0x1000517EC   mov      x0, x21
+0x1000517F0   bl       _CGContextStrokeRect
+0x1000517F4   cbz      x24, 0x100051854
+0x1000517F8   adrp     x20, 147             ; 0x1000e4000
+0x1000517FC   ldr      x0, [x20, #0xf68]    ; _OBJC_CLASS_$_NSGraphicsContext@got
+0x100051800   bl       _objc_msgSend$saveGraphicsState
+0x100051804   ldr      x21, [sp, #0x70]
+0x100051808   mov      x0, x21
+0x10005180C   bl       _objc_msgSend$invert
+0x100051810   mov      x0, x21
+0x100051814   bl       _objc_msgSend$concat
+0x100051818   ldr      x24, [sp, #0xb0]
+0x10005181C   mov      x0, x24
+0x100051820   bl       _objc_msgSend$invert
+0x100051824   mov      x0, x24
+0x100051828   bl       _objc_msgSend$concat
+0x10005182C   mov      x0, x21
+0x100051830   bl       _objc_msgSend$invert
+0x100051834   mov      x0, x21
+0x100051838   bl       _objc_msgSend$concat
+0x10005183C   mov      x0, x19
+0x100051840   ldp      x2, x3, [sp, #0x90]
+0x100051844   bl       "_objc_msgSend$drawSelectedTextRanges:withColor:"
+0x100051848   ldr      x0, [x20, #0xf68]
+0x10005184C   bl       _objc_msgSend$restoreGraphicsState
+0x100051850   b        0x100051860
+0x100051854   mov      x0, x19
+0x100051858   ldp      x2, x3, [sp, #0x90]
+0x10005185C   bl       "_objc_msgSend$drawSelectedTextRanges:withColor:"
+0x100051860   mov      x21, x23
+0x100051864   ldr      x23, [sp, #0x148]
+0x100051868   cbz      w28, 0x100052220
+0x10005186C   mov      x27, #0x0
+0x100051870   mov      x28, #0x0
+0x100051874   str      wzr, [sp, #0x108]
+0x100051878   ldr      w8, [sp, #0xa4]
+0x10005187C   cmp      w8, #0x0
+0x100051880   adrp     x8, 148              ; 0x1000e5000
+0x100051884   ldr      x8, [x8, #0x280]     ; _kCTFontAttributeName@got
+0x100051888   ldr      x8, [x8]
+0x10005188C   str      x8, [sp, #0x110]
+0x100051890   movi.2d  v0, #0000000000000000
+0x100051894   fmov     d1, #1.00000000
+0x100051898   fcsel    d0, d1, d0, ne
+0x10005189C   str      d0, [sp, #0x70]
+0x1000518A0   adrp     x8, 93               ; 0x1000ae000
+0x1000518A4   ldr      d0, [x8, #0xe50]
+0x1000518A8   str      d0, [sp, #0x50]
+0x1000518AC   adrp     x8, 93               ; 0x1000ae000
+0x1000518B0   ldr      d0, [x8, #0xe58]
+0x1000518B4   str      d0, [sp, #0x48]
+0x1000518B8   adrp     x8, 93               ; 0x1000ae000
+0x1000518BC   ldr      d0, [x8, #0xe60]
+0x1000518C0   str      d0, [sp, #0x40]
+0x1000518C4   adrp     x8, 93               ; 0x1000ae000
+0x1000518C8   ldr      d0, [x8, #0xe68]
+0x1000518CC   str      d0, [sp, #0x38]
+0x1000518D0   adrp     x8, 93               ; 0x1000ae000
+0x1000518D4   ldr      d0, [x8, #0xd38]
+0x1000518D8   str      d0, [sp, #0x30]
+0x1000518DC   add      x8, x25, x28, lsl #1
+0x1000518E0   mov      x25, x8
+0x1000518E4   add      x8, x23, x28, lsl #4
+0x1000518E8   str      x8, [sp, #0x148]
+0x1000518EC   add      x8, x27, x27, lsl #3
+0x1000518F0   ldr      x9, [sp, #0x150]
+0x1000518F4   add      x26, x9, x8, lsl #3
+0x1000518F8   mov      x0, x22
+0x1000518FC   mov      x1, x27
+0x100051900   bl       _CFArrayGetValueAtIndex
+0x100051904   mov      x23, x0
+0x100051908   bl       _CTRunGetGlyphCount
+0x10005190C   str      x0, [sp, #0x140]
+0x100051910   mov      x0, x23
+0x100051914   bl       _CTRunGetAttributes
+0x100051918   mov      x20, x0
+0x10005191C   ldr      x28, [sp, #0x138]
+0x100051920   mov      x0, x28
+0x100051924   bl       _CGContextGetTextPosition
+0x100051928   mov.16b  v12, v0
+0x10005192C   mov.16b  v13, v1
+0x100051930   mov      x0, x20
+0x100051934   ldr      x1, [sp, #0x110]
+0x100051938   bl       _CFDictionaryGetValue
+0x10005193C   mov      x24, x0
+0x100051940   mov      x1, #0x0
+0x100051944   bl       _CTFontCopyGraphicsFont
+0x100051948   mov      x22, x0
+0x10005194C   mov      x0, x24
+0x100051950   bl       _CTFontGetSize
+0x100051954   mov      x0, x28
+0x100051958   bl       _CGContextSetFontSize
+0x10005195C   mov      x0, x28
+0x100051960   mov      x1, x22
+0x100051964   bl       _CGContextSetFont
+0x100051968   mov      x0, x22
+0x10005196C   bl       _CGFontRelease
+0x100051970   ldrh     w8, [x26, #0x38]
+0x100051974   tbnz     w8, #0x7, 0x100051a34
+0x100051978   tst      w8, #0x20
+0x10005197C   ldr      w8, [sp, #0x12c]
+0x100051980   csinc    w8, w8, wzr, ne
+0x100051984   tbz      w8, #0x0, 0x100051a48
+0x100051988   ldr      w8, [sp, #0x11c]
+0x10005198C   ldr      x28, [sp, #0x140]
+0x100051990   tbz      w8, #0x0, 0x1000519d4
+0x100051994   ldr      x8, [x26, #0x18]
+0x100051998   mov      w9, #0x1
+0x10005199C   str      w9, [sp, #0x11c]
+0x1000519A0   ldr      x9, [sp, #0xf0]
+0x1000519A4   subs     x8, x9, x8
+0x1000519A8   b.lo     0x1000519d8
+0x1000519AC   ldr      x9, [x26, #0x20]
+0x1000519B0   cmp      x8, x9
+0x1000519B4   b.hs     0x1000519d8
+0x1000519B8   ldr      x8, [sp, #0x78]
+0x1000519BC   and      w3, w8, #0x1
+0x1000519C0   mov      x0, x19
+0x1000519C4   mov.16b  v0, v9
+0x1000519C8   ldr      d1, [sp, #0x80]
+0x1000519CC   mov      w2, #0x0
+0x1000519D0   bl       "_objc_msgSend$drawCursor:inMarkedText:wide:"
+0x1000519D4   str      wzr, [sp, #0x11c]
+0x1000519D8   ldr      w8, [sp, #0x104]
+0x1000519DC   tbz      w8, #0x0, 0x100051a14
+0x1000519E0   ldr      x8, [x26, #0x18]
+0x1000519E4   mov      w9, #0x1
+0x1000519E8   str      w9, [sp, #0x104]
+0x1000519EC   ldr      x9, [sp, #0xf0]
+0x1000519F0   subs     x8, x9, x8
+0x1000519F4   b.lo     0x100051a18
+0x1000519F8   ldr      x9, [x26, #0x20]
+0x1000519FC   cmp      x8, x9
+0x100051A00   b.hs     0x100051a18
+0x100051A04   mov      x0, x19
+0x100051A08   mov.16b  v0, v11
+0x100051A0C   mov.16b  v1, v8
+0x100051A10   bl       "_objc_msgSend$drawInsertionPoint:"
+0x100051A14   str      wzr, [sp, #0x104]
+0x100051A18   ldr      w8, [sp, #0x12c]
+0x100051A1C   cbz      w8, 0x100051aec
+0x100051A20   adrp     x8, 147              ; 0x1000e4000
+0x100051A24   ldr      x0, [x8, #0xef8]     ; _OBJC_CLASS_$_NSColor@got
+0x100051A28   bl       _objc_msgSend$blackColor
+0x100051A2C   mov      x22, x0
+0x100051A30   b        0x100051af0
+0x100051A34   ldr      w8, [sp, #0x108]
+0x100051A38   tbz      w8, #0x0, 0x100051a68
+0x100051A3C   mov      w8, #0x1
+0x100051A40   str      w8, [sp, #0x108]
+0x100051A44   b        0x100051a60
+0x100051A48   ldr      s0, [x26]
+0x100051A4C   fcvt     d0, s0
+0x100051A50   fadd     d0, d12, d0
+0x100051A54   ldr      x0, [sp, #0x138]
+0x100051A58   mov.16b  v1, v13
+0x100051A5C   bl       _CGContextSetTextPosition
+0x100051A60   ldr      x22, [sp, #0x130]
+0x100051A64   b        0x100051c70
+0x100051A68   str      x25, [sp, #0xf8]
+0x100051A6C   mov      x25, x21
+0x100051A70   adrp     x8, 173              ; 0x1000fe000
+0x100051A74   ldrsw    x8, [x8, #0x6b8]
+0x100051A78   add      x8, x19, x8
+0x100051A7C   ldp      x2, x3, [x8]
+0x100051A80   ldr      x21, [sp, #0xc0]
+0x100051A84   ldr      x0, [x19, x21]
+0x100051A88   bl       "_objc_msgSend$unicharOffsetForDisplayPosition:"
+0x100051A8C   mov      x23, x0
+0x100051A90   ldr      x0, [x19, x21]
+0x100051A94   ldr      x2, [sp, #0xd8]
+0x100051A98   bl       "_objc_msgSend$unicharRangeForLine:"
+0x100051A9C   mov      x22, x0
+0x100051AA0   mov      x24, x1
+0x100051AA4   adrp     x8, 173              ; 0x1000fe000
+0x100051AA8   ldrsw    x21, [x8, #0x6bc]
+0x100051AAC   add      x8, x19, x21
+0x100051AB0   ldr      x0, [x8]
+0x100051AB4   bl       _objc_msgSend$length
+0x100051AB8   mov      x3, x0
+0x100051ABC   mov      x0, x22
+0x100051AC0   mov      x1, x24
+0x100051AC4   mov      x2, x23
+0x100051AC8   bl       _NSIntersectionRange
+0x100051ACC   cmp      x1, #0x0
+0x100051AD0   mov      x8, #0x7fffffffffffffff
+0x100051AD4   ccmp     x0, x8, #0x4, ne
+0x100051AD8   b.ne     0x100051b20
+0x100051ADC   str      wzr, [sp, #0x108]
+0x100051AE0   ldr      x22, [sp, #0x130]
+0x100051AE4   mov      x21, x25
+0x100051AE8   b        0x100051c6c
+0x100051AEC   ldr      x22, [x26, #0x28]
+0x100051AF0   mov      x0, x22
+0x100051AF4   bl       _objc_msgSend$setFill
+0x100051AF8   mov      x0, x22
+0x100051AFC   bl       _objc_msgSend$setStroke
+0x100051B00   ldr      w8, [sp, #0x12c]
+0x100051B04   tbz      w8, #0x0, 0x100051c84
+0x100051B08   str      wzr, [sp, #0xf8]
+0x100051B0C   str      wzr, [sp, #0xb0]
+0x100051B10   mov      w20, #0x0
+0x100051B14   ldrh     w8, [x26, #0x38]
+0x100051B18   tbnz     w8, #0x8, 0x10005203c
+0x100051B1C   b        0x1000520c4
+0x100051B20   mov      x28, x0
+0x100051B24   mov      x26, x1
+0x100051B28   sub      x24, x0, x23
+0x100051B2C   ldr      x0, [x19, x21]
+0x100051B30   bl       _objc_msgSend$mutableCopy
+0x100051B34   mov      x22, x0
+0x100051B38   add      x26, x24, x26
+0x100051B3C   bl       _objc_msgSend$length
+0x100051B40   cmp      x26, x0
+0x100051B44   b.hs     0x100051b60
+0x100051B48   mov      x0, x22
+0x100051B4C   bl       _objc_msgSend$length
+0x100051B50   sub      x3, x0, x26
+0x100051B54   mov      x0, x22
+0x100051B58   mov      x2, x26
+0x100051B5C   bl       "_objc_msgSend$deleteCharactersInRange:"
+0x100051B60   cmp      x28, x23
+0x100051B64   ldr      x26, [sp, #0x138]
+0x100051B68   mov      x21, x25
+0x100051B6C   b.eq     0x100051b80
+0x100051B70   mov      x0, x22
+0x100051B74   mov      x2, #0x0
+0x100051B78   mov      x3, x24
+0x100051B7C   bl       "_objc_msgSend$deleteCharactersInRange:"
+0x100051B80   adrp     x9, 183              ; 0x100108000
+0x100051B84   add      x9, x9, #0x778
+0x100051B88   ldr      x8, [x9]
+0x100051B8C   str      x8, [sp, #0x158]
+0x100051B90   ldr      w8, [x9, #0x8]
+0x100051B94   str      w8, [sp, #0x160]
+0x100051B98   adrp     x8, 148              ; 0x1000e5000
+0x100051B9C   ldr      x0, [x8, #0x190]     ; _OBJC_CLASS_$_NSData@got
+0x100051BA0   add      x2, sp, #0x158
+0x100051BA4   mov      w3, #0xc
+0x100051BA8   bl       "_objc_msgSend$dataWithBytes:length:"
+0x100051BAC   mov      x23, x0
+0x100051BB0   mov      x0, x22
+0x100051BB4   bl       _objc_msgSend$length
+0x100051BB8   mov      x4, x0
+0x100051BBC   mov      x0, x22
+0x100051BC0   mov      x2, x20
+0x100051BC4   mov      x3, #0x0
+0x100051BC8   bl       "_objc_msgSend$addAttributes:range:"
+0x100051BCC   mov      x0, x22
+0x100051BD0   bl       _objc_msgSend$length
+0x100051BD4   mov      x5, x0
+0x100051BD8   mov      x0, x22
+0x100051BDC   adrp     x2, 142              ; 0x1000df000
+0x100051BE0   add      x2, x2, #0xe50       ; @"TT_VT100Attributes"
+0x100051BE4   mov      x3, x23
+0x100051BE8   mov      x4, #0x0
+0x100051BEC   bl       "_objc_msgSend$addAttribute:value:range:"
+0x100051BF0   ldr      x8, [sp, #0xa8]
+0x100051BF4   ldr      d0, [x19, x8]
+0x100051BF8   fsub     d1, d13, d0
+0x100051BFC   ldr      w8, [sp, #0x100]
+0x100051C00   str      w8, [sp, #0x28]
+0x100051C04   ldr      x10, [sp, #0x98]
+0x100051C08   ldr      w8, [sp, #0x104]
+0x100051C0C   and      w8, w8, #0x1
+0x100051C10   mov      w9, #0x1
+0x100051C14   str      w9, [sp, #0x108]
+0x100051C18   ldr      w9, [sp, #0x11c]
+0x100051C1C   and      w7, w9, #0x1
+0x100051C20   ldr      x9, [sp, #0x90]
+0x100051C24   stp      x9, x10, [sp, #0x18]
+0x100051C28   ldp      x9, x3, [sp, #0xd0]
+0x100051C2C   str      x9, [sp, #0x10]
+0x100051C30   strb     w8, [sp, #0x8]
+0x100051C34   ldr      x8, [sp, #0xf0]
+0x100051C38   str      x8, [sp]
+0x100051C3C   mov      x0, x19
+0x100051C40   mov      x2, x22
+0x100051C44   mov      x4, x26
+0x100051C48   mov.16b  v0, v12
+0x100051C4C   mov      w5, #0x1
+0x100051C50   ldr      x6, [sp, #0xc8]
+0x100051C54   bl       "_objc_msgSend$drawAttributedString:forLine:inContext:atPoint:isTextMarked:size:containsCursor:atColumn:containsInsertionPoint:atColumn:selectedTextRanges:selectionColor:withANSIBackgroundColor:"
+0x100051C58   mov      x0, x22
+0x100051C5C   bl       _objc_release
+0x100051C60   str      wzr, [sp, #0x104]
+0x100051C64   str      wzr, [sp, #0x11c]
+0x100051C68   ldr      x22, [sp, #0x130]
+0x100051C6C   ldr      x25, [sp, #0xf8]
+0x100051C70   ldp      x28, x23, [sp, #0x140]
+0x100051C74   add      x27, x27, #0x1
+0x100051C78   cmp      x27, x21
+0x100051C7C   b.ne     0x1000518dc
+0x100051C80   b        0x100052220
+0x100051C84   ldr      x8, [sp, #0x120]
+0x100051C88   ldr      x0, [x19, x8]
+0x100051C8C   adrp     x8, 176              ; 0x100101000
+0x100051C90   add      x8, x8, #0x810
+0x100051C94   ldr      x2, [x8]
+0x100051C98   bl       "_objc_msgSend$valueForKey:"
+0x100051C9C   bl       _objc_msgSend$boolValue
+0x100051CA0   cbz      w0, 0x100051ce0
+0x100051CA4   ldrh     w8, [x26, #0x38]
+0x100051CA8   tbz      w8, #0x4, 0x100051ce0
+0x100051CAC   adrp     x8, 173              ; 0x1000fe000
+0x100051CB0   ldrsw    x8, [x8, #0x684]
+0x100051CB4   add      x8, x19, x8
+0x100051CB8   ldrb     w8, [x8]
+0x100051CBC   cmp      w8, #0x1
+0x100051CC0   b.ne     0x100051ce0
+0x100051CC4   ldr      s0, [x26]
+0x100051CC8   fcvt     d0, s0
+0x100051CCC   fadd     d0, d12, d0
+0x100051CD0   ldr      x0, [sp, #0x138]
+0x100051CD4   mov.16b  v1, v13
+0x100051CD8   bl       _CGContextSetTextPosition
+0x100051CDC   b        0x1000520b4
+0x100051CE0   ldr      x28, [sp, #0x138]
+0x100051CE4   mov      x0, x28
+0x100051CE8   bl       _CGContextGetAllowsFontSmoothing
+0x100051CEC   cbz      w0, 0x100051dc8
+0x100051CF0   mov      x0, x28
+0x100051CF4   bl       _CGContextGetShouldSmoothFonts
+0x100051CF8   cbz      w0, 0x100051dc8
+0x100051CFC   mov      x0, x19
+0x100051D00   bl       _objc_msgSend$window
+0x100051D04   bl       _objc_msgSend$backingScaleFactor
+0x100051D08   fmov     d1, #1.50000000
+0x100051D0C   fcmp     d0, d1
+0x100051D10   b.pl     0x100051dc8
+0x100051D14   ldr      x0, [x26, #0x30]
+0x100051D18   cbnz     x0, 0x100051d58
+0x100051D1C   mov      x0, x19
+0x100051D20   bl       _objc_msgSend$isInverted
+0x100051D24   mov      x8, x0
+0x100051D28   ldr      x0, [sp, #0x68]
+0x100051D2C   ldrh     w9, [x26, #0x38]
+0x100051D30   tst      w9, #0x8
+0x100051D34   cset     w9, eq
+0x100051D38   eor      w8, w8, w9
+0x100051D3C   tbnz     w8, #0x0, 0x100051d58
+0x100051D40   ldr      x8, [sp, #0x120]
+0x100051D44   ldr      x0, [x19, x8]
+0x100051D48   adrp     x8, 176              ; 0x100101000
+0x100051D4C   add      x8, x8, #0x748
+0x100051D50   ldr      x2, [x8]
+0x100051D54   bl       "_objc_msgSend$valueForKey:"
+0x100051D58   adrp     x28, 147             ; 0x1000e4000
+0x100051D5C   ldr      x28, [x28, #0xcd8]   ; _NSCalibratedRGBColorSpace@got
+0x100051D60   ldr      x2, [x28]
+0x100051D64   bl       "_objc_msgSend$colorUsingColorSpaceName:"
+0x100051D68   cbz      x0, 0x100051dc8
+0x100051D6C   str      x0, [sp, #0xf8]
+0x100051D70   ldr      x2, [x28]
+0x100051D74   mov      x0, x22
+0x100051D78   bl       "_objc_msgSend$colorUsingColorSpaceName:"
+0x100051D7C   cbz      x0, 0x100051dc8
+0x100051D80   bl       _objc_msgSend$brightnessComponent
+0x100051D84   mov.16b  v10, v0
+0x100051D88   ldr      x0, [sp, #0xf8]
+0x100051D8C   bl       _objc_msgSend$brightnessComponent
+0x100051D90   fcmp     d10, d0
+0x100051D94   b.le     0x100051dc8
+0x100051D98   ldr      x0, [sp, #0x138]
+0x100051D9C   bl       _CGContextGetFontSmoothingStyle
+0x100051DA0   cmp      w0, #0x40
+0x100051DA4   str      w0, [sp, #0xb0]
+0x100051DA8   b.eq     0x100052208
+0x100051DAC   cmp      w0, #0x30
+0x100051DB0   b.eq     0x100052200
+0x100051DB4   mov      x1, x0
+0x100051DB8   cmp      w0, #0x20
+0x100051DBC   b.ne     0x10005220c
+0x100051DC0   mov      w1, #0x10
+0x100051DC4   b        0x10005220c
+0x100051DC8   str      wzr, [sp, #0xf8]
+0x100051DCC   str      wzr, [sp, #0xb0]
+0x100051DD0   adrp     x8, 147              ; 0x1000e4000
+0x100051DD4   ldr      x8, [x8, #0xe30]     ; _NSUnderlineStyleAttributeName@got
+0x100051DD8   ldr      x2, [x8]
+0x100051DDC   mov      x0, x20
+0x100051DE0   bl       "_objc_msgSend$objectForKey:"
+0x100051DE4   cbz      x0, 0x100051fe4
+0x100051DE8   mov      x28, x0
+0x100051DEC   adrp     x8, 173              ; 0x1000fe000
+0x100051DF0   ldrsw    x8, [x8, #0x66c]
+0x100051DF4   add      x8, x19, x8
+0x100051DF8   ldr      x0, [x8]
+0x100051DFC   bl       _objc_msgSend$customFont
+0x100051E00   mov      x22, x0
+0x100051E04   cbnz     x0, 0x100051e24
+0x100051E08   ldr      x8, [sp, #0x120]
+0x100051E0C   ldr      x0, [x19, x8]
+0x100051E10   adrp     x8, 176              ; 0x100101000
+0x100051E14   add      x8, x8, #0x720
+0x100051E18   ldr      x2, [x8]
+0x100051E1C   bl       "_objc_msgSend$valueForKey:"
+0x100051E20   mov      x22, x0
+0x100051E24   mov      x0, x28
+0x100051E28   bl       _objc_msgSend$unsignedIntegerValue
+0x100051E2C   cbz      x0, 0x100051fe4
+0x100051E30   mov      x28, x0
+0x100051E34   mov      x0, x22
+0x100051E38   bl       _CTFontGetUnderlineThickness
+0x100051E3C   mov.16b  v10, v0
+0x100051E40   fcmp     d0, #0.0
+0x100051E44   b.hi     0x100051e70
+0x100051E48   mov      x0, x22
+0x100051E4C   bl       _CTFontGetDescent
+0x100051E50   mov.16b  v14, v0
+0x100051E54   mov      x0, x22
+0x100051E58   bl       _CTFontGetLeading
+0x100051E5C   fadd     d0, d14, d0
+0x100051E60   frintp   d0, d0
+0x100051E64   ldp      d1, d2, [sp, #0x48]
+0x100051E68   fmul     d0, d0, d2
+0x100051E6C   fmul     d0, d0, d1
+0x100051E70   frintp   d0, d0
+0x100051E74   fadd     d1, d0, d0
+0x100051E78   cmp      x28, #0x2
+0x100051E7C   fcsel    d14, d1, d0, eq
+0x100051E80   mov      x0, x22
+0x100051E84   bl       _CTFontGetUnderlinePosition
+0x100051E88   mov.16b  v15, v0
+0x100051E8C   fcmp     d10, #0.0
+0x100051E90   b.hi     0x100051ec4
+0x100051E94   fcmp     d15, #0.0
+0x100051E98   b.lt     0x100051ec4
+0x100051E9C   mov      x0, x22
+0x100051EA0   bl       _CTFontGetDescent
+0x100051EA4   mov.16b  v10, v0
+0x100051EA8   mov      x0, x22
+0x100051EAC   bl       _CTFontGetLeading
+0x100051EB0   fadd     d0, d10, d0
+0x100051EB4   frintp   d0, d0
+0x100051EB8   ldp      d1, d2, [sp, #0x38]
+0x100051EBC   fmul     d0, d0, d2
+0x100051EC0   fmul     d15, d0, d1
+0x100051EC4   adrp     x8, 147              ; 0x1000e4000
+0x100051EC8   ldr      x8, [x8, #0xe28]     ; _NSUnderlineColorAttributeName@got
+0x100051ECC   ldr      x2, [x8]
+0x100051ED0   mov      x0, x20
+0x100051ED4   bl       "_objc_msgSend$objectForKey:"
+0x100051ED8   cbz      x0, 0x100051f2c
+0x100051EDC   mov      x20, x0
+0x100051EE0   bl       _objc_msgSend$colorSpace
+0x100051EE4   mov      x22, x0
+0x100051EE8   adrp     x8, 147              ; 0x1000e4000
+0x100051EEC   ldr      x0, [x8, #0xf18]     ; _OBJC_CLASS_$_NSColorSpace@got
+0x100051EF0   bl       _objc_msgSend$genericGrayColorSpace
+0x100051EF4   mov      x2, x0
+0x100051EF8   mov      x0, x22
+0x100051EFC   bl       "_objc_msgSend$isEqual:"
+0x100051F00   cbz      w0, 0x100051f64
+0x100051F04   mov      x0, x20
+0x100051F08   bl       _objc_msgSend$whiteComponent
+0x100051F0C   ldr      d1, [sp, #0x30]
+0x100051F10   fcmp     d0, d1
+0x100051F14   b.pl     0x100051f34
+0x100051F18   ldr      x22, [x26, #0x28]
+0x100051F1C   mov      x0, x20
+0x100051F20   bl       _objc_msgSend$alphaComponent
+0x100051F24   mov      x0, x22
+0x100051F28   b        0x100051f5c
+0x100051F2C   mov      w20, #0x1
+0x100051F30   b        0x100051f74
+0x100051F34   mov      x0, x20
+0x100051F38   bl       _objc_msgSend$whiteComponent
+0x100051F3C   mov.16b  v10, v9
+0x100051F40   fmov     d1, #1.00000000
+0x100051F44   fsub     d9, d1, d0
+0x100051F48   mov      x0, x20
+0x100051F4C   bl       _objc_msgSend$alphaComponent
+0x100051F50   fmul     d0, d9, d0
+0x100051F54   mov.16b  v9, v10
+0x100051F58   ldr      x0, [x26, #0x28]
+0x100051F5C   bl       "_objc_msgSend$colorWithAlphaComponent:"
+0x100051F60   mov      x20, x0
+0x100051F64   mov      x0, x20
+0x100051F68   bl       _objc_msgSend$setStroke
+0x100051F6C   cmp      x20, #0x0
+0x100051F70   cset     w20, eq
+0x100051F74   fadd     d0, d13, d15
+0x100051F78   frintm   d0, d0
+0x100051F7C   fmov     d1, #-0.50000000
+0x100051F80   fmul     d1, d14, d1
+0x100051F84   fadd     d10, d0, d1
+0x100051F88   ldr      x22, [sp, #0x138]
+0x100051F8C   mov      x0, x22
+0x100051F90   bl       _CGContextBeginPath
+0x100051F94   ldr      d15, [sp, #0x70]
+0x100051F98   fadd     d0, d15, d12
+0x100051F9C   mov      x0, x22
+0x100051FA0   mov.16b  v1, v10
+0x100051FA4   bl       _CGContextMoveToPoint
+0x100051FA8   mov      x0, x22
+0x100051FAC   mov.16b  v0, v14
+0x100051FB0   bl       _CGContextSetLineWidth
+0x100051FB4   ldr      s0, [x26]
+0x100051FB8   fcvt     d0, s0
+0x100051FBC   fadd     d0, d12, d0
+0x100051FC0   fsub     d0, d0, d15
+0x100051FC4   mov      x0, x22
+0x100051FC8   mov.16b  v1, v10
+0x100051FCC   bl       _CGContextAddLineToPoint
+0x100051FD0   mov      x0, x22
+0x100051FD4   bl       _CGContextStrokePath
+0x100051FD8   tbnz     w20, #0x0, 0x100051fe4
+0x100051FDC   ldr      x0, [x26, #0x28]
+0x100051FE0   bl       _objc_msgSend$setStroke
+0x100051FE4   ldrh     w8, [x26, #0x38]
+0x100051FE8   tbnz     w8, #0x8, 0x100052038
+0x100051FEC   ldr      x8, [sp, #0x150]
+0x100051FF0   ldr      w8, [x8, #0x3c]
+0x100051FF4   cmp      w8, #0x3e6
+0x100051FF8   ldr      x28, [sp, #0x140]
+0x100051FFC   b.ne     0x1000520c0
+0x100052000   adrp     x8, 146              ; 0x1000e4000
+0x100052004   ldr      x0, [x8, #0xf68]     ; _OBJC_CLASS_$_NSGraphicsContext@got
+0x100052008   bl       _objc_msgSend$currentContextDrawingToScreen
+0x10005200C   cbz      w0, 0x1000520c0
+0x100052010   ldr      x0, [sp, #0x68]
+0x100052014   bl       _objc_msgSend$CGColor
+0x100052018   mov      x1, x0
+0x10005201C   movi.2d  v0, #0000000000000000
+0x100052020   fmov     d1, #-1.00000000
+0x100052024   fmov     d2, #1.00000000
+0x100052028   ldr      x0, [sp, #0x138]
+0x10005202C   bl       _CGContextSetShadowWithColor
+0x100052030   mov      w20, #0x1
+0x100052034   b        0x1000520c4
+0x100052038   ldr      x28, [sp, #0x140]
+0x10005203C   mov      x0, x23
+0x100052040   bl       _CTRunGetStringRange
+0x100052044   mov      x20, x0
+0x100052048   mov      x22, x1
+0x10005204C   ldr      x8, [sp, #0xa8]
+0x100052050   ldr      d0, [x19, x8]
+0x100052054   fsub     d10, d13, d0
+0x100052058   ldr      x0, [sp, #0xb8]
+0x10005205C   bl       _objc_msgSend$string
+0x100052060   mov      x2, x20
+0x100052064   mov      x3, x22
+0x100052068   bl       "_objc_msgSend$substringWithRange:"
+0x10005206C   mov      x2, x0
+0x100052070   mov      x0, x19
+0x100052074   ldr      x20, [sp, #0x138]
+0x100052078   mov      x3, x20
+0x10005207C   mov.16b  v0, v12
+0x100052080   mov.16b  v1, v10
+0x100052084   bl       "_objc_msgSend$drawCustomString:inContext:atPoint:"
+0x100052088   ldr      s0, [x26]
+0x10005208C   fcvt     d0, s0
+0x100052090   fadd     d0, d12, d0
+0x100052094   mov      x0, x20
+0x100052098   mov.16b  v1, v13
+0x10005209C   bl       _CGContextSetTextPosition
+0x1000520A0   ldr      w8, [sp, #0xf8]
+0x1000520A4   cbz      w8, 0x1000520b4
+0x1000520A8   mov      x0, x20
+0x1000520AC   ldr      w1, [sp, #0xb0]
+0x1000520B0   bl       _CGContextSetFontSmoothingStyle
+0x1000520B4   ldr      x22, [sp, #0x130]
+0x1000520B8   ldr      x23, [sp, #0x148]
+0x1000520BC   b        0x100051c74
+0x1000520C0   mov      w20, #0x0
+0x1000520C4   mov      x0, x24
+0x1000520C8   mov      x1, x25
+0x1000520CC   ldr      x23, [sp, #0x148]
+0x1000520D0   mov      x2, x23
+0x1000520D4   mov      x3, x28
+0x1000520D8   ldr      x22, [sp, #0x138]
+0x1000520DC   mov      x4, x22
+0x1000520E0   bl       _CTFontDrawGlyphsWithAdvances
+0x1000520E4   ldrh     w8, [x26, #0x38]
+0x1000520E8   mov      x26, x22
+0x1000520EC   ldr      w9, [sp, #0xa0]
+0x1000520F0   and      w8, w8, w9
+0x1000520F4   ldr      x22, [sp, #0x130]
+0x1000520F8   tbz      w8, #0x0, 0x1000521cc
+0x1000520FC   mov      x0, x24
+0x100052100   bl       _CTFontGetSymbolicTraits
+0x100052104   tbnz     w0, #0x1, 0x1000521cc
+0x100052108   stp      d11, d9, [sp, #0x58]
+0x10005210C   str      d8, [sp, #0x140]
+0x100052110   mov      x0, x26
+0x100052114   bl       _CGContextGetTextPosition
+0x100052118   mov.16b  v14, v0
+0x10005211C   mov.16b  v15, v1
+0x100052120   mov      x0, x19
+0x100052124   bl       _objc_msgSend$window
+0x100052128   bl       _objc_msgSend$backingScaleFactor
+0x10005212C   mov.16b  v10, v0
+0x100052130   fmov     d8, #1.00000000
+0x100052134   fdiv     d9, d8, d0
+0x100052138   ldr      x8, [sp, #0x120]
+0x10005213C   ldr      x0, [x19, x8]
+0x100052140   adrp     x8, 175              ; 0x100101000
+0x100052144   add      x8, x8, #0x728
+0x100052148   ldr      x2, [x8]
+0x10005214C   bl       "_objc_msgSend$valueForKey:"
+0x100052150   bl       _objc_msgSend$boolValue
+0x100052154   fmov     d0, #0.50000000
+0x100052158   fmul     d0, d9, d0
+0x10005215C   cmp      w0, #0x0
+0x100052160   fcsel    d11, d0, d9, ne
+0x100052164   fadd     d10, d10, d8
+0x100052168   fcmp     d10, d8
+0x10005216C   b.le     0x1000521b0
+0x100052170   fmov     d0, #1.00000000
+0x100052174   mov      w22, #0x2
+0x100052178   fmadd    d0, d11, d0, d12
+0x10005217C   mov      x0, x26
+0x100052180   mov.16b  v1, v13
+0x100052184   bl       _CGContextSetTextPosition
+0x100052188   mov      x0, x24
+0x10005218C   mov      x1, x25
+0x100052190   mov      x2, x23
+0x100052194   mov      x3, x28
+0x100052198   mov      x4, x26
+0x10005219C   bl       _CTFontDrawGlyphsWithAdvances
+0x1000521A0   ucvtf    d0, w22
+0x1000521A4   add      w22, w22, #0x1
+0x1000521A8   fcmp     d10, d0
+0x1000521AC   b.gt     0x100052178
+0x1000521B0   mov      x0, x26
+0x1000521B4   mov.16b  v0, v14
+0x1000521B8   mov.16b  v1, v15
+0x1000521BC   bl       _CGContextSetTextPosition
+0x1000521C0   ldr      x22, [sp, #0x130]
+0x1000521C4   ldp      d11, d9, [sp, #0x58]
+0x1000521C8   ldr      d8, [sp, #0x140]
+0x1000521CC   cbz      w20, 0x1000521e8
+0x1000521D0   movi.2d  v0, #0000000000000000
+0x1000521D4   movi.2d  v1, #0000000000000000
+0x1000521D8   movi.2d  v2, #0000000000000000
+0x1000521DC   mov      x0, x26
+0x1000521E0   mov      x1, #0x0
+0x1000521E4   bl       _CGContextSetShadowWithColor
+0x1000521E8   ldr      w8, [sp, #0xf8]
+0x1000521EC   cbz      w8, 0x100051c74
+0x1000521F0   mov      x0, x26
+0x1000521F4   ldr      w1, [sp, #0xb0]
+0x1000521F8   bl       _CGContextSetFontSmoothingStyle
+0x1000521FC   b        0x100051c74
+0x100052200   mov      w1, #0x20
+0x100052204   b        0x10005220c
+0x100052208   mov      w1, #0x30
+0x10005220C   ldr      x0, [sp, #0x138]
+0x100052210   bl       _CGContextSetFontSmoothingStyle
+0x100052214   mov      w8, #0x1
+0x100052218   str      w8, [sp, #0xf8]
+0x10005221C   b        0x100051dd0
+0x100052220   ldr      x24, [sp, #0xc8]
+0x100052224   ldr      x27, [sp, #0x150]
+0x100052228   ldr      w8, [sp, #0x11c]
+0x10005222C   tbz      w8, #0x0, 0x10005224c
+0x100052230   ldr      x8, [sp, #0x78]
+0x100052234   and      w3, w8, #0x1
+0x100052238   mov      x0, x19
+0x10005223C   mov.16b  v0, v9
+0x100052240   ldr      d1, [sp, #0x80]
+0x100052244   ldr      w2, [sp, #0xa4]
+0x100052248   bl       "_objc_msgSend$drawCursor:inMarkedText:wide:"
+0x10005224C   ldr      x20, [sp, #0x88]
+0x100052250   ldr      w8, [sp, #0x104]
+0x100052254   tbz      w8, #0x0, 0x100052268
+0x100052258   mov      x0, x19
+0x10005225C   mov.16b  v0, v11
+0x100052260   mov.16b  v1, v8
+0x100052264   bl       "_objc_msgSend$drawInsertionPoint:"
+0x100052268   add      x8, sp, #0x410
+0x10005226C   cmp      x27, x8
+0x100052270   b.eq     0x10005227c
+0x100052274   mov      x0, x27
+0x100052278   bl       _free
+0x10005227C   cbz      x24, 0x100052290
+0x100052280   adrp     x8, 146              ; 0x1000e4000
+0x100052284   ldr      x0, [x8, #0xf68]     ; _OBJC_CLASS_$_NSGraphicsContext@got
+0x100052288   bl       _objc_msgSend$currentContext
+0x10005228C   bl       _objc_msgSend$restoreGraphicsState
+0x100052290   mov      x0, x20
+0x100052294   bl       _CFRelease
+0x100052298   ldr      x8, [sp, #0xe8]
+0x10005229C   str      xzr, [x19, x8]
+0x1000522A0   ldur     x8, [x29, #-0xa0]
+0x1000522A4   adrp     x9, 146              ; 0x1000e4000
+0x1000522A8   ldr      x9, [x9, #0x9b8]     ; ___stack_chk_guard@got
+0x1000522AC   ldr      x9, [x9]
+0x1000522B0   cmp      x9, x8
+0x1000522B4   b.ne     0x1000522f0
+0x1000522B8   add      sp, sp, #0x8a0
+0x1000522BC   ldp      x29, x30, [sp, #0x90]
+0x1000522C0   ldp      x20, x19, [sp, #0x80]
+0x1000522C4   ldp      x22, x21, [sp, #0x70]
+0x1000522C8   ldp      x24, x23, [sp, #0x60]
+0x1000522CC   ldp      x26, x25, [sp, #0x50]
+0x1000522D0   ldp      x28, x27, [sp, #0x40]
+0x1000522D4   ldp      d9, d8, [sp, #0x30]
+0x1000522D8   ldp      d11, d10, [sp, #0x20]
+0x1000522DC   ldp      d13, d12, [sp, #0x10]
+0x1000522E0   ldp      d15, d14, [sp], #0xa0
+0x1000522E4   retab
+0x1000522E8   bl       0x10008f8cc
+0x1000522EC   b        0x100051720
+0x1000522F0   bl       ___stack_chk_fail

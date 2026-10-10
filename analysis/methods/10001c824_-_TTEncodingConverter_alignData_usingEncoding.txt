@@ -1,0 +1,80 @@
+-[TTEncodingConverter alignData:usingEncoding:]
+0x10001C824   pacibsp
+0x10001C828   stp      x22, x21, [sp, #-0x30]!
+0x10001C82C   stp      x20, x19, [sp, #0x10]
+0x10001C830   stp      x29, x30, [sp, #0x20]
+0x10001C834   add      x29, sp, #0x20
+0x10001C838   mov      x20, x3
+0x10001C83C   mov      x22, x2
+0x10001C840   mov      x19, x0
+0x10001C844   adrp     x8, 201              ; 0x1000e5000
+0x10001C848   ldr      x0, [x8, #0x1c8]     ; _OBJC_CLASS_$_NSMutableData@got
+0x10001C84C   mov      x2, #0x0
+0x10001C850   bl       "_objc_msgSend$dataWithCapacity:"
+0x10001C854   mov      x21, x0
+0x10001C858   ldr      x0, [x19, #0x10]
+0x10001C85C   bl       _objc_msgSend$length
+0x10001C860   cbz      x0, 0x10001c87c
+0x10001C864   ldr      x2, [x19, #0x10]
+0x10001C868   mov      x0, x21
+0x10001C86C   bl       "_objc_msgSend$appendData:"
+0x10001C870   ldr      x0, [x19, #0x10]
+0x10001C874   mov      x2, #0x0
+0x10001C878   bl       "_objc_msgSend$setLength:"
+0x10001C87C   mov      x0, x21
+0x10001C880   mov      x2, x22
+0x10001C884   bl       "_objc_msgSend$appendData:"
+0x10001C888   cmp      x20, #0x7
+0x10001C88C   b.le     0x10001c8b4
+0x10001C890   cmp      x20, #0x8
+0x10001C894   b.eq     0x10001c8f0
+0x10001C898   cmp      x20, #0x15
+0x10001C89C   b.eq     0x10001c920
+0x10001C8A0   mov      w8, #0xa01
+0x10001C8A4   movk     w8, #0x8000, lsl #16
+0x10001C8A8   cmp      x20, x8
+0x10001C8AC   b.eq     0x10001c8f0
+0x10001C8B0   b        0x10001c94c
+0x10001C8B4   cmp      x20, #0x3
+0x10001C8B8   b.eq     0x10001c8f0
+0x10001C8BC   cmp      x20, #0x4
+0x10001C8C0   b.ne     0x10001c94c
+0x10001C8C4   mov      x0, x19
+0x10001C8C8   mov      x2, x21
+0x10001C8CC   mov      w3, #0x1
+0x10001C8D0   ldp      x29, x30, [sp, #0x20]
+0x10001C8D4   ldp      x20, x19, [sp, #0x10]
+0x10001C8D8   ldp      x22, x21, [sp], #0x30
+0x10001C8DC   autibsp
+0x10001C8E0   eor      x16, x30, x30, lsl #1
+0x10001C8E4   tbz      x16, #0x3e, 0x10001c8ec
+0x10001C8E8   brk      #0xc471
+0x10001C8EC   b        "_objc_msgSend$_utf8ValidateData:pushBack:"
+0x10001C8F0   mov      x0, x19
+0x10001C8F4   mov      x2, x21
+0x10001C8F8   mov      w3, #0x1
+0x10001C8FC   mov      x4, x20
+0x10001C900   ldp      x29, x30, [sp, #0x20]
+0x10001C904   ldp      x20, x19, [sp, #0x10]
+0x10001C908   ldp      x22, x21, [sp], #0x30
+0x10001C90C   autibsp
+0x10001C910   eor      x16, x30, x30, lsl #1
+0x10001C914   tbz      x16, #0x3e, 0x10001c91c
+0x10001C918   brk      #0xc471
+0x10001C91C   b        "_objc_msgSend$_validateData:pushBack:encoding:"
+0x10001C920   mov      x0, x19
+0x10001C924   mov      x2, x21
+0x10001C928   mov      w3, #0x1
+0x10001C92C   ldp      x29, x30, [sp, #0x20]
+0x10001C930   ldp      x20, x19, [sp, #0x10]
+0x10001C934   ldp      x22, x21, [sp], #0x30
+0x10001C938   autibsp
+0x10001C93C   eor      x16, x30, x30, lsl #1
+0x10001C940   tbz      x16, #0x3e, 0x10001c948
+0x10001C944   brk      #0xc471
+0x10001C948   b        "_objc_msgSend$_iso2022jpValidateData:pushBack:"
+0x10001C94C   mov      x0, x21
+0x10001C950   ldp      x29, x30, [sp, #0x20]
+0x10001C954   ldp      x20, x19, [sp, #0x10]
+0x10001C958   ldp      x22, x21, [sp], #0x30
+0x10001C95C   retab

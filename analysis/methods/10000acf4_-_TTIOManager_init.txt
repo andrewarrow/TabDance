@@ -1,0 +1,112 @@
+-[TTIOManager init]
+0x10000ACF4   pacibsp
+0x10000ACF8   sub      sp, sp, #0x70
+0x10000ACFC   stp      x22, x21, [sp, #0x40]
+0x10000AD00   stp      x20, x19, [sp, #0x50]
+0x10000AD04   stp      x29, x30, [sp, #0x60]
+0x10000AD08   add      x29, sp, #0x60
+0x10000AD0C   adrp     x8, 217              ; 0x1000e3000
+0x10000AD10   ldr      x8, [x8, #0x7d8]     ; super TTIOManager
+0x10000AD14   stp      x0, x8, [sp, #0x30]
+0x10000AD18   adrp     x8, 239              ; 0x1000f9000
+0x10000AD1C   ldr      x1, [x8, #0xa30]     ; selector "init"
+0x10000AD20   add      x0, sp, #0x30
+0x10000AD24   bl       _objc_msgSendSuper2
+0x10000AD28   cbz      x0, 0x10000ae88
+0x10000AD2C   mov      x19, x0
+0x10000AD30   mov      w8, #-0x1
+0x10000AD34   str      w8, [x0, #0x30]
+0x10000AD38   add      x20, x0, #0x28
+0x10000AD3C   mov      x0, x20
+0x10000AD40   bl       _pipe
+0x10000AD44   cbz      w0, 0x10000ad58
+0x10000AD48   mov      x0, x19
+0x10000AD4C   bl       _objc_release
+0x10000AD50   mov      x0, #0x0
+0x10000AD54   b        0x10000ae88
+0x10000AD58   mov      x22, #0x0
+0x10000AD5C   mov      w8, #0x1
+0x10000AD60   mov      x21, x8
+0x10000AD64   ldr      w0, [x20, x22, lsl #2]
+0x10000AD68   str      xzr, [sp]
+0x10000AD6C   mov      w1, #0x3
+0x10000AD70   bl       _fcntl
+0x10000AD74   cmn      w0, #0x1
+0x10000AD78   b.eq     0x10000ad94
+0x10000AD7C   ldr      w8, [x20, x22, lsl #2]
+0x10000AD80   orr      w9, w0, #0x4
+0x10000AD84   str      x9, [sp]
+0x10000AD88   mov      x0, x8
+0x10000AD8C   mov      w1, #0x4
+0x10000AD90   bl       _fcntl
+0x10000AD94   mov      w8, #0x0
+0x10000AD98   mov      w22, #0x1
+0x10000AD9C   tbnz     w21, #0x0, 0x10000ad60
+0x10000ADA0   bl       _kqueue
+0x10000ADA4   str      w0, [x19, #0x30]
+0x10000ADA8   tbnz     w0, #0x1f, 0x10000ae9c
+0x10000ADAC   adrp     x20, 218             ; 0x1000e4000
+0x10000ADB0   ldr      x0, [x20, #0xae0]    ; _OBJC_CLASS_$_NSLock@got
+0x10000ADB4   bl       _objc_alloc_init
+0x10000ADB8   str      x0, [x19, #0x8]
+0x10000ADBC   ldr      x0, [x20, #0xae0]
+0x10000ADC0   bl       _objc_alloc_init
+0x10000ADC4   str      x0, [x19, #0x10]
+0x10000ADC8   ldr      x0, [x20, #0xae0]
+0x10000ADCC   bl       _objc_alloc_init
+0x10000ADD0   str      x0, [x19, #0x18]
+0x10000ADD4   ldr      x0, [x20, #0xae0]
+0x10000ADD8   bl       _objc_alloc_init
+0x10000ADDC   adrp     x20, 219             ; 0x1000e5000
+0x10000ADE0   ldr      x8, [x20, #0x1d0]    ; _OBJC_CLASS_$_NSMutableDictionary@got
+0x10000ADE4   str      x0, [x19, #0x20]
+0x10000ADE8   mov      x0, x8
+0x10000ADEC   bl       _objc_alloc_init
+0x10000ADF0   str      x0, [x19, #0x48]
+0x10000ADF4   ldr      x0, [x20, #0x1d0]
+0x10000ADF8   bl       _objc_alloc_init
+0x10000ADFC   adrp     x8, 218              ; 0x1000e4000
+0x10000AE00   ldr      x8, [x8, #0xaf8]     ; _OBJC_CLASS_$_NSMutableIndexSet@got
+0x10000AE04   str      x0, [x19, #0x50]
+0x10000AE08   mov      x0, x8
+0x10000AE0C   bl       _objc_alloc_init
+0x10000AE10   str      x0, [x19, #0x58]
+0x10000AE14   ldr      x0, [x20, #0x1d0]
+0x10000AE18   bl       _objc_alloc_init
+0x10000AE1C   str      x0, [x19, #0x38]
+0x10000AE20   ldr      x0, [x20, #0x1d0]
+0x10000AE24   bl       _objc_alloc_init
+0x10000AE28   mov      w8, #0x21ffff
+0x10000AE2C   str      x0, [x19, #0x40]
+0x10000AE30   ldrsw    x9, [x19, #0x28]
+0x10000AE34   str      x9, [sp, #0x10]
+0x10000AE38   str      w8, [sp, #0x18]
+0x10000AE3C   stur     xzr, [sp, #0x24]
+0x10000AE40   stur     xzr, [sp, #0x1c]
+0x10000AE44   str      wzr, [sp, #0x2c]
+0x10000AE48   mov      w20, #0x1
+0x10000AE4C   add      x2, sp, #0x10
+0x10000AE50   mov      x0, x19
+0x10000AE54   mov      w3, #0x1
+0x10000AE58   bl       "_objc_msgSend$applyKEventChanges:count:"
+0x10000AE5C   strb     w20, [x19, #0x60]
+0x10000AE60   adrp     x20, 254             ; 0x100108000
+0x10000AE64   str      x19, [x20, #0xb78]
+0x10000AE68   adrp     x8, 218              ; 0x1000e4000
+0x10000AE6C   ldr      x0, [x8, #0xb78]     ; _OBJC_CLASS_$_NSThread@got
+0x10000AE70   adrp     x8, 237              ; 0x1000f7000
+0x10000AE74   ldr      x2, [x8, #0xf28]     ; selector "IOThread"
+0x10000AE78   mov      x3, x19
+0x10000AE7C   mov      x4, #0x0
+0x10000AE80   bl       "_objc_msgSend$detachNewThreadSelector:toTarget:withObject:"
+0x10000AE84   ldr      x0, [x20, #0xb78]
+0x10000AE88   ldp      x29, x30, [sp, #0x60]
+0x10000AE8C   ldp      x20, x19, [sp, #0x50]
+0x10000AE90   ldp      x22, x21, [sp, #0x40]
+0x10000AE94   add      sp, sp, #0x70
+0x10000AE98   retab
+0x10000AE9C   ldr      w0, [x19, #0x28]
+0x10000AEA0   bl       _close
+0x10000AEA4   ldr      w0, [x19, #0x2c]
+0x10000AEA8   bl       _close
+0x10000AEAC   b        0x10000ad48
