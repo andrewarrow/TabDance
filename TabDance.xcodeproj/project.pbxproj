@@ -1,0 +1,543 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2533DE13BFD60A0441553634 /* TerminalBehaviorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC47568B062AE2430615591 /* TerminalBehaviorTests.swift */; };
+		6661F0B9C1795D6B9DD7BF64 /* WorkspaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D1DB43C0A472C7B0BA789A /* WorkspaceTests.swift */; };
+		6C3F08FF9D23A17FF6C9EEA3 /* WorkspaceViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBF12872F7FD0360ADD127D /* WorkspaceViews.swift */; };
+		6D651767095A991B7C40A3CF /* TerminalCore in Frameworks */ = {isa = PBXBuildFile; productRef = DBC1CCBDDF2963087C19E324 /* TerminalCore */; };
+		7957CD5A13D535ED908D0178 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEDE742D993350DCAFD634A /* main.swift */; };
+		819D0DC8DCFC05115E2DD1FB /* THIRD_PARTY_LICENSES.txt in Resources */ = {isa = PBXBuildFile; fileRef = 80D9C5C83E8773C9BC677584 /* THIRD_PARTY_LICENSES.txt */; };
+		9159E54B9F4A227D9B20997D /* CodexActivityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57503ADE204D6C7E91A9AE0 /* CodexActivityTests.swift */; };
+		B036640EE3FFFFA5BA670133 /* TerminalSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F076A7BE12CAAC5057BFAED /* TerminalSession.swift */; };
+		C026163EF499F64750C7A612 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF38560971D98354AD3E6A39 /* Assets.xcassets */; };
+		C12AFD3839BE93B1C9E6FBE9 /* WindowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2CD6B4931EFEA7DB004ADF /* WindowTests.swift */; };
+		C6133315F6E98A64888282C4 /* SwiftTerm in Frameworks */ = {isa = PBXBuildFile; productRef = 03F31316B58C266CF12B2033 /* SwiftTerm */; };
+		DFC01ECEFBFE6D0EC866A220 /* PTYTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008B0AE5115E46F4BFBB7DF9 /* PTYTests.swift */; };
+		FBE6858031E952EA483EBA4E /* TerminalWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B09EEB3885AB24E10C928C /* TerminalWindowController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9AA46B21368B2876D4907182 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 552C64F4DD3D5403C574819D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 75D2CBC99CA80FD08B64EAFF;
+			remoteInfo = TabDance;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		008B0AE5115E46F4BFBB7DF9 /* PTYTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTYTests.swift; sourceTree = "<group>"; };
+		0762A595F46EEFD3F9EFB3C4 /* TerminalLabTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TerminalLabTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0BBF12872F7FD0360ADD127D /* WorkspaceViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceViews.swift; sourceTree = "<group>"; };
+		1102E562234A59614E63A19C /* project.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = project.yml; sourceTree = "<group>"; };
+		3AC47568B062AE2430615591 /* TerminalBehaviorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalBehaviorTests.swift; sourceTree = "<group>"; };
+		4BEDE742D993350DCAFD634A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		55B09EEB3885AB24E10C928C /* TerminalWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalWindowController.swift; sourceTree = "<group>"; };
+		5F076A7BE12CAAC5057BFAED /* TerminalSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalSession.swift; sourceTree = "<group>"; };
+		75FB1FC9F3AD8AD4375F76A9 /* TabDance */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TabDance; path = .; sourceTree = SOURCE_ROOT; };
+		80D9C5C83E8773C9BC677584 /* THIRD_PARTY_LICENSES.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = THIRD_PARTY_LICENSES.txt; sourceTree = "<group>"; };
+		824A8A7B9E5925A2A84E966E /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		AD3A9FB70AC274B0A3A63059 /* build-app.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "build-app.sh"; sourceTree = "<group>"; };
+		AF38560971D98354AD3E6A39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B6D1DB43C0A472C7B0BA789A /* WorkspaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceTests.swift; sourceTree = "<group>"; };
+		BEA047BB0FF68E75C4E4637A /* TabDance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TabDance.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BFF1145F03791CCF814D8EF4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C6D3FE74180583C2963C1391 /* TabDanceLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabDanceLogo.png; sourceTree = "<group>"; };
+		D83BD63E682AE8C246867417 /* Package.resolved */ = {isa = PBXFileReference; path = Package.resolved; sourceTree = "<group>"; };
+		DD2CD6B4931EFEA7DB004ADF /* WindowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowTests.swift; sourceTree = "<group>"; };
+		F10B092F0809F480E320D69D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F57503ADE204D6C7E91A9AE0 /* CodexActivityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodexActivityTests.swift; sourceTree = "<group>"; };
+		FD0068A335899CEC22D5530C /* LICENSE */ = {isa = PBXFileReference; path = LICENSE; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		019A417984F4E3B12B88C8BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D651767095A991B7C40A3CF /* TerminalCore in Frameworks */,
+				C6133315F6E98A64888282C4 /* SwiftTerm in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		20EF061D304CD36AE682DF96 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				75FB1FC9F3AD8AD4375F76A9 /* TabDance */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		4E67EB598E72386D61159D66 /* TerminalLabTests */ = {
+			isa = PBXGroup;
+			children = (
+				F57503ADE204D6C7E91A9AE0 /* CodexActivityTests.swift */,
+				008B0AE5115E46F4BFBB7DF9 /* PTYTests.swift */,
+				3AC47568B062AE2430615591 /* TerminalBehaviorTests.swift */,
+				DD2CD6B4931EFEA7DB004ADF /* WindowTests.swift */,
+				B6D1DB43C0A472C7B0BA789A /* WorkspaceTests.swift */,
+			);
+			path = TerminalLabTests;
+			sourceTree = "<group>";
+		};
+		56617D2A649AD98C6A6A1B93 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4E67EB598E72386D61159D66 /* TerminalLabTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		6410CC670598F196A5736706 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				70A840BF4C5F7750F136762C /* TerminalLab */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		657471905CEC056FC9131BC2 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				AF38560971D98354AD3E6A39 /* Assets.xcassets */,
+				C6D3FE74180583C2963C1391 /* TabDanceLogo.png */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		70A840BF4C5F7750F136762C /* TerminalLab */ = {
+			isa = PBXGroup;
+			children = (
+				4BEDE742D993350DCAFD634A /* main.swift */,
+				5F076A7BE12CAAC5057BFAED /* TerminalSession.swift */,
+				55B09EEB3885AB24E10C928C /* TerminalWindowController.swift */,
+				0BBF12872F7FD0360ADD127D /* WorkspaceViews.swift */,
+			);
+			path = TerminalLab;
+			sourceTree = "<group>";
+		};
+		7B3D69D4A9BA53B1AB3EE79E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BEA047BB0FF68E75C4E4637A /* TabDance.app */,
+				0762A595F46EEFD3F9EFB3C4 /* TerminalLabTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8F52208363B8965A0644D439 = {
+			isa = PBXGroup;
+			children = (
+				AD3A9FB70AC274B0A3A63059 /* build-app.sh */,
+				F10B092F0809F480E320D69D /* Info.plist */,
+				FD0068A335899CEC22D5530C /* LICENSE */,
+				D83BD63E682AE8C246867417 /* Package.resolved */,
+				824A8A7B9E5925A2A84E966E /* Package.swift */,
+				1102E562234A59614E63A19C /* project.yml */,
+				BFF1145F03791CCF814D8EF4 /* README.md */,
+				80D9C5C83E8773C9BC677584 /* THIRD_PARTY_LICENSES.txt */,
+				657471905CEC056FC9131BC2 /* Assets */,
+				20EF061D304CD36AE682DF96 /* Packages */,
+				6410CC670598F196A5736706 /* Sources */,
+				56617D2A649AD98C6A6A1B93 /* Tests */,
+				7B3D69D4A9BA53B1AB3EE79E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		75D2CBC99CA80FD08B64EAFF /* TabDance */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 471C1052F012524C958CC637 /* Build configuration list for PBXNativeTarget "TabDance" */;
+			buildPhases = (
+				69218E364CFD866F5724541B /* Sources */,
+				EFD7238E66089ACD11CD8EDE /* Resources */,
+				019A417984F4E3B12B88C8BA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TabDance;
+			packageProductDependencies = (
+				DBC1CCBDDF2963087C19E324 /* TerminalCore */,
+				03F31316B58C266CF12B2033 /* SwiftTerm */,
+			);
+			productName = TabDance;
+			productReference = BEA047BB0FF68E75C4E4637A /* TabDance.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9EF5451E00BAD996D9521C52 /* TerminalLabTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 733A75CC6B99EB600659B996 /* Build configuration list for PBXNativeTarget "TerminalLabTests" */;
+			buildPhases = (
+				4BD84BD43045882E4C5ABC95 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DEFC8CA3B04C00147D8B2010 /* PBXTargetDependency */,
+			);
+			name = TerminalLabTests;
+			packageProductDependencies = (
+			);
+			productName = TerminalLabTests;
+			productReference = 0762A595F46EEFD3F9EFB3C4 /* TerminalLabTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		552C64F4DD3D5403C574819D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					75D2CBC99CA80FD08B64EAFF = {
+						ProvisioningStyle = Manual;
+					};
+					9EF5451E00BAD996D9521C52 = {
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = ED42CDC013DE6A01710D85F1 /* Build configuration list for PBXProject "TabDance" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 8F52208363B8965A0644D439;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E2E4871B63F77BEA0744CC7F /* XCRemoteSwiftPackageReference "SwiftTerm" */,
+				A496BC8ECDE96CE5B9094C1C /* XCLocalSwiftPackageReference "." */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 7B3D69D4A9BA53B1AB3EE79E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				75D2CBC99CA80FD08B64EAFF /* TabDance */,
+				9EF5451E00BAD996D9521C52 /* TerminalLabTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EFD7238E66089ACD11CD8EDE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C026163EF499F64750C7A612 /* Assets.xcassets in Resources */,
+				819D0DC8DCFC05115E2DD1FB /* THIRD_PARTY_LICENSES.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4BD84BD43045882E4C5ABC95 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9159E54B9F4A227D9B20997D /* CodexActivityTests.swift in Sources */,
+				DFC01ECEFBFE6D0EC866A220 /* PTYTests.swift in Sources */,
+				2533DE13BFD60A0441553634 /* TerminalBehaviorTests.swift in Sources */,
+				C12AFD3839BE93B1C9E6FBE9 /* WindowTests.swift in Sources */,
+				6661F0B9C1795D6B9DD7BF64 /* WorkspaceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		69218E364CFD866F5724541B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B036640EE3FFFFA5BA670133 /* TerminalSession.swift in Sources */,
+				FBE6858031E952EA483EBA4E /* TerminalWindowController.swift in Sources */,
+				6C3F08FF9D23A17FF6C9EEA3 /* WorkspaceViews.swift in Sources */,
+				7957CD5A13D535ED908D0178 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DEFC8CA3B04C00147D8B2010 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 75D2CBC99CA80FD08B64EAFF /* TabDance */;
+			targetProxy = 9AA46B21368B2876D4907182 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2A7C47F9A2679BB28A92CDF2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.tabdance.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TabDance.app/Contents/MacOS/TerminalLab";
+			};
+			name = Debug;
+		};
+		3CE2169A6CB88B1223B2C4F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_NAME = TerminalLab;
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.tabdance.prototype;
+				PRODUCT_MODULE_NAME = TerminalLab;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		9F15ED4D932B1E8E6682C192 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.tabdance.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TabDance.app/Contents/MacOS/TerminalLab";
+			};
+			name = Release;
+		};
+		AE817575DB1FA2CAAF4368BC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		D9CB1FE5A25CE1BA54DA7989 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		E3B30DFAD91FE27CA751B521 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_NAME = TerminalLab;
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.tabdance.prototype;
+				PRODUCT_MODULE_NAME = TerminalLab;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		471C1052F012524C958CC637 /* Build configuration list for PBXNativeTarget "TabDance" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3CE2169A6CB88B1223B2C4F9 /* Debug */,
+				E3B30DFAD91FE27CA751B521 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		733A75CC6B99EB600659B996 /* Build configuration list for PBXNativeTarget "TerminalLabTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A7C47F9A2679BB28A92CDF2 /* Debug */,
+				9F15ED4D932B1E8E6682C192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		ED42CDC013DE6A01710D85F1 /* Build configuration list for PBXProject "TabDance" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9CB1FE5A25CE1BA54DA7989 /* Debug */,
+				AE817575DB1FA2CAAF4368BC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		A496BC8ECDE96CE5B9094C1C /* XCLocalSwiftPackageReference "." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = .;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E2E4871B63F77BEA0744CC7F /* XCRemoteSwiftPackageReference "SwiftTerm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/migueldeicaza/SwiftTerm.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.19.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		03F31316B58C266CF12B2033 /* SwiftTerm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E2E4871B63F77BEA0744CC7F /* XCRemoteSwiftPackageReference "SwiftTerm" */;
+			productName = SwiftTerm;
+		};
+		DBC1CCBDDF2963087C19E324 /* TerminalCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TerminalCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 552C64F4DD3D5403C574819D /* Project object */;
+}

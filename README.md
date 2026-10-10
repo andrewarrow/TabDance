@@ -1,45 +1,95 @@
 # TabDance
 
-TabDance is a macOS terminal prototype built with AppKit and SwiftTerm. It has
-multiple windows, workspaces, and live terminal tabs. The repository also
-contains static inspection artifacts for an Apple Terminal executable.
+<p align="center"><img src="Assets/TabDanceLogo.png" width="128" height="128" alt="TabDance logo"></p>
+
+TabDance is a macOS terminal app built with AppKit and [SwiftTerm](https://github.com/migueldeicaza/SwiftTerm) 1.19.0. It supports multiple windows, workspaces, and live terminal tabs. Each tab runs a login shell with terminal input, ANSI and 256-color output, selection, copy and paste, and resizing.
 
 ## Build and run
 
-Requires macOS 13 or later and Swift 6. Build and open the app from the
-repository root:
+Requires macOS 13 or later and Xcode 16 or later (Swift 6). Open `TabDance.xcodeproj`, select the `TabDance` scheme, then use **Product > Run** (⌘R). On the first build, allow SwiftTerm's build information plugin when Xcode asks. Use **Product > Test** (⌘U) to run the test suite.
+
+To build a distributable app from the repository root:
 
 ```sh
-cd prototype
 ./build-app.sh
 open dist/TabDance.app
 ```
 
-Run the test suite with `swift test` from `prototype/`. For workspace behavior,
-keyboard shortcuts, persistence, and terminal details, see
-[`prototype/README.md`](prototype/README.md).
+The script builds an ad-hoc signed app for Apple silicon and Intel Macs. Swift Package Manager fetches the pinned SwiftTerm dependency; no other package dependencies are used. Command-line builds skip the interactive approval for that pinned package's build information plugin. The app bundle is named `TabDance.app`; its executable and Swift module retain the name `TerminalLab`.
+
+You can also run the package tests with `swift test`, or run the Xcode test scheme from the command line:
+
+```sh
+xcodebuild -project TabDance.xcodeproj -scheme TabDance \
+  -destination 'platform=macOS' -derivedDataPath .build/xcode \
+  -skipPackagePluginValidation test
+```
+
+The tests cover PTY, workspace, Codex activity, terminal behavior, and AppKit window behavior. Window layout tests exercise 390×844, 768×1024, 1280×800, and 1440×900 sizes.
+
+The Xcode project is checked in and ready to open. Its configuration lives in
+[`project.yml`](project.yml); after changing that file, regenerate the project
+with `xcodegen generate` using [XcodeGen](https://github.com/yonaskolb/XcodeGen)
+2.44 or later. XcodeGen is only needed to regenerate the project.
+
+For a deterministic test session that skips login profiles and workspace persistence, launch the executable with `--execute`, for example:
+
+```sh
+dist/TabDance.app/Contents/MacOS/TerminalLab --execute /bin/sh -c 'printf "TabDance ready\n"; sleep 10'
+```
+
+## Workspaces and tabs
+
+Terminal contents use a fixed snapshot of the Ghostty and Rio defaults: Menlo 20 pt, opaque black with green text and cursor, matching selection colors, and the configured 16-color ANSI palette.
+
+The workspace rail shows each workspace's tab count. Every workspace keeps its own live tabs and selected tab; switching workspaces preserves each one's selection. Drag workspace rows to reorder them, or drag tabs within the active workspace. The insertion marker shows where a tab will land, and the tab bar scrolls when dragging near an edge. Tabs can also be reordered with `⌘⌃⇧←` and `⌘⌃⇧→`. Tabs stay in their workspace and window.
+
+Tab and workspace labels use OSC 7 updates with periodic `libproc` polling as a fallback. Immediately before creating a tab or workspace, TabDance reads the selected shell's process working directory, so a quick `cd` followed by `⌘T` or `⌘⇧N` starts the new shell there. Directory labels follow Rio's naming style.
+
+Below 600 points of window width, the workspace rail collapses and the workspace menu button remains available. `⌘B` toggles the wider sidebar.
+
+## Keyboard shortcuts
+
+| Shortcut | Action |
+| --- | --- |
+| `⌘T` | New tab |
+| `⌘⇧N` | New workspace |
+| `⌘N` | New window |
+| `⌘W` | Close tab |
+| `⌘⇧W` | Close window |
+| `⌘⇧[` / `⌘⇧]` | Select previous / next tab |
+| `⌃Tab` / `⌃⇧Tab` | Select next / previous tab |
+| `⌘1`–`⌘8` | Select tab 1–8 in the active workspace |
+| `⌘9` | Select the last tab in the active workspace |
+| `⌥⌘↑` / `⌥⌘↓` | Select previous / next workspace |
+| `⌘B` | Toggle the sidebar |
+| `⌘⌃⇧←` / `⌘⌃⇧→` | Move the selected tab left / right |
+| `⌘K` | Clear output above the current logical command line |
+
+## State and terminal behavior
+
+The primary window saves its layout, tab directories and titles, and selections to `~/Library/Application Support/TabDance/workspaces.json`. Restoring that layout starts new shells; it does not restore running processes, shell history, or commands. Secondary windows do not overwrite the primary window's saved layout. Launching with `--execute` skips persistence.
+
+`⌘K` clears prior output and scrollback while keeping the current logical command line at the cursor, including wrapped lines. It does not send `Ctrl-L`. A selection snapshot survives terminal redraw; explicit input or a mouse clear discards it.
+
+The Codex activity indicator follows Codex task events found under each shell's process tree and session transcript. An idle Codex process does not show as busy. `Ctrl-C` cancels the indicator, and bracketed paste contents do not count as submitted prompts.
+
+## Scope
+
+TabDance is a prototype, not a clone of Apple Terminal. It has no profiles, search, or preferences. Shells run without the macOS App Sandbox because a general-purpose local terminal needs normal filesystem and process access. Closing a live window or quitting with active sessions asks for confirmation. Third-party license text ships inside the app bundle. SwiftTerm is pinned to 1.19.0 (`464df5207fc2432e16c9a23abe538187196daf5f`). Exact copied-newline behavior and latency parity with Apple Terminal have not been measured.
 
 ## Apple Terminal analysis
 
-[`analysis/`](analysis/) contains static extraction artifacts for an Apple
-Terminal Mach-O executable, including Objective-C metadata, method indexes,
-call data, and per-method disassembly. The extraction script is
-[`analysis/extract.py`](analysis/extract.py). It uses Python 3 and macOS tools
-such as `lipo`, `otool`, `nm`, and `dyld_info`.
+[`analysis/`](analysis/) contains static extraction artifacts for an Apple Terminal Mach-O executable, including Objective-C metadata, method indexes, call data, and per-method disassembly. The extraction script is [`analysis/extract.py`](analysis/extract.py). It uses Python 3 and macOS tools such as `lipo`, `otool`, `nm`, and `dyld_info`.
 
-Before running the script, update its hardcoded `SOURCE` path to a Mach-O
-executable with an arm64e slice. It also reads the installed Terminal app at
-`/System/Applications/Utilities/Terminal.app`. From the repository root, run:
+Before running the script, update its hardcoded `SOURCE` path to a Mach-O executable with an arm64e slice. It also reads the installed Terminal app at `/System/Applications/Utilities/Terminal.app`. From the repository root, run:
 
 ```sh
 python3 analysis/extract.py
 ```
 
-Running it regenerates files under `analysis/`, including raw tool output, so
-review the destination before running it.
+Running it regenerates files under `analysis/`, including raw tool output, so review the destination before running it.
 
 ## License
 
-This repository is distributed under the [GNU General Public License, version
-3](LICENSE). TabDance's bundled SwiftTerm license text is in
-[`prototype/THIRD_PARTY_LICENSES.txt`](prototype/THIRD_PARTY_LICENSES.txt).
+This repository is distributed under the [GNU General Public License, version 3](LICENSE). TabDance's bundled SwiftTerm license text is in [`THIRD_PARTY_LICENSES.txt`](THIRD_PARTY_LICENSES.txt).

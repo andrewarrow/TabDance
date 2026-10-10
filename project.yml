@@ -1,0 +1,80 @@
+name: TabDance
+options:
+  minimumXcodeGenVersion: 2.44.0
+  xcodeVersion: "16.0"
+  deploymentTarget:
+    macOS: "13.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    CODE_SIGN_STYLE: Manual
+    CODE_SIGN_IDENTITY: "-"
+    ENABLE_APP_SANDBOX: NO
+packages:
+  TerminalCore:
+    path: .
+  SwiftTerm:
+    url: https://github.com/migueldeicaza/SwiftTerm.git
+    exactVersion: 1.19.0
+fileGroups:
+  - README.md
+  - LICENSE
+  - Package.swift
+  - Package.resolved
+  - Info.plist
+  - build-app.sh
+  - project.yml
+  - Assets/TabDanceLogo.png
+targets:
+  TabDance:
+    type: application
+    platform: macOS
+    sources:
+      - Sources/TerminalLab
+      - path: Assets/Assets.xcassets
+      - path: THIRD_PARTY_LICENSES.txt
+        buildPhase: resources
+    dependencies:
+      - package: TerminalCore
+        product: TerminalCore
+      - package: SwiftTerm
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.tabdance.prototype
+        PRODUCT_MODULE_NAME: TerminalLab
+        EXECUTABLE_NAME: TerminalLab
+        INFOPLIST_FILE: Info.plist
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+  TerminalLabTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - Tests/TerminalLabTests
+    dependencies:
+      - target: TabDance
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.tabdance.tests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/TabDance.app/Contents/MacOS/TerminalLab"
+schemes:
+  TabDance:
+    build:
+      targets:
+        TabDance: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      commandLineArguments:
+        "--execute /bin/sh -c 'exit 0'": true
+      targets:
+        - name: TerminalLabTests
+          parallelizable: false
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release

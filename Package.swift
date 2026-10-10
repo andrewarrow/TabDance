@@ -4,7 +4,10 @@ import PackageDescription
 let package = Package(
     name: "TerminalLab",
     platforms: [.macOS(.v13)],
-    products: [.executable(name: "TerminalLab", targets: ["TerminalLab"])],
+    products: [
+        .library(name: "TerminalCore", targets: ["TerminalCore"]),
+        .executable(name: "TerminalLab", targets: ["TerminalLab"])
+    ],
     dependencies: [
         .package(url: "https://github.com/migueldeicaza/SwiftTerm.git", exact: "1.19.0")
     ],

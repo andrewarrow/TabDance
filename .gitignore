@@ -1,3 +1,7 @@
-prototype/.build/
-prototype/dist/
+.build/
+.swiftpm/
+dist/
+DerivedData/
+*.xcuserstate
+xcuserdata/
 .DS_Store
