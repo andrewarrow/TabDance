@@ -58,9 +58,12 @@ jobs:
 
           certificate_path="$RUNNER_TEMP/developer-id.p12"
           keychain_path="$RUNNER_TEMP/tabdance-signing.keychain-db"
+          search_list_path="$RUNNER_TEMP/tabdance-keychain-search-list.txt"
           keychain_password="$(openssl rand -hex 24)"
           echo "::add-mask::$keychain_password"
           trap 'rm -f "$certificate_path"' EXIT
+          security list-keychains -d user > "$search_list_path"
+          printf 'MACOS_SIGNING_KEYCHAIN_SEARCH_LIST=%s\n' "$search_list_path" >> "$GITHUB_ENV"
           security create-keychain -p "$keychain_password" "$keychain_path"
           printf 'MACOS_SIGNING_KEYCHAIN=%s\n' "$keychain_path" >> "$GITHUB_ENV"
           security set-keychain-settings -lut 21600 "$keychain_path"
@@ -76,6 +79,19 @@ jobs:
           fi
           security set-key-partition-list -S apple-tool:,apple: -s \
             -k "$keychain_password" "$keychain_path"
+
+          keychain_search_list=()
+          while IFS= read -r line; do
+            keychain="${line#"${line%%[![:space:]]*}"}"
+            keychain="${keychain%"${keychain##*[![:space:]]}"}"
+            keychain="${keychain#\"}"
+            keychain="${keychain%\"}"
+            if [[ -n "$keychain" ]]; then
+              keychain_search_list+=("$keychain")
+            fi
+          done < "$search_list_path"
+          keychain_search_list+=("$keychain_path")
+          security list-keychains -d user -s "${keychain_search_list[@]}"
 
           identities="$(security find-identity -v -p codesigning "$keychain_path" | \
             awk 'length($2) == 40 && $2 ~ /^[[:xdigit:]]+$/ && /Developer ID Application:/ && !/CSSMERR/ { print $2 }')"
@@ -105,10 +121,30 @@ jobs:
         if: always() && github.event_name != 'pull_request'
         env:
           MACOS_SIGNING_KEYCHAIN: ${{ env.MACOS_SIGNING_KEYCHAIN }}
+          MACOS_SIGNING_KEYCHAIN_SEARCH_LIST: ${{ env.MACOS_SIGNING_KEYCHAIN_SEARCH_LIST }}
         run: |
-          if [[ -n "$MACOS_SIGNING_KEYCHAIN" ]]; then
-            security delete-keychain "$MACOS_SIGNING_KEYCHAIN" || true
+          set -euo pipefail
+          cleanup_status=0
+          if [[ -n "$MACOS_SIGNING_KEYCHAIN_SEARCH_LIST" && -f "$MACOS_SIGNING_KEYCHAIN_SEARCH_LIST" ]]; then
+            keychain_search_list=()
+            while IFS= read -r line; do
+              keychain="${line#"${line%%[![:space:]]*}"}"
+              keychain="${keychain%"${keychain##*[![:space:]]}"}"
+              keychain="${keychain#\"}"
+              keychain="${keychain%\"}"
+              if [[ -n "$keychain" ]]; then
+                keychain_search_list+=("$keychain")
+              fi
+            done < "$MACOS_SIGNING_KEYCHAIN_SEARCH_LIST"
+            security list-keychains -d user -s "${keychain_search_list[@]}" || cleanup_status=$?
           fi
+          if [[ -n "$MACOS_SIGNING_KEYCHAIN" ]]; then
+            security delete-keychain "$MACOS_SIGNING_KEYCHAIN" || cleanup_status=$?
+          fi
+          if [[ -n "$MACOS_SIGNING_KEYCHAIN_SEARCH_LIST" ]]; then
+            rm -f "$MACOS_SIGNING_KEYCHAIN_SEARCH_LIST"
+          fi
+          exit "$cleanup_status"
 
       - uses: actions/upload-artifact@v7
         with:

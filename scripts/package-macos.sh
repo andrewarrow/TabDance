@@ -5,7 +5,6 @@ umask 077
 app="dist/TabDance.app"
 dmg="dist/TabDance-macos-arm64.dmg"
 
-notary_values=("${APPLE_NOTARY_KEY_P8:-}" "${APPLE_NOTARY_KEY_ID:-}" "${APPLE_NOTARY_ISSUER_ID:-}")
 notarization_enabled=false
 if [[ -n "${APPLE_NOTARY_KEY_P8:-}" ]]; then
   notarization_enabled=true

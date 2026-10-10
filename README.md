@@ -19,21 +19,6 @@ The script builds an ad-hoc signed app for Apple silicon and Intel Macs. Swift P
 
 GitHub Actions builds and tests an Apple silicon (`arm64`) app on pushes to `main`, version tag pushes, pull requests, and manual runs. The `TabDance-macos-arm64` workflow artifact contains a DMG with an Applications shortcut. Successful main pushes, version tag pushes, and manual runs create or update a GitHub release named after the first eight characters of the built commit SHA, with the DMG and a `SHA256SUMS` file. Pull requests produce an ad-hoc signed workflow artifact without publishing a release. Published builds require a Developer ID signature. Notarization is optional; each release states whether its DMG was notarized. To make an arm64 app locally, pass the architecture setting to the build script: `./build-app.sh ARCHS=arm64 ONLY_ACTIVE_ARCH=NO`.
 
-## GitHub release signing
-
-Add these repository or organization secrets for published builds:
-
-- `MACOS_DEVELOPER_ID_P12`: base64-encoded export of the Developer ID Application certificate and private key in a `.p12` archive.
-- `MACOS_DEVELOPER_ID_P12_PASSWORD`: the password used to export that archive. The workflow imports it into a temporary keychain and removes the keychain after packaging.
-
-These two secrets sign the app and DMG with Developer ID. They are separate from notarization. To enable notarization, also add all three App Store Connect API key secrets:
-
-- `APPLE_NOTARY_KEY_P8`: the contents of the API key's `.p8` file.
-- `APPLE_NOTARY_KEY_ID`: the API key ID.
-- `APPLE_NOTARY_ISSUER_ID`: the issuer UUID for the App Store Connect team.
-
-When `APPLE_NOTARY_KEY_P8` is set, Actions requires the key ID and issuer ID too, then notarizes and staples both the app and DMG. Without the p8 secret, notarization is skipped even if the other two values are set. An unnotarized release is still Developer ID signed. To open it, move TabDance to Applications and try opening it. If macOS blocks it, open **System Settings > Privacy & Security**, choose **Open Anyway**, then confirm **Open**. See [Apple's instructions for opening an app from an unidentified developer](https://support.apple.com/en-us/102445). Local `./build-app.sh` builds remain ad-hoc signed and do not use these secrets.
-
 You can also run the package tests with `swift test`, or run the Xcode test scheme from the command line:
 
 ```sh
@@ -54,6 +39,21 @@ For a deterministic test session that skips login profiles and workspace persist
 ```sh
 dist/TabDance.app/Contents/MacOS/TerminalLab --execute /bin/sh -c 'printf "TabDance ready\n"; sleep 10'
 ```
+
+## GitHub release signing
+
+Add these repository or organization secrets for published builds:
+
+- `MACOS_DEVELOPER_ID_P12`: base64-encoded export of the Developer ID Application certificate and private key in a `.p12` archive.
+- `MACOS_DEVELOPER_ID_P12_PASSWORD`: the password used to export that archive. The workflow imports it into a temporary keychain and removes the keychain after packaging.
+
+These two secrets sign the app and DMG with Developer ID. They are separate from notarization. To enable notarization, also add all three App Store Connect API key secrets:
+
+- `APPLE_NOTARY_KEY_P8`: the contents of the API key's `.p8` file.
+- `APPLE_NOTARY_KEY_ID`: the API key ID.
+- `APPLE_NOTARY_ISSUER_ID`: the issuer UUID for the App Store Connect team.
+
+When `APPLE_NOTARY_KEY_P8` is set, Actions requires the key ID and issuer ID too, then notarizes and staples both the app and DMG. Without the p8 secret, notarization is skipped even if the other two values are set. An unnotarized release is still Developer ID signed. To open it, move TabDance to Applications and try opening it. If macOS blocks it, open **System Settings > Privacy & Security**, choose **Open Anyway**, then confirm **Open**. See [Apple's instructions for opening apps safely](https://support.apple.com/en-us/102445). Local `./build-app.sh` builds remain ad-hoc signed and do not use these secrets.
 
 ## Workspaces and tabs
 
