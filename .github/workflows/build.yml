@@ -19,7 +19,7 @@ jobs:
     runs-on: macos-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Check runner and Xcode
         run: |
@@ -50,7 +50,7 @@ jobs:
           hdiutil create -volname TabDance -srcfolder "$staging" \
             -ov -format UDZO dist/TabDance-macos-arm64.dmg
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: TabDance-macos-arm64
           path: dist/TabDance-macos-arm64.dmg
@@ -64,7 +64,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: TabDance-macos-arm64
 
