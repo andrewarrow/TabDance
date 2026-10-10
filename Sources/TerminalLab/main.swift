@@ -18,17 +18,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { true }
 
-    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
-        guard windows.contains(where: \.isRunning) else { return .terminateNow }
-        let alert = NSAlert()
-        alert.messageText = "Quit TabDance?"
-        alert.informativeText = "Running shells and commands in all windows will end."
-        alert.addButton(withTitle: "Cancel")
-        alert.addButton(withTitle: "Quit TabDance").hasDestructiveAction = true
-        alert.alertStyle = .warning
-        return alert.runModal() == .alertSecondButtonReturn ? .terminateNow : .terminateCancel
-    }
-
     func applicationWillTerminate(_ notification: Notification) {
         windows.forEach { $0.saveNow(); $0.stopSessions() }
     }

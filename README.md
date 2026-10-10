@@ -78,7 +78,7 @@ The Codex activity indicator follows Codex task events found under each shell's 
 
 ## Scope
 
-TabDance is a prototype, not a clone of Apple Terminal. It has no profiles, search, or preferences. Shells run without the macOS App Sandbox because a general-purpose local terminal needs normal filesystem and process access. Closing a live window or quitting with active sessions asks for confirmation. Third-party license text ships inside the app bundle. SwiftTerm is pinned to 1.19.0 (`464df5207fc2432e16c9a23abe538187196daf5f`). Exact copied-newline behavior and latency parity with Apple Terminal have not been measured.
+TabDance is a prototype, not a clone of Apple Terminal. It has no profiles, search, or preferences. Shells run without the macOS App Sandbox because a general-purpose local terminal needs normal filesystem and process access. Closing a live window with an active session asks for confirmation; quitting with ⌘Q immediately ends active sessions. Third-party license text ships inside the app bundle. SwiftTerm is pinned to 1.19.0 (`464df5207fc2432e16c9a23abe538187196daf5f`). Exact copied-newline behavior and latency parity with Apple Terminal have not been measured.
 
 ## Apple Terminal analysis
 
