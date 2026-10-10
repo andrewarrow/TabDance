@@ -14,6 +14,40 @@ final class TerminalBehaviorTests: XCTestCase {
         )
     }
 
+    func testRepeatedKeyEventsReachTerminalInput() throws {
+        _ = NSApplication.shared
+        let view = makeView()
+        let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 400, height: 200),
+                              styleMask: [.titled], backing: .buffered, defer: false)
+        window.isReleasedWhenClosed = false
+        window.contentView = view
+        window.makeFirstResponder(view)
+        defer { window.close() }
+
+        let cases: [(characters: String, keyCode: UInt16, modifiers: NSEvent.ModifierFlags, expected: String)] = [
+            ("a", 0, [], "a"),
+            ("A", 0, [.shift], "A"),
+            ("1", 18, [], "1"),
+            ("\u{7F}", 51, [], "\u{7F}"),
+            (String(UnicodeScalar(NSLeftArrowFunctionKey)!), 123, [.function], "\u{1B}[D")
+        ]
+        for key in cases {
+            var input: [UInt8] = []
+            view.onUserInput = { input.append(contentsOf: $0) }
+            for isRepeat in [false, true, true] {
+                let event = try XCTUnwrap(NSEvent.keyEvent(
+                    with: .keyDown, location: .zero, modifierFlags: key.modifiers,
+                    timestamp: ProcessInfo.processInfo.systemUptime, windowNumber: window.windowNumber,
+                    context: nil, characters: key.characters, charactersIgnoringModifiers: key.characters,
+                    isARepeat: isRepeat, keyCode: key.keyCode
+                ))
+                view.keyDown(with: event)
+            }
+            XCTAssertEqual(String(decoding: input, as: UTF8.self),
+                           String(repeating: key.expected, count: 3), "Key code \(key.keyCode)")
+        }
+    }
+
     func testSelectionSnapshotSurvivesPTYRedrawUntilExplicitClear() {
         let view = makeView()
         view.feed(text: "hello")

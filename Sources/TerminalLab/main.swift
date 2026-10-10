@@ -8,6 +8,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private let deterministicSession = CommandLine.arguments.contains("--execute")
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        // Let held keys repeat through AppKit's text input system.
+        UserDefaults.standard.register(defaults: ["ApplePressAndHoldEnabled": false])
         NSApp.setActivationPolicy(.regular)
         installMenus()
         newWindow(nil)
