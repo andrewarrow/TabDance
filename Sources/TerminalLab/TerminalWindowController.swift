@@ -311,7 +311,10 @@ final class TerminalWindowController: NSWindowController, NSWindowDelegate, NSTa
             return
         }
         guard layout.removeTab(id) else { return }
-        sessions.removeValue(forKey: id)?.stop()
+        if let session = sessions.removeValue(forKey: id) {
+            session.stop()
+            session.terminal.removeFromSuperview()
+        }
         refresh(focusTerminal: true)
     }
 

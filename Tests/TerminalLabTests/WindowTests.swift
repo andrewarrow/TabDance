@@ -471,6 +471,73 @@ final class WindowTests: XCTestCase {
         XCTAssertTrue(other?.process.running == true)
     }
 
+    func testClosingBottomWorkspacesWithSameDirectoryKeepsVisibleTerminalInSync() throws {
+        _ = NSApplication.shared
+        let stateURL = FileManager.default.temporaryDirectory.appendingPathComponent("tabdance-workspace-close-\(UUID().uuidString)/workspaces.json")
+        defer { try? FileManager.default.removeItem(at: stateURL.deletingLastPathComponent()) }
+        let command = LaunchCommand(executable: "/bin/sh", arguments: ["-c", "read reply"], loginName: nil)
+        let controller = TerminalWindowController(command: command, stateURL: stateURL)
+        defer { controller.stopSessions(); controller.window?.close() }
+        let window = try XCTUnwrap(controller.window)
+        let content = try XCTUnwrap(window.contentView)
+        let first = try XCTUnwrap(window.firstResponder as? TabDanceTerminalView)
+        controller.newTab(nil)
+        let firstSelected = try XCTUnwrap(window.firstResponder as? TabDanceTerminalView)
+        controller.newWorkspace(nil)
+        let second = try XCTUnwrap(window.firstResponder as? TabDanceTerminalView)
+        controller.newTab(nil)
+        let secondSelected = try XCTUnwrap(window.firstResponder as? TabDanceTerminalView)
+        controller.newWorkspace(nil)
+        let third = try XCTUnwrap(window.firstResponder as? TabDanceTerminalView)
+        controller.newWorkspace(nil)
+        let fourth = try XCTUnwrap(window.firstResponder as? TabDanceTerminalView)
+        let table = try XCTUnwrap(descendants(of: content).compactMap { $0 as? NSTableView }.first)
+        controller.saveNow()
+        let initial = try XCTUnwrap(WorkspaceLayout.restore(from: Data(contentsOf: stateURL)))
+        XCTAssertEqual(initial.workspaces.count, 4)
+        XCTAssertEqual(initial.workspaces[2].tabs[0].directory, initial.workspaces[3].tabs[0].directory)
+
+        func assertSelection(row: Int, terminal: TabDanceTerminalView) throws {
+            content.layoutSubtreeIfNeeded()
+            controller.saveNow()
+            let saved = try XCTUnwrap(WorkspaceLayout.restore(from: Data(contentsOf: stateURL)))
+            XCTAssertEqual(saved.activeWorkspaceID, initial.workspaces[row].id)
+            XCTAssertEqual(table.selectedRow, row)
+            XCTAssertTrue(window.firstResponder === terminal)
+            let visible = descendants(of: content).compactMap { $0 as? TabDanceTerminalView }.filter { !$0.isHidden }
+            XCTAssertEqual(visible.count, 1, "Only the selected tab's terminal should be visible")
+            XCTAssertTrue(visible.first === terminal)
+            let tabViews = descendants(of: content).compactMap { $0 as? TerminalTabView }
+            XCTAssertEqual(tabViews.map(\.tabID), saved.activeWorkspace.tabs.map(\.id))
+            let selectedTab = try XCTUnwrap(tabViews.first { $0.tabID == saved.selectedTab.id })
+            XCTAssertTrue(selectedTab.terminal === terminal)
+            XCTAssertEqual(selectedTab.selectButton.font, NSFont.systemFont(ofSize: 12, weight: .semibold))
+        }
+
+        let closeButton = try XCTUnwrap(descendants(of: content).compactMap { $0 as? TerminalTabView }.first?.closeButton)
+        closeButton.performClick(nil)
+        XCTAssertNil(fourth.superview, "Closing a workspace must remove its terminal view")
+        XCTAssertFalse(fourth.process.running)
+        XCTAssertEqual(table.numberOfRows, 3)
+        try assertSelection(row: 2, terminal: third)
+        controller.closeSelectedTab(nil)
+        XCTAssertNil(third.superview)
+        XCTAssertFalse(third.process.running)
+        XCTAssertEqual(table.numberOfRows, 2)
+        try assertSelection(row: 1, terminal: secondSelected)
+        XCTAssertEqual(descendants(of: content).compactMap { $0 as? TabDanceTerminalView }.count, 4)
+
+        for (row, selected, other) in [(0, firstSelected, first), (1, secondSelected, second)] {
+            table.selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false)
+            try assertSelection(row: row, terminal: selected)
+            let otherTab = try XCTUnwrap(descendants(of: content).compactMap { $0 as? TerminalTabView }.first { $0.terminal === other })
+            otherTab.selectButton.performClick(nil)
+            try assertSelection(row: row, terminal: other)
+            XCTAssertTrue(selected.process.running)
+            XCTAssertTrue(other.process.running)
+        }
+    }
+
     func testWindowLayoutAtNarrowAndWideSizesKeepsTerminalWithinContent() throws {
         _ = NSApplication.shared
         let command = LaunchCommand(executable: "/bin/sh", arguments: ["-c", "read reply"], loginName: nil)
