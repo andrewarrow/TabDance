@@ -16,6 +16,14 @@ final class PTYTests: XCTestCase {
         )
         XCTAssertTrue(process.running)
         let pid = process.shellPid
+        defer {
+            process.terminate()
+            if pid > 0 {
+                // SwiftTerm can report process termination before a nonblocking wait reaps the child.
+                var status: Int32 = 0
+                _ = waitpid(pid, &status, WNOHANG)
+            }
+        }
         wait(for: [receivedReply, finished], timeout: 10)
         XCTAssertTrue(delegate.output.contains("TTY_OK"))
         XCTAssertTrue(delegate.output.contains("24 80"))
@@ -23,10 +31,7 @@ final class PTYTests: XCTestCase {
         XCTAssertTrue(delegate.output.contains("\u{1B}[31mRED\u{1B}[0m"))
         XCTAssertTrue(delegate.output.contains("ECHO:ping"))
         XCTAssertEqual(delegate.resizeStatus, 0)
-        var status: Int32 = 0
-        XCTAssertEqual(waitpid(pid, &status, WNOHANG), -1)
-        XCTAssertEqual(errno, ECHILD)
-        process.terminate()
+        XCTAssertEqual(delegate.exitCode, 0)
     }
 
     func testCursorColorAndAlternateScreenParsing() {
@@ -56,6 +61,7 @@ final class PTYTests: XCTestCase {
         var output = ""
         var sentInput = false
         var resizeStatus: Int32 = -1
+        var exitCode: Int32?
         var sawReply = false
 
         init(finished: XCTestExpectation, receivedReply: XCTestExpectation) {
@@ -85,6 +91,7 @@ final class PTYTests: XCTestCase {
         }
 
         func processTerminated(_ source: LocalProcess, exitCode: Int32?) {
+            self.exitCode = exitCode
             finished.fulfill()
         }
     }
