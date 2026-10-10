@@ -125,8 +125,9 @@ jobs:
         run: |
           set -euo pipefail
           cleanup_status=0
-          if [[ -n "$MACOS_SIGNING_KEYCHAIN_SEARCH_LIST" && -f "$MACOS_SIGNING_KEYCHAIN_SEARCH_LIST" ]]; then
+          if [[ -n "${MACOS_SIGNING_KEYCHAIN_SEARCH_LIST:-}" && -f "$MACOS_SIGNING_KEYCHAIN_SEARCH_LIST" ]]; then
             keychain_search_list=()
+            keychain_search_count=0
             while IFS= read -r line; do
               keychain="${line#"${line%%[![:space:]]*}"}"
               keychain="${keychain%"${keychain##*[![:space:]]}"}"
@@ -134,11 +135,16 @@ jobs:
               keychain="${keychain%\"}"
               if [[ -n "$keychain" ]]; then
                 keychain_search_list+=("$keychain")
+                keychain_search_count=$((keychain_search_count + 1))
               fi
             done < "$MACOS_SIGNING_KEYCHAIN_SEARCH_LIST"
-            security list-keychains -d user -s "${keychain_search_list[@]}" || cleanup_status=$?
+            if (( keychain_search_count > 0 )); then
+              security list-keychains -d user -s "${keychain_search_list[@]}" || cleanup_status=$?
+            else
+              security list-keychains -d user -s || cleanup_status=$?
+            fi
           fi
-          if [[ -n "$MACOS_SIGNING_KEYCHAIN" ]]; then
+          if [[ -n "${MACOS_SIGNING_KEYCHAIN:-}" ]]; then
             security delete-keychain "$MACOS_SIGNING_KEYCHAIN" || cleanup_status=$?
           fi
           if [[ -n "$MACOS_SIGNING_KEYCHAIN_SEARCH_LIST" ]]; then
