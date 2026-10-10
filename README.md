@@ -72,7 +72,7 @@ Holding a key repeats terminal input using the macOS keyboard repeat rate and de
 
 The primary window saves its layout, tab directories and titles, and selections to `~/Library/Application Support/TabDance/workspaces.json`. Restoring that layout starts new shells; it does not restore running processes, shell history, or commands. Secondary windows do not overwrite the primary window's saved layout. Launching with `--execute` skips persistence.
 
-`⌘K` clears prior output and scrollback while keeping the current logical command line at the cursor, including wrapped lines. It does not send `Ctrl-L`. A selection snapshot survives terminal redraw; explicit input or a mouse clear discards it.
+`⌘K` clears prior output and scrollback while keeping the current logical command line at the cursor, including wrapped lines. It does not send `Ctrl-L`. Selecting text automatically copies it to the clipboard. A selection snapshot survives terminal redraw; explicit input or a mouse clear discards it.
 
 The Codex activity indicator follows Codex task events found under each shell's process tree and session transcript. An idle Codex process does not show as busy. `Ctrl-C` cancels the indicator, and bracketed paste contents do not count as submitted prompts.
 

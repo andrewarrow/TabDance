@@ -17,6 +17,9 @@ public final class TabDanceTerminalView: LocalProcessTerminalView {
     public override func selectionChanged(source: Terminal) {
         if selection.active {
             selectedTextSnapshot = selection.getSelectedText()
+            if let selectedTextSnapshot, !selectedTextSnapshot.isEmpty {
+                copy(self)
+            }
         }
         super.selectionChanged(source: source)
     }
