@@ -14,6 +14,32 @@ final class TerminalBehaviorTests: XCTestCase {
         )
     }
 
+    private func makeWindow(for view: TabDanceTerminalView) -> NSWindow {
+        _ = NSApplication.shared
+        let window = NSWindow(contentRect: view.getOptimalFrameSize(),
+                              styleMask: [.titled], backing: .buffered, defer: false)
+        window.isReleasedWhenClosed = false
+        window.contentView = view
+        window.makeFirstResponder(view)
+        return window
+    }
+
+    private func mouseEvent(_ type: NSEvent.EventType, in view: TabDanceTerminalView,
+                            col: Int, row: Int, modifiers: NSEvent.ModifierFlags = [],
+                            clickCount: Int = 1) throws -> NSEvent {
+        let window = try XCTUnwrap(view.window)
+        let size = view.getWindowSize()
+        let cellWidth = CGFloat(size.ws_xpixel) / window.backingScaleFactor / CGFloat(view.terminal.cols)
+        let cellHeight = view.getOptimalFrameSize().height / CGFloat(view.terminal.rows)
+        let point = NSPoint(x: (CGFloat(col) + 0.25) * cellWidth,
+                            y: view.bounds.height - (CGFloat(row) + 0.5) * cellHeight)
+        return try XCTUnwrap(NSEvent.mouseEvent(
+            with: type, location: view.convert(point, to: nil), modifierFlags: modifiers,
+            timestamp: ProcessInfo.processInfo.systemUptime, windowNumber: window.windowNumber,
+            context: nil, eventNumber: 0, clickCount: clickCount, pressure: 1
+        ))
+    }
+
     func testRepeatedKeyEventsReachTerminalInput() throws {
         _ = NSApplication.shared
         let view = makeView()
@@ -60,6 +86,134 @@ final class TerminalBehaviorTests: XCTestCase {
 
         view.clearSelection()
         XCTAssertNil(view.copyText)
+    }
+
+    func testSingleDragSelectsFromMouseDownInEitherDirection() throws {
+        let view = makeView(cols: 80, rows: 12)
+        let window = makeWindow(for: view)
+        defer { window.close() }
+        view.feed(text: "\u{1B}[3;1Hcopy this question")
+
+        for (start, end) in [(5, 9), (9, 5)] {
+            view.mouseDown(with: try mouseEvent(.leftMouseDown, in: view, col: start, row: 2))
+            view.mouseDragged(with: try mouseEvent(.leftMouseDragged, in: view, col: end, row: 2))
+            view.mouseUp(with: try mouseEvent(.leftMouseUp, in: view, col: end, row: 2))
+
+            XCTAssertEqual(view.copyText, "this")
+            XCTAssertEqual(NSPasteboard.general.string(forType: .string), "this")
+        }
+    }
+
+    func testQuestionDragSurvivesPTYRedrawsAndCopiesMultipleLines() throws {
+        let question = "The key is valid, but access is denied."
+        let link = "https://example.com/model/access"
+        for alternate in [false, true] {
+            let view = makeView(cols: 80, rows: 12)
+            let window = makeWindow(for: view)
+            defer { window.close() }
+            if alternate { view.feed(text: "\u{1B}[?1049h") }
+            let redraw = "\u{1B}[?2026h\u{1B}[3;1H\u{1B}[2K\(question)\r\n\u{1B}[2K\(link)\r\n1. Continue\u{1B}[?2026l"
+            view.dataReceived(slice: Array(redraw.utf8)[...])
+
+            view.mouseDown(with: try mouseEvent(.leftMouseDown, in: view, col: 0, row: 2))
+            view.mouseDragged(with: try mouseEvent(.leftMouseDragged, in: view, col: 0, row: 2))
+            view.mouseDragged(with: try mouseEvent(.leftMouseDragged, in: view, col: 12, row: 2))
+            XCTAssertEqual(view.copyText, String(question.prefix(12)))
+
+            // A TUI can repaint the same question between every pair of drag events.
+            for end in [24, question.count] {
+                view.dataReceived(slice: Array(redraw.utf8)[...])
+                XCTAssertTrue(view.selection.active, "PTY output must not interrupt the drag")
+                view.mouseDragged(with: try mouseEvent(.leftMouseDragged, in: view, col: end, row: 2))
+                XCTAssertEqual(view.copyText, String(question.prefix(end)))
+            }
+            view.dataReceived(slice: Array(redraw.utf8)[...])
+            view.mouseDragged(with: try mouseEvent(.leftMouseDragged, in: view, col: link.count, row: 3))
+            view.mouseUp(with: try mouseEvent(.leftMouseUp, in: view, col: link.count, row: 3))
+            let expected = question + "\n" + link
+            XCTAssertEqual(view.copyText, expected)
+            XCTAssertEqual(NSPasteboard.general.string(forType: .string), expected)
+
+            // Copy still uses the captured text even if the question is erased.
+            view.dataReceived(slice: Array("\u{1B}[3;1H\u{1B}[0J".utf8)[...])
+            let copyItem = NSMenuItem(title: "Copy", action: #selector(view.copy(_:)), keyEquivalent: "c")
+            XCTAssertTrue(view.validateUserInterfaceItem(copyItem))
+            XCTAssertTrue(view.tryToPerform(#selector(view.copy(_:)), with: copyItem))
+            XCTAssertEqual(NSPasteboard.general.string(forType: .string), expected)
+            XCTAssertTrue(view.allowMouseReporting)
+
+            view.mouseDown(with: try mouseEvent(.leftMouseDown, in: view, col: 0, row: 5))
+            view.mouseUp(with: try mouseEvent(.leftMouseUp, in: view, col: 0, row: 5))
+            XCTAssertNil(view.copyText)
+            XCTAssertFalse(view.validateUserInterfaceItem(copyItem))
+        }
+    }
+
+    func testShiftDragSurvivesOutputWhileApplicationMouseReportingStaysEnabled() throws {
+        let view = makeView(cols: 80, rows: 12)
+        let window = makeWindow(for: view)
+        defer { window.close() }
+        let redraw = "\u{1B}[3;1Hcopy this question\r\n"
+        view.dataReceived(slice: Array(("\u{1B}[?1002h\u{1B}[?1006h" + redraw).utf8)[...])
+
+        view.mouseDown(with: try mouseEvent(.leftMouseDown, in: view, col: 5, row: 2, modifiers: .shift))
+        view.mouseDragged(with: try mouseEvent(.leftMouseDragged, in: view, col: 9, row: 2, modifiers: .shift))
+        XCTAssertEqual(view.copyText, "this")
+        view.dataReceived(slice: Array(redraw.utf8)[...])
+        view.mouseDragged(with: try mouseEvent(.leftMouseDragged, in: view, col: 18, row: 2, modifiers: .shift))
+        view.mouseUp(with: try mouseEvent(.leftMouseUp, in: view, col: 18, row: 2, modifiers: .shift))
+        XCTAssertEqual(view.copyText, "this question")
+        XCTAssertEqual(NSPasteboard.general.string(forType: .string), "this question")
+        XCTAssertTrue(view.allowMouseReporting)
+        XCTAssertEqual(view.terminal.mouseMode, .buttonEventTracking)
+
+        // Unmodified gestures still belong to an application that requests them.
+        view.clearSelection()
+        view.mouseDown(with: try mouseEvent(.leftMouseDown, in: view, col: 5, row: 2))
+        view.mouseDragged(with: try mouseEvent(.leftMouseDragged, in: view, col: 9, row: 2))
+        view.mouseUp(with: try mouseEvent(.leftMouseUp, in: view, col: 9, row: 2))
+        XCTAssertFalse(view.selection.active)
+        XCTAssertNil(view.copyText)
+
+        view.allowMouseReporting = false
+        view.dataReceived(slice: Array(redraw.utf8)[...])
+        XCTAssertFalse(view.allowMouseReporting)
+    }
+
+    func testWordSelectionKeepsItsAnchorAcrossPTYRedraw() throws {
+        let view = makeView(cols: 80, rows: 12)
+        let window = makeWindow(for: view)
+        defer { window.close() }
+        let redraw = "\u{1B}[3;1Halpha beta gamma\r\n"
+        view.dataReceived(slice: Array(redraw.utf8)[...])
+
+        view.mouseDown(with: try mouseEvent(.leftMouseDown, in: view, col: 7, row: 2, clickCount: 2))
+        view.mouseUp(with: try mouseEvent(.leftMouseUp, in: view, col: 7, row: 2, clickCount: 2))
+        XCTAssertEqual(view.copyText, "beta")
+
+        view.mouseDown(with: try mouseEvent(.leftMouseDown, in: view, col: 7, row: 2, clickCount: 2))
+        view.dataReceived(slice: Array(redraw.utf8)[...])
+        view.mouseDragged(with: try mouseEvent(.leftMouseDragged, in: view, col: 1, row: 2, clickCount: 2))
+        view.mouseUp(with: try mouseEvent(.leftMouseUp, in: view, col: 1, row: 2, clickCount: 2))
+        XCTAssertEqual(view.copyText, "alpha beta")
+        XCTAssertEqual(NSPasteboard.general.string(forType: .string), "alpha beta")
+    }
+
+    func testPTYScreenSwitchDropsLiveRangeButKeepsCapturedText() {
+        let view = makeView()
+        view.dataReceived(slice: Array("shell output".utf8)[...])
+        view.selection.setSelection(start: Position(col: 0, row: 0), end: Position(col: 12, row: 0))
+
+        view.dataReceived(slice: Array("\u{1B}[?1049h\u{1B}[Hquestion".utf8)[...])
+        XCTAssertFalse(view.selection.active)
+        XCTAssertEqual(view.copyText, "shell output")
+
+        view.selection.setSelection(start: Position(col: 0, row: 0), end: Position(col: 8, row: 0))
+        view.dataReceived(slice: Array("\u{1B}[?1049l".utf8)[...])
+        XCTAssertFalse(view.selection.active)
+        XCTAssertEqual(view.copyText, "question")
+        view.copy(view)
+        XCTAssertEqual(NSPasteboard.general.string(forType: .string), "question")
     }
 
     func testParserReplyPreservesSelectionAndDoesNotCountAsUserInput() {

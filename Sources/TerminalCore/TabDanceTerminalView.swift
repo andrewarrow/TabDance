@@ -10,6 +10,9 @@ public final class TabDanceTerminalView: LocalProcessTerminalView {
     /// live cells before Copy is invoked, but do not change what the user selected.
     public private(set) var selectedTextSnapshot: String?
 
+    private var selectionPress: NSEvent?
+    private var isReceivingOutput = false
+
     public override init(frame: CGRect) {
         super.init(frame: frame)
         registerForDraggedTypes([.fileURL])
@@ -30,7 +33,7 @@ public final class TabDanceTerminalView: LocalProcessTerminalView {
     }
 
     public override func selectionChanged(source: Terminal) {
-        if selection.active {
+        if selection.active && !isReceivingOutput {
             selectedTextSnapshot = selection.getSelectedText()
             if let selectedTextSnapshot, !selectedTextSnapshot.isEmpty {
                 copy(self)
@@ -41,13 +44,63 @@ public final class TabDanceTerminalView: LocalProcessTerminalView {
 
     /// An explicit user selection reset also discards the saved text.
     public func clearSelection() {
+        selectionPress = nil
         selectedTextSnapshot = nil
         selection.selectNone()
     }
 
     public override func mouseDown(with event: NSEvent) {
+        selectionPress = nil
         selectedTextSnapshot = nil
         super.mouseDown(with: event)
+        if !selection.active && selectsLocally(with: event) {
+            selectionPress = event
+        }
+    }
+
+    public override func mouseDragged(with event: NSEvent) {
+        if let press = selectionPress {
+            selectionPress = nil
+            if !selection.active && selectsLocally(with: press) && selectsLocally(with: event) {
+                // SwiftTerm otherwise anchors at the first drag event, losing the
+                // text between the press and that event (or the entire quick drag).
+                super.mouseDragged(with: press)
+            }
+        }
+        super.mouseDragged(with: event)
+    }
+
+    public override func mouseUp(with event: NSEvent) {
+        selectionPress = nil
+        super.mouseUp(with: event)
+    }
+
+    private func selectsLocally(with event: NSEvent) -> Bool {
+        !allowMouseReporting || terminal.mouseMode == .off ||
+            (event.modifierFlags.contains(.shift) && !terminal.mouseShiftCapture)
+    }
+
+    public override func dataReceived(slice: ArraySlice<UInt8>) {
+        // SwiftTerm 1.19 clears selection on every feed and linefeed when mouse
+        // reporting is allowed, even if the child has not requested mouse input.
+        // Suppress that output-side reset without changing mouse-event routing.
+        let previousMouseReporting = allowMouseReporting
+        let wasReceivingOutput = isReceivingOutput
+        allowMouseReporting = false
+        isReceivingOutput = true
+        defer {
+            allowMouseReporting = previousMouseReporting
+            isReceivingOutput = wasReceivingOutput
+        }
+        super.dataReceived(slice: slice)
+    }
+
+    public override func bufferActivated(source: Terminal) {
+        // A live range belongs to one screen. Keep its copy snapshot, but do not
+        // highlight or extend that range into the other screen's unrelated cells.
+        selectionPress = nil
+        selection.selectNone()
+        super.bufferActivated(source: source)
     }
 
     public override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
