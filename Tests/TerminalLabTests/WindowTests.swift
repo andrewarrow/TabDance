@@ -46,6 +46,84 @@ final class WindowTests: XCTestCase {
         return String(decoding: data, as: UTF8.self).split(separator: "\0").map(String.init)
     }
 
+    func testPlainQuestionSelectionStaysLocalAndOptionDragReachesPTY() async throws {
+        _ = NSApplication.shared
+        let capture = FileManager.default.temporaryDirectory.appendingPathComponent("tabdance-mouse-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: capture) }
+        let command = LaunchCommand(executable: "/bin/sh", arguments: ["-c", """
+            stty raw -echo
+            printf '\\033[?1002h\\033[?1006h\\033[3;1Hcopy this question\\r\\nREADY'
+            cat > "$1"
+            """, "mouse-fixture", capture.path], loginName: nil)
+        let controller = TerminalWindowController(command: command, stateURL: nil)
+        defer { controller.stopSessions(); controller.window?.close() }
+        let window = try XCTUnwrap(controller.window)
+        let view = try XCTUnwrap(window.firstResponder as? TabDanceTerminalView)
+
+        func waitUntil(_ description: String, _ condition: () -> Bool) async throws {
+            for _ in 0..<200 {
+                if condition() { return }
+                try await Task.sleep(for: .milliseconds(10))
+            }
+            XCTFail("Timed out waiting for \(description)")
+        }
+        func capturedInput() -> String {
+            (try? String(contentsOf: capture, encoding: .utf8)) ?? ""
+        }
+        func dispatch(_ type: NSEvent.EventType, col: Int, modifiers: NSEvent.ModifierFlags = []) throws {
+            let size = view.getWindowSize()
+            let cellWidth = CGFloat(size.ws_xpixel) / window.backingScaleFactor / CGFloat(view.terminal.cols)
+            let cellHeight = view.getOptimalFrameSize().height / CGFloat(view.terminal.rows)
+            let point = NSPoint(x: (CGFloat(col) + 0.25) * cellWidth,
+                                y: view.bounds.height - 2.5 * cellHeight)
+            let event = try XCTUnwrap(NSEvent.mouseEvent(
+                with: type, location: view.convert(point, to: nil), modifierFlags: modifiers,
+                timestamp: ProcessInfo.processInfo.systemUptime, windowNumber: window.windowNumber,
+                context: nil, eventNumber: 0, clickCount: 1, pressure: type == .leftMouseUp ? 0 : 1
+            ))
+            let content = try XCTUnwrap(window.contentView)
+            XCTAssertTrue(content.hitTest(view.convert(point, to: content.superview)) === view)
+            // XCTest does not make this window key; send to the hit-tested
+            // responder without depending on AppKit's first-click activation.
+            switch type {
+            case .leftMouseDown: view.mouseDown(with: event)
+            case .leftMouseDragged: view.mouseDragged(with: event)
+            case .leftMouseUp: view.mouseUp(with: event)
+            default: XCTFail("Unexpected mouse event")
+            }
+        }
+
+        try await waitUntil("question from PTY") {
+            String(decoding: view.terminal.getBufferAsData(), as: UTF8.self).contains("READY")
+        }
+        XCTAssertEqual(view.terminal.mouseMode, .buttonEventTracking)
+        try dispatch(.leftMouseDown, col: 5)
+        try dispatch(.leftMouseDragged, col: 9, modifiers: .option)
+        try dispatch(.leftMouseUp, col: 9)
+        XCTAssertEqual(view.copyText, "this")
+        XCTAssertEqual(NSPasteboard.general.string(forType: .string), "this")
+
+        // A PTY screen switch clears the range, but must not turn the rest of
+        // a local gesture into application motion/release events.
+        try dispatch(.leftMouseDown, col: 5)
+        view.dataReceived(slice: Array("\u{1B}[?1049h\u{1B}[3;1Hcopy this question".utf8)[...])
+        try dispatch(.leftMouseDragged, col: 9)
+        view.clearSelection()
+        try dispatch(.leftMouseUp, col: 9, modifiers: .option)
+        view.process.send(data: Array("LOCAL_DONE".utf8)[...])
+        try await waitUntil("local gesture marker") { capturedInput().contains("LOCAL_DONE") }
+        XCTAssertEqual(capturedInput(), "LOCAL_DONE", "Text selection must not send mouse reports to the child")
+
+        try dispatch(.leftMouseDown, col: 5, modifiers: .option)
+        try dispatch(.leftMouseDragged, col: 9, modifiers: .option)
+        try dispatch(.leftMouseUp, col: 9, modifiers: .option)
+        view.process.send(data: Array("OPTION_DONE".utf8)[...])
+        try await waitUntil("application gesture marker") { capturedInput().contains("OPTION_DONE") }
+        XCTAssertEqual(capturedInput(), "LOCAL_DONE\u{1B}[<8;6;3M\u{1B}[<40;10;3M\u{1B}[<8;10;3mOPTION_DONE")
+        XCTAssertNil(view.copyText)
+        XCTAssertTrue(view.allowMouseReporting)
+    }
+
     func testFileDropsInsertEscapedPathsAsBracketedUserInputAndSelectTabTarget() throws {
         _ = NSApplication.shared
         let command = LaunchCommand(executable: "/bin/sh", arguments: ["-c", "read reply"], loginName: nil)

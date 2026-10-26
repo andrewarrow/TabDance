@@ -11,6 +11,7 @@ public final class TabDanceTerminalView: LocalProcessTerminalView {
     public private(set) var selectedTextSnapshot: String?
 
     private var selectionPress: NSEvent?
+    private var localPointerGesture: Bool?
     private var isReceivingOutput = false
 
     public override init(frame: CGRect) {
@@ -52,27 +53,51 @@ public final class TabDanceTerminalView: LocalProcessTerminalView {
     public override func mouseDown(with event: NSEvent) {
         selectionPress = nil
         selectedTextSnapshot = nil
-        super.mouseDown(with: event)
-        if !selection.active && selectsLocally(with: event) {
+        // Plain left gestures are text selection. Option opts into the
+        // application's mouse mode, except where the existing Shift bypass
+        // or disabled mouse reporting already makes selection local.
+        let isLocalGesture = !event.modifierFlags.contains(.option) || selectsLocally(with: event)
+        localPointerGesture = isLocalGesture
+        performPointerEventLocally(isLocalGesture) {
+            super.mouseDown(with: event)
+        }
+        if !selection.active && isLocalGesture {
             selectionPress = event
         }
     }
 
     public override func mouseDragged(with event: NSEvent) {
-        if let press = selectionPress {
-            selectionPress = nil
-            if !selection.active && selectsLocally(with: press) && selectsLocally(with: event) {
-                // SwiftTerm otherwise anchors at the first drag event, losing the
-                // text between the press and that event (or the entire quick drag).
-                super.mouseDragged(with: press)
+        performPointerEventLocally(localPointerGesture == true) {
+            if let press = selectionPress {
+                selectionPress = nil
+                if !selection.active && localPointerGesture == true {
+                    // SwiftTerm otherwise anchors at the first drag event, losing the
+                    // text between the press and that event (or the entire quick drag).
+                    super.mouseDragged(with: press)
+                }
             }
+            super.mouseDragged(with: event)
         }
-        super.mouseDragged(with: event)
     }
 
     public override func mouseUp(with event: NSEvent) {
         selectionPress = nil
-        super.mouseUp(with: event)
+        let selectsLocally = localPointerGesture == true
+        defer { localPointerGesture = nil }
+        performPointerEventLocally(selectsLocally) {
+            super.mouseUp(with: event)
+        }
+    }
+
+    private func performPointerEventLocally(_ isLocal: Bool, _ handle: () -> Void) {
+        guard isLocal else {
+            handle()
+            return
+        }
+        let previousMouseReporting = allowMouseReporting
+        allowMouseReporting = false
+        defer { allowMouseReporting = previousMouseReporting }
+        handle()
     }
 
     private func selectsLocally(with event: NSEvent) -> Bool {

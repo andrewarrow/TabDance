@@ -166,12 +166,11 @@ final class TerminalBehaviorTests: XCTestCase {
         XCTAssertEqual(NSPasteboard.general.string(forType: .string), "this question")
         XCTAssertTrue(view.allowMouseReporting)
         XCTAssertEqual(view.terminal.mouseMode, .buttonEventTracking)
-
-        // Unmodified gestures still belong to an application that requests them.
+        // Option-click/drag keeps the application mouse route available.
         view.clearSelection()
-        view.mouseDown(with: try mouseEvent(.leftMouseDown, in: view, col: 5, row: 2))
-        view.mouseDragged(with: try mouseEvent(.leftMouseDragged, in: view, col: 9, row: 2))
-        view.mouseUp(with: try mouseEvent(.leftMouseUp, in: view, col: 9, row: 2))
+        view.mouseDown(with: try mouseEvent(.leftMouseDown, in: view, col: 5, row: 2, modifiers: .option))
+        view.mouseDragged(with: try mouseEvent(.leftMouseDragged, in: view, col: 9, row: 2, modifiers: .option))
+        view.mouseUp(with: try mouseEvent(.leftMouseUp, in: view, col: 9, row: 2, modifiers: .option))
         XCTAssertFalse(view.selection.active)
         XCTAssertNil(view.copyText)
 
@@ -180,12 +179,42 @@ final class TerminalBehaviorTests: XCTestCase {
         XCTAssertFalse(view.allowMouseReporting)
     }
 
+    func testPlainDragSelectsTextWhileApplicationMouseReportingIsEnabled() throws {
+        let configurations: [(mode: String, alternate: Bool, capturesShift: Bool)] = [
+            ("1000", false, false),
+            ("1002", false, false),
+            ("1003", true, true)
+        ]
+        let question = "copy this question"
+        let redraw = "\u{1B}[?2026h\u{1B}[3;1H\u{1B}[2K\(question)\r\nsecond line\u{1B}[?2026l"
+
+        for configuration in configurations {
+            let view = makeView(cols: 80, rows: 12)
+            let window = makeWindow(for: view)
+            defer { window.close() }
+            let alternate = configuration.alternate ? "\u{1B}[?1049h" : ""
+            let capture = configuration.capturesShift ? "\u{1B}[>1s" : ""
+            view.dataReceived(slice: Array("\(alternate)\u{1B}[?\(configuration.mode)h\u{1B}[?1006h\(capture)\(redraw)".utf8)[...])
+            XCTAssertNotEqual(view.terminal.mouseMode, .off)
+
+            view.mouseDown(with: try mouseEvent(.leftMouseDown, in: view, col: 5, row: 2))
+            view.mouseDragged(with: try mouseEvent(.leftMouseDragged, in: view, col: 9, row: 2))
+            XCTAssertEqual(view.copyText, "this", "mode \(configuration.mode), alternate \(configuration.alternate)")
+            view.dataReceived(slice: Array(redraw.utf8)[...])
+            view.mouseDragged(with: try mouseEvent(.leftMouseDragged, in: view, col: 18, row: 3, modifiers: .option))
+            view.mouseUp(with: try mouseEvent(.leftMouseUp, in: view, col: 18, row: 3))
+            XCTAssertEqual(view.copyText, "this question\nsecond line", "mode \(configuration.mode), alternate \(configuration.alternate)")
+            XCTAssertEqual(NSPasteboard.general.string(forType: .string), "this question\nsecond line")
+            XCTAssertTrue(view.allowMouseReporting)
+        }
+    }
+
     func testWordSelectionKeepsItsAnchorAcrossPTYRedraw() throws {
         let view = makeView(cols: 80, rows: 12)
         let window = makeWindow(for: view)
         defer { window.close() }
         let redraw = "\u{1B}[3;1Halpha beta gamma\r\n"
-        view.dataReceived(slice: Array(redraw.utf8)[...])
+        view.dataReceived(slice: Array(("\u{1B}[?1002h\u{1B}[?1006h" + redraw).utf8)[...])
 
         view.mouseDown(with: try mouseEvent(.leftMouseDown, in: view, col: 7, row: 2, clickCount: 2))
         view.mouseUp(with: try mouseEvent(.leftMouseUp, in: view, col: 7, row: 2, clickCount: 2))
